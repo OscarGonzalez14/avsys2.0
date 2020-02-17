@@ -1,0 +1,129 @@
+* {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+
+.pres-back{
+	
+	background-image: url(images/back-planes.jpg) no-repeat;
+}
+
+.modal.left .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 320px;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body {
+	padding: 15px 15px 80px;
+}
+
+.modal.left.fade .modal-dialog {
+	left: -320px;
+	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, left 0.3s ease-out;
+	transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.show .modal-dialog {
+	left: 0;
+}
+
+.btn-afiliacion{
+	display: flex;
+	align-items: center; 
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+
+/* ----- ASISTENTE BARRA OPCIONES ----- */
+
+.opciones{
+	position: fixed;
+	left: 0;
+	top: 10px;
+	z-index: 2000;
+}
+
+.opciones ul{
+ 	list-style: none;
+}
+
+.opciones ul li a{
+
+ 	display: inline-block;
+ 	color: #fff;
+ 	background: #000;
+ 	padding: 10px 10px;
+ 	text-decoration: none;
+ 	-webkit-transition: all 500ms ease;
+ 	-o-transition: all 500ms ease;
+ 	transition: all 500ms ease;
+}
+
+.opciones ul li .icon-cool{
+  background: #003666;
+}
+ 
+.opciones ul li .icon-diamonds{
+  background: #49176d;
+}
+
+.icon-diamonds {
+  font-size: 6em; 
+}
+
+.icon-bin2 {
+  font-size: 0.8em;
+  color: red; 
+}
+.icon-cool {
+  font-size: 6em; 
+}
+
+.opciones ul li a:hover{
+ padding: 10px 30px;
+ background: #000;
+}
+
+.contenedor{
+
+	margin: 200px 200px;
+	position: fixed;
+	top: 100px;
+	z-index: 2000;
+}
+
+.lista{
+
+	margin-left: 200px ;
+	
+	}
+
+.marca_seleccionada img{
+
+	margin-top: 14px;
+	margin-left: 300px;
+}
+
+.orden{
+
+	margin-top: 300px
+}

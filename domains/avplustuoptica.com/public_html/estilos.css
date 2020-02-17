@@ -1,0 +1,17 @@
+
+#planes{
+	
+	background-image: url(images/back-planes.jpg);
+	bottom: 0;
+	content: "";
+	left: 0;
+	position: absolute;
+	right: 0
+	top:0;
+	display: block;
+	background-size: cover;
+	transform-origin: center center 0;
+	transform: translateZ(-1px) scale(2);
+	z-index: -1;
+	min-height: 100vh;
+}

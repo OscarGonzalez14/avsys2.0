@@ -1,0 +1,34 @@
+[13-Jan-2020 21:07:28 UTC] PHP Warning:  require_once(config/conexion.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 3
+[13-Jan-2020 21:07:28 UTC] PHP Fatal error:  require_once(): Failed opening required 'config/conexion.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 3
+[13-Jan-2020 21:07:35 UTC] PHP Warning:  require_once(config/conexion.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/index.php on line 3
+[13-Jan-2020 21:07:35 UTC] PHP Fatal error:  require_once(): Failed opening required 'config/conexion.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/index.php on line 3
+[13-Jan-2020 21:07:46 UTC] PHP Warning:  require_once(config/conexion.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/index.php on line 3
+[13-Jan-2020 21:07:46 UTC] PHP Fatal error:  require_once(): Failed opening required 'config/conexion.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/index.php on line 3
+[16-Jan-2020 17:59:56 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 17:59:56 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 17:59:56 UTC] PHP Fatal error:  require(): Failed opening required 'noacceso.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:00:18 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:00:18 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:00:18 UTC] PHP Fatal error:  require(): Failed opening required 'noacceso.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:02:23 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:02:23 UTC] PHP Warning:  require(noacceso.php): failed to open stream: No such file or directory in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[16-Jan-2020 18:02:23 UTC] PHP Fatal error:  require(): Failed opening required 'noacceso.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/expedientes.php on line 270
+[27-Jan-2020 15:21:30 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 58
+[27-Jan-2020 15:32:35 UTC] PHP Notice:  Undefined variable: display in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:33:04 UTC] PHP Notice:  Undefined variable: display in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:35:13 UTC] PHP Notice:  Undefined variable: display in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:47:41 UTC] PHP Notice:  Undefined variable: height_img in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:47:41 UTC] PHP Notice:  Undefined variable: display in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:50:25 UTC] PHP Notice:  Undefined variable: height_img in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 15:50:25 UTC] PHP Notice:  Undefined variable: display in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 64
+[27-Jan-2020 16:14:59 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/aseguradoras.php on line 107
+[27-Jan-2020 23:29:25 UTC] PHP Deprecated:  Non-static method Conectar::ruta() should not be called statically in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 7
+[27-Jan-2020 23:33:35 UTC] PHP Deprecated:  Non-static method Conectar::ruta() should not be called statically in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 7
+[27-Jan-2020 23:40:08 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:41:58 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:46:02 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:46:59 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:50:00 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:53:09 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:53:44 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2
+[27-Jan-2020 23:55:32 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/u579024306/domains/avplustuoptica.com/public_html/Aseguradoras/logout.php on line 2

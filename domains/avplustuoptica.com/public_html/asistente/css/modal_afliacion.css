@@ -1,0 +1,36 @@
+#login{
+
+  width: 50% !important;
+
+}
+
+@media only screen and (max-width: 768px) {
+  #login {
+    width: 95% !important;
+    border-radius: 10px;
+    background:rgba(255,255,255,0.93);
+
+  }
+}
+
+textarea {
+    height: 8rem !important;
+}
+
+#plan-seleccionado{
+	color: red;
+
+}
+
+#terms{
+	display: block;
+}
+
+/*active card*/
+.card{color: #AAA}
+.fa-cc-mastercard{color: orange;}
+.fa-cc-amex{color: green}
+.fa-cc-visa{color: blue;}
+
+
+
