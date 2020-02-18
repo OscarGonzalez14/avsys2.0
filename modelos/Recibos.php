@@ -253,7 +253,7 @@ public function get_detalle_recibo_paciente($numero_venta){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select p.empresa,p.nombres,p.telefono,r.numero_venta,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono from pacientes as p join recibos as r where p.id_paciente=r.id_paciente and numero_venta=?;";
+  $sql="select p.empresa,p.nombres,p.telefono,r.numero_venta,r.numero_recibo,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono from pacientes as p join recibos as r where p.id_paciente=r.id_paciente and numero_venta=? order by r.numero_recibo desc limit 1;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$numero_venta);
   $sql->execute();
