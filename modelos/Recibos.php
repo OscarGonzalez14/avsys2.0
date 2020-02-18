@@ -76,7 +76,7 @@ public function get_numero_recibo($numero_venta){
 
           $conectar= parent::conexion();
 	       
-	      $sql= "select numero_recibo from recibos where numero_venta=?";
+	      $sql= "select max(numero_recibo) as numero_recibo from recibos where numero_venta=?";
 
            $sql=$conectar->prepare($sql);
            $sql->bindValue(1, $numero_venta);
@@ -89,16 +89,25 @@ public function get_numero_recibo($numero_venta){
 ///CORRELATIVO DE RECIBO POR SUCURSAL
 public function get_recibo_sucursal($sucursal){
 
+    $conectar= parent::conexion();	       
+	  $sql= "select max(numero_recibo)+1 as numero_rec from recibos where sucursal=?";
 
-          $conectar= parent::conexion();
-	       
-	      $sql= "select max(numero_recibo)+1 as numero_rec from recibos where sucursal=?";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal);
+    $sql->execute();
 
-           $sql=$conectar->prepare($sql);
-           $sql->bindValue(1, $sucursal);
-           $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-           return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_recibo_num(){
+
+    $conectar= parent::conexion();         
+    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal='Metrocentro'";
+
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
@@ -107,15 +116,15 @@ public function get_recibo_sucursal($sucursal){
 
 public function get_datos_pac_rec_ini($sucursal){
 
-          $conectar= parent::conexion();
+    $conectar= parent::conexion();
 	       
-	      $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? order by id_ventas DESC limit 1;";
+	  $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? order by id_ventas DESC limit 1;";
 
-           $sql=$conectar->prepare($sql);
-           $sql->bindValue(1, $sucursal);
-           $sql->execute();
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal);
+    $sql->execute();
 
-           return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
 /////COMPROBAR NUMERO DE RECIBO

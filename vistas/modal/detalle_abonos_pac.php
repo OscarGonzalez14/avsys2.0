@@ -11,6 +11,7 @@
 </style>
 
 <!-- Modal -->
+<?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <div id="detalle_abonos" class="modal fade" role="dialog">
   <div class="modal-dialog" id="tamModal">
 
@@ -18,35 +19,30 @@
     <div class="modal-content">
       <div class="modal-header" id="head"><div id="valida_rec"></div>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL</h5>
+        <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
       </div>
       <div class="modal-body">
      <!--Tabla generalidades del paciente-->
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr>
-            <th><p align="center">No. Venta</p></th>
-            <th><p align="center">Fecha</p></th>
-            <th><p align="center" p>Recibí de:</p></th>
-            <th><p align="center" p>Telefono:</p></th>
-            <th><p align="center" p>Empresa:</p></th>
-            <th colspan="4"><p align="center"> Cantidad en Letras</p></th>
+            <th><p align="center"><p>No. Venta</p></th>
+            <th><p align="center" ><p>Recibí de:</p></th>
+            <th><p align="center" ><p>Telefono:</p></th>
+            <th><p align="center" ><p>Empresa:</p></th>
             <th> <p align="center">No. Recibo</p></th>
           </tr>
         </thead>
-
+        
         <tbody>
-        <td><input type='text' class='form-control' id='num_venta_rec_ini' name='num_venta_rec_ini'></td>
-          <td align="center"> <h5 id="date"></h5><input type="hidden" name="date" id="date"><input type="hidden" name="hora" id="hora"></td>
-          <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control'></td>
-          <td align="center"><input type="text" name="telefono" id="telefono" class='form-control'></td>
-          <td align="center"><input type="text" name="empresa" id="empresa" class='form-control'></td>
-          <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto"></td>
-         <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;" readonly> </td>
-
+        <td><input type='text' class='form-control' id='num_venta_rec_ini' name='num_venta_rec_ini' readonly></td>          
+          <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control' readonly></td>
+          <td align="center"><input type="text" name="telefono" id="telefono" class='form-control' readonly></td>
+          <td align="center"><input type="text" name="empresa" id="empresa" class='form-control' readonly></td>          
+         <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;"> </td>
         </tbody>
       </table>
-
+    <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto" placeholder="CANTIDAD EN LETRAS"></td><br>
         <!--Tabla detalles del Credito-->       
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead style="background-color: #034f84 ;color: white ">
@@ -54,6 +50,7 @@
 
           <th><p align="center">Valor de la Venta</p></th>
           <th><p align="center">Abono Anterior</p></th>
+          <th><p align="center">Saldo Actual</p></th>
           <th><p align="center">Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
           <th><p align="center">Forma de Pago</p></th>
@@ -65,8 +62,8 @@
         <tbody>
           <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;"></td>
           <td align='center'><input class='form-control' type='text' class='monto' name='abono_ant' id="abono_ant" style="text-align: right;"></td>
-          <td align='center'><input class='form-control' type='text' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;" required></td>
-          <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' type='text' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;" required></td>          <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;"></td>
           <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
           <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
 
@@ -126,9 +123,14 @@
 
 
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input id="id_credito" type="hidden" name="id_credito">
-<input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
-<input type="hidden" name="usuario" id="id_uusuario" value="<?php echo $_SESSION["usuario"];?>"/>
+<input id="id_paciente_ini" type="text" name="id_paciente_ini">
+<input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
+<input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
+<input type="hidden" name="sucursal" id="sucursal" value="Metrocentro">
+<input type="hidden" name="hora" id="hora" value="4:00 pm">
+
 
       </div>
       <div class="modal-footer">
@@ -143,9 +145,10 @@
 
 function nuevo_saldo(){
 
-  var monto = document.getElementById("monto").value;
+  var saldo_act = document.getElementById("saldo_act").value;
   var abono = document.getElementById("numero").value;
-  var saldo = monto-abono;
+  var nuevo_saldo =  saldo_act-abono;
+  var saldo = Math.round10(nuevo_saldo, -1);
 
   document.getElementById("saldo").value = saldo;
   if(saldo==0){
@@ -324,5 +327,52 @@ function NumeroALetras(num,centavos){
     return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
 }//NumeroALetras()
 
+// Conclusión
+(function() {
+  /**
+   * Ajuste decimal de un número.
+   *
+   * @param {String}  tipo  El tipo de ajuste.
+   * @param {Number}  valor El numero.
+   * @param {Integer} exp   El exponente (el logaritmo 10 del ajuste base).
+   * @returns {Number} El valor ajustado.
+   */
+  function decimalAdjust(type, value, exp) {
+    // Si el exp no está definido o es cero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+      return Math[type](value);
+    }
+    value = +value;
+    exp = +exp;
+    // Si el valor no es un número o el exp no es un entero...
+    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+      return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+  }
 
+  // Decimal round
+  if (!Math.round10) {
+    Math.round10 = function(value, exp) {
+      return decimalAdjust('round', value, exp);
+    };
+  }
+  // Decimal floor
+  if (!Math.floor10) {
+    Math.floor10 = function(value, exp) {
+      return decimalAdjust('floor', value, exp);
+    };
+  }
+  // Decimal ceil
+  if (!Math.ceil10) {
+    Math.ceil10 = function(value, exp) {
+      return decimalAdjust('ceil', value, exp);
+    };
+  }
+})();
 </script>

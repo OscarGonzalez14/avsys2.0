@@ -24,6 +24,20 @@ case "get_numero_recibo":
 		}
 break;
 
+case "get_numero_recibo_abonos":
+
+    $datos= $recibo->get_recibo_num();	
+
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["num_recibo"] = $row["num_recibo"];								
+		}
+		      
+	echo json_encode($output);
+		}
+break;
+
 case "get_datos_recibo_inicial":
 
     $datos= $recibo->get_datos_pac_rec_ini($_POST["sucursal"]);	

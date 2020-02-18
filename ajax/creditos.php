@@ -90,10 +90,9 @@ case 'pacientes_empresarial':
 					$event = $row["numero_venta"];
 					$atrib = "btn btn-blue btn-md";
 					$modal ="#detalle_venta";
-					$txt = ' C. Fin.  ';
+					$txt = 'Cancelado';
 					$color = 'edit';
-					$evento ="";
-				 
+					$evento ="";				 
 
 				}
 				else{
@@ -109,14 +108,12 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["nombres"];
 		$sub_array[] = $row["monto"];
 		$sub_array[] = $row["saldo"];
-		//$sub_array[] = $row["telefono"];
-		//$sub_array[] = $row["empresa"];
+       //$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["sucursal"];
 
-		$sub_array[] = '<button class="btn btn-'.$color.' abonarp" id="'.$row["numero_venta"].'" '.$evento.'><i class="fa fa-usd"></i> '.$txt.'</i></button>';
+		$sub_array[] = '<button class="btn btn-'.$color.' abonos_p" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>Abonar</i></button>';
 		
 		$sub_array[] = '<button class="btn btn-dark cancelar_a" id="'.$row["numero_venta"].'" onClick="cancelarAbono('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Cancelación</i></button>';
-
 		$sub_array[] = '<button type="button" name="estado" id="'.$event.'" class="'.$atrib.'" data-toggle="modal" data-target="'.$modal.'">'.$icon." ".$est.'</button>';
 
 
@@ -252,7 +249,7 @@ case 'get_pacientes_c_automatico':
 	case "listar_creditos_paciente":
 
 
-   $datos= $creditos->get_detalle_paciente($_POST["id_paciente"]);	
+   $datos= $creditos->get_detalle_paciente($_POST["numero_venta"]);	
 
             // si existe el proveedor entonces recorre el array
 	      if(is_array($datos)==true and count($datos)>0){
@@ -260,16 +257,15 @@ case 'get_pacientes_c_automatico':
 				  foreach($datos as $row)
 				{
 					
-					$output["telefono"] = $row["telefono"];
+					//$output["telefono"] = $row["telefono"];
 					$output["nombres"] = $row["nombres"];
+					$output["numero_venta"] = $row["numero_venta"];
+					$output["telefono"] = $row["telefono"];
 					$output["empresa"] = $row["empresa"];
 					$output["monto"] = $row["monto"];
 					$output["saldo"] = $row["saldo"];
 					$output["id_paciente"] = $row["id_paciente"];
-					$output["tipo_pago"] = $row["tipo_pago"];
-					$output["id_credito"] = $row["id_credito"];
-					$output["monto_abono"] = $row["monto_abono"];
-									
+								
 				}
 		
 		      

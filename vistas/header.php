@@ -238,7 +238,7 @@
          ?>
 
 
-          <?php if($_SESSION["ventas"]==1)
+          <?php if($_SESSION["creditos"]==1)
           {
           
           echo ' 

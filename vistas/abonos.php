@@ -40,11 +40,7 @@
 <div class="content-wrapper">        
         <!-- Main content -->
 
-
-
 <?php require_once("modal/detalle_abonos_pac.php");?>
-<?php require_once("modal/detalle_venta_modal.php");?>
-
 
 <div class="row">
 <h5 align="center">ABONOS</h5>
@@ -87,7 +83,6 @@
         <th>Sucursal</th>
         <th>Abonar</th>        
         <th>Detalle Crédito</th>
-        <th>Historial Abonos</th>
         <th>Imprimir Factura</th>
        </tr>
      </thead>
