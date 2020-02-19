@@ -437,13 +437,11 @@ if(forma_pago!=""){
 			cache:false,
 			//dataType:"json",
 			success:function(data)
-			{
-				
+			{				
 				$("#detalles").html(data);
                  
                  //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada
-				//alert(data);
-				
+				//alert(data);				
 			}
 		})
 	});

@@ -122,44 +122,45 @@ public function get_filas_venta(){
        
             
     }
+public function get_detalle_venta_fac($numero_venta){
 
+  $conectar=parent::conexion();
+  parent::set_names();
+  $moneda="$";   
 
-		public function get_detalle_ventas_paciente($numero_venta){
+  $sql="select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta=?;";
 
-		   $conectar=parent::conexion();
-           parent::set_names();
-        $moneda="$";   
+          //echo $sql; exit();
+  $sql=$conectar->prepare($sql);            
 
-		      $sql="select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta=?
-		      
-		      ;";
+  $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_detalle_ventas_paciente($numero_venta){
+
+	$conectar=parent::conexion();
+  parent::set_names();
+  $moneda="$";   
+
+	$sql="select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta=?;";
 
 		      //echo $sql; exit();
+	$sql=$conectar->prepare($sql);            
 
-		      $sql=$conectar->prepare($sql);
-              
+  $sql->bindValue(1,$numero_venta);
+	$sql->execute();
+	$resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
-          $sql->bindValue(1,$numero_venta);
-		      $sql->execute();
-		      $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-
-		   
-              $html= "
-
-              <thead style='background-color:#A9D0F5'>
-
-                                    <th>Cantidad</th>
-                                    <th>Producto</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Descuento (%)</th>
-                                    <th>Subtotal</th>
-                                   
-                                </thead>
-
-
-                              ";
-
-           
+	$html= "
+      <thead style='background-color:#A9D0F5'>
+          <th>Cantidad</th>
+          <th>Producto</th>
+          <th>Precio Unitario</th>
+          <th>Descuento (%)</th>
+          <th>Subtotales</th>                                   
+      </thead>";           
 
 		          foreach($resultado as $row)
 				{
@@ -168,9 +169,9 @@ public function get_filas_venta(){
 $html.="<tr class='filas'>
 <td>".$row['cantidad_venta']."</td>
 <td>".$row['producto']."</td>
- <td>".$moneda." ".$row['precio_venta']."</td> 
- <td>".$row['descuento'].'%'."</td> <td>".$moneda." ".$row['importe']."</td>
- </tr>";
+<td>".$moneda." ".$row['precio_venta']."</td> 
+<td>".$row['descuento'].'%'."</td> <td>".$moneda." ".$row['importe']."</td>
+</tr>";
  
    $subtotal= $row["subtotal"];         
               

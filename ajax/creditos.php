@@ -68,57 +68,59 @@ case 'pacientes_metrocentro':
 case 'pacientes_empresarial':
 
 	$datos=$creditos->get_pacientes_empresarial();
-
 	$data = Array();
 
 	foreach ($datos as $row) {
 
+		$monto_credito= $row["monto"];
+		$plazo_credito= $row["plazo"];
+		$cuota_mensual= $monto_credito/$plazo_credito;
+
 		$sub_array= array();
-				$event='';
-				$evento='';
-				$est = '';
-				$atrib = '';
-				$modal = '';
-				$icon = '';
-				$txt = ' Abonar';
-				$color = 'blue';
-
+			$event='';
+			$evento='';
+			$est = '';
+			$atrib = '';
+			$modal = '';
+			$icon = '';
+			$class = '';
+			$txt = ' Abonar';
+			$color = 'blue';
 				 
-				if($row["saldo"] <= 0){
-					$est = 'Factura';
-					$icon="<span class='glyphicon glyphicon-print detalle'></span>";
-					$event = $row["numero_venta"];
-					$atrib = "btn btn-blue btn-md";
-					$modal ="#detalle_venta";
-					$txt = 'Cancelado';
-					$color = 'edit';
-					$evento ="";				 
+			if($row["saldo"] <= 0){
+				$est = 'Factura';
+				$icon="<span class='glyphicon glyphicon-print detalle'></span>";
+				$event = $row["numero_venta"];
+				$atrib = "btn btn-blue btn-md";
+				$modal ="#detalle_venta";
+				$txt = ' CANCELADO';
+				$color = 'edit';
+				$evento ="";
+				$class = '';
+				$href='<a href="imprimir_factura.php?numero_venta='.$row["numero_venta"].'">';				 
 
-				}
-				else{
-					if($row["saldo"] > 0){
-						$est = 'Pendiente';
-						$icon="<span class='glyphicon glyphicon-usd'></span>";
-						$atrib = "btn btn-default";
-						$evento = 'onClick="abonoPaciente('.$row["id_paciente"].','.$row["id_credito"].')"';
-						$modal ="";
-				}
 			}
-		//$sub_array[] = $row["id_paciente"];
+			else{
+				if($row["saldo"] > 0){
+					$est = 'Pendiente';
+					$icon="<span class='glyphicon glyphicon-usd'></span>";
+					$atrib = "btn btn-default";
+					$evento = 'onClick="abonoPaciente('.$row["id_paciente"].','.$row["id_credito"].')"';
+					$modal ="";
+					$class="abonos_p";
+					$href="";
+		}
+	}
+		$sub_array[] = $row["id_paciente"];
 		$sub_array[] = $row["nombres"];
+		$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["monto"];
-		$sub_array[] = $row["saldo"];
-       //$sub_array[] = $row["empresa"];
-		$sub_array[] = $row["sucursal"];
+		$sub_array[] = $row["saldo"];       
+		$sub_array[] = $cuota_mensual;
 
-		$sub_array[] = '<button class="btn btn-'.$color.' abonos_p" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>Abonar</i></button>';
-		
-		$sub_array[] = '<button class="btn btn-dark cancelar_a" id="'.$row["numero_venta"].'" onClick="cancelarAbono('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Cancelación</i></button>';
-		$sub_array[] = '<button type="button" name="estado" id="'.$event.'" class="'.$atrib.'" data-toggle="modal" data-target="'.$modal.'">'.$icon." ".$est.'</button>';
-
-
+		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';		
+		$sub_array[] = '<a href="imprimir_factura.php?numero_venta='.$row["numero_venta"].'" method="POST" target="_blank"><button type="button"  class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
 		$data[]= $sub_array;
-
 	}
       $results = array(
  			"sEcho"=>1, //Información para el datatables

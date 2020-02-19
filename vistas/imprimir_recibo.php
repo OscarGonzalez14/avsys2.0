@@ -118,11 +118,11 @@ ob_start();
     
 </tr>
 <tr>
-    <th bgcolor="#034f84" colspan="19"style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">MONTO</span></th>
-    <th bgcolor="#034f84" colspan="19"style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">ABONO ANT.</span></th>
-    <th bgcolor="#034f84" colspan="19"style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">ABONO ACTUAL</span></th>
-    <th bgcolor="#034f84" colspan="19"style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">SALDO</span></th>
-    <th bgcolor="#034f84" colspan="24"style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">FORMA DE PAGO</span></th>
+    <th bgcolor="#034f84" colspan="19" style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">MONTO</span></th>
+    <th bgcolor="#034f84" colspan="19" style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">ABONO ANT.</span></th>
+    <th bgcolor="#034f84" colspan="19" style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">ABONO ACTUAL</span></th>
+    <th bgcolor="#034f84" colspan="19" style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">SALDO</span></th>
+    <th bgcolor="#034f84" colspan="24" style="padding:4px;border:black 1px solid;color:white;"><span class="Estilo11">FORMA DE PAGO</span></th>
 </tr>
 
 <tr style="font-size:10pt" class="even_row">

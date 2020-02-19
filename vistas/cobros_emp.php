@@ -29,13 +29,14 @@ require_once("../config/conexion.php");
    <table id="creditos_empresarial" class="table table-bordered table-striped">
      <thead>
        <tr>
-        <th>Paciente</th>
-        <th>Monto</th>
-        <th>Saldo</th>
-        <th>Sucursal</th>
-        <th>Abonar</th>        
-        <th>Detalle Crédito</th>
-        <th>Imprimir Factura</th>
+        <th style='text-align: left;'>Id</th>
+        <th style='text-align: left;'>Paciente</th>
+        <th style='text-align: left;'>Empresa</th>        
+        <th style='text-align: left;'>Monto</th>
+        <th style='text-align: left;'>Saldo</th>
+        <th style='text-align: left;'>Cuota</th>        
+        <th style='text-align: center;'>Abonar</th>      
+        <th style='text-align: center;'>Imprimir Factura</th>
        </tr>
      </thead>
      <tbody>
