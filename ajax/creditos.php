@@ -85,7 +85,7 @@ case 'pacientes_empresarial':
 			$icon = '';
 			$class = '';
 			$txt = ' Abonar';
-			$color = 'blue';
+			$color = 'dark';
 				 
 			if($row["saldo"] <= 0){
 				$est = 'Factura';
@@ -97,7 +97,7 @@ case 'pacientes_empresarial':
 				$color = 'edit';
 				$evento ="";
 				$class = '';
-				$href='<a href="imprimir_factura.php?numero_venta='.$row["numero_venta"].'">';				 
+				$href='imprimir_factura.php?numero_venta='.$row['numero_venta'].'';				 
 
 			}
 			else{
@@ -116,10 +116,10 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["monto"];
 		$sub_array[] = $row["saldo"];       
-		$sub_array[] = $cuota_mensual;
+		$sub_array[] = round($cuota_mensual,2);
 
 		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';		
-		$sub_array[] = '<a href="imprimir_factura.php?numero_venta='.$row["numero_venta"].'" method="POST" target="_blank"><button type="button"  class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
+		$sub_array[] = '<a href="'.$href.'" method="POST" target="_blank"><button type="button"  class="btn '.$atrib.' btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
 		$data[]= $sub_array;
 	}
       $results = array(

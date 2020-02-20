@@ -238,17 +238,13 @@ $html.="<tr class='filas'>
 		  }
 
 
-    public function agrega_detalle_venta(){
-
-       
-	//echo json_encode($_POST['arrayCompra']);
-     $str = '';
-	$detalles = array();
-	$detalles = json_decode($_POST['arrayVenta']);
+public function agrega_detalle_venta(){       
+//echo json_encode($_POST['arrayCompra']);
+$str = '';
+$detalles = array();
+$detalles = json_decode($_POST['arrayVenta']);
    
-	 $conectar=parent::conexion();
-
-
+$conectar=parent::conexion();
 	foreach ($detalles as $k => $v) {
 		//echo $v->codProd;
 		//IMPORTANTE:estas variables son del array detalles
@@ -256,13 +252,13 @@ $html.="<tr class='filas'>
 		$codProd = $v->codProd;
 		$modelo = $v->modelo;
 		$marca = $v->marca;
-        $color = $v->color;
-        $medidas = $v->medidas;
+    $color = $v->color;
+    $medidas = $v->medidas;
 		$precio_venta = $v->precio_venta; 
 		$dscto = $v->dscto;
-        $importe = $v->importe;
-        $id_ingreso = $v->id_ingreso;
-        $categoriaub = $v->categoriaub;
+    $importe = $v->importe;
+    $id_ingreso = $v->id_ingreso;
+    $categoriaub = $v->categoriaub;
 
 		$numero_venta = $_POST["numero_venta"];
 		$cod_pac = ["cod_pac"];
@@ -270,28 +266,26 @@ $html.="<tr class='filas'>
 		$tipo_pago =$_POST["tipo_pago"];
 		$subtotal = $_POST["subtotal"];
 		$usuario = $_POST["usuario"];
-        $sucursal = $_POST["sucursal"];
+    $sucursal = $_POST["sucursal"];
 		$tipo_venta = $_POST["tipo_venta"];
-        $id_usuario = $_POST["id_usuario"];
-        $id_paciente = $_POST["id_paciente"];
-        $plazo = $_POST["plazo"];
+    $id_usuario = $_POST["id_usuario"];
+    $id_paciente = $_POST["id_paciente"];
+    $plazo = $_POST["plazo"];
 
-        $sql="insert into detalle_ventas
-        values(null,?,?,?,?,?,?,?,now(),?,?);";
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
 
+    $sql=$conectar->prepare($sql);
 
-        $sql=$conectar->prepare($sql);
-
-        $sql->bindValue(1,$numero_venta);
+    $sql->bindValue(1,$numero_venta);
         //$sql->bindValue(2,$cod_pac);
-        $sql->bindValue(2,$codProd);
-        $sql->bindValue(3,$modelo);
-        $sql->bindValue(4,$importe);
-        $sql->bindValue(5,$cantidad);
-        $sql->bindValue(6,$dscto);
-        $sql->bindValue(7,$importe);
-        $sql->bindValue(8,$id_usuario);
-        $sql->bindValue(9,$id_paciente);
+    $sql->bindValue(2,$codProd);
+    $sql->bindValue(3,$marca." ".$modelo);
+    $sql->bindValue(4,$importe);
+    $sql->bindValue(5,$cantidad);
+    $sql->bindValue(6,$dscto);
+    $sql->bindValue(7,$importe);
+    $sql->bindValue(8,$id_usuario);
+    $sql->bindValue(9,$id_paciente);
         
         $sql->execute();
          

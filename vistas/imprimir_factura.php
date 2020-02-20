@@ -6,16 +6,21 @@ require_once("../config/conexion.php");
    if(isset($_SESSION["nombre"]) and isset($_SESSION["correo"])){
 
 require_once("../modelos/Ventas.php");
+require_once("../modelos/Creditos.php");
+
 
 $detalle_venta =new Ventas();
+$creditos =new Creditos();
 
-
-
+$total_venta = $creditos->get_total_venta($_GET["numero_venta"]);
 
 ob_start(); 
 
    
 ?>
+<head>
+  <meta charset="UTF-8"/>
+</head>
 <body style="margin:0px">
     
    <style>
@@ -27,6 +32,7 @@ ob_start();
    </style> 
     
 <link type="text/css" rel="stylesheet" href="dompdf/css/print_static.css"/>
+<div style="height:100px; border: solid 1px white;"></div>
 <div>
 
 <?php
@@ -43,13 +49,14 @@ if ($conn->connect_error) {
 }
 $venta = $_GET["numero_venta"];
 
-$sql = "select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta='$venta'";
+$sql = "select d.cantidad_venta, d.producto,d.precio_venta*d.cantidad_venta as afectas,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta='$venta'";
 $result = $conn->query($sql);
  ?>
-<table style="width:100%;border:solid black 1px;">
+<table style="width:100%;border:solid black 1px;border-collapse: collapse;border-radius: 30px;">
   <tr>
     <th style='background: #034f84;color: white'>Cantidad</th>
     <th style='background: #034f84;color: white'>Descripcion</th>
+    <th style='background: #034f84;color: white'>P. Unitario</th>
     <th style='background: #034f84;color: white'>Ventas Afectas</th>
   </tr>
 <?php 
@@ -59,17 +66,27 @@ $result = $conn->query($sql);
     // output data of each row
     while($row = $result->fetch_assoc()) {
      
-  echo "<tr style='border:black 1px solid'>" ."<td style='text-align: center;border-right: 1px solid black'>". $row["cantidad_venta"]."</td>". "<td style='text-align: center;;border-right: 1px solid black'>" . $row["producto"]. "</td>". "<td style='text-align: center;'>".$row["precio_venta"]."</td>"."</tr>";
+  echo "<tr style='border:black 1px solid;border-radius:8px;'>" ."<td style='text-align: center;border-right: 1px solid black'>". $row["cantidad_venta"]."</td>". "<td style='text-align: center;border-right: 1px solid black'>" . $row["producto"]. "</td>"."<td style='text-align: center;border-right: 1px solid black'>" . $row["afectas"]. "</td>". "<td style='text-align: center;'>".$row["precio_venta"]."</td>"."</tr>";
+
 }
 } else {
     echo "0 results";
 }
 $conn->close();
 
-
 ?>
-</table>
 
+<?php 
+for($j=0;$j<count($total_venta);$j++){
+      //echo $total_venta[$j]["subtotal"];
+?>
+<tr>
+  <td colspan="3" style="border:solid blue 1px">Son Cantidad en Letras</td>
+
+  <td colspan="1" style="border:solid blue 1px"><span><?php echo $total_venta[$j]["subtotal"];?></span></td>
+</tr>
+    <?php } ?>
+</table>
 </div>
 
   <?php
