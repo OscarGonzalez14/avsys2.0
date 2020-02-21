@@ -27,14 +27,75 @@ ob_start();
       html{margin-top: 0;
           margin-left: 30px;
           margin-bottom: 0;
-         }
+  }
+
  
    </style> 
     
 <link type="text/css" rel="stylesheet" href="dompdf/css/print_static.css"/>
-<div style="height:100px; border: solid 1px white;"></div>
-<div>
+<div style="height:150px; border: solid 1px white;"></div>
+<div style="height:300px; border: solid 1px white;">
+<!---**********NOTAAAAAAA: CAMBIA AL SUBIR AL HOSTING CONECTION BD*************-->
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "oscar14";
+$dbname = "avplu2";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$venta = $_GET["numero_venta"];
+
+$sql = "select d.cantidad_venta, d.producto,d.precio_venta*d.cantidad_venta as afectas,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta='$venta'";
+$result = $conn->query($sql);
+ ?>
+
+<table style="width:100%;border:solid black 1px;border-collapse: collapse;border-radius: 30px;">
+  <tr>
+    <th style='background: #034f84;color: white'>Cantidad</th>
+    <th style='background: #034f84;color: white' colspan="2">Descripcion</th>
+    <th style='background: #034f84;color: white'>P. Unitario</th>
+    <th style='background: #034f84;color: white'>Ventas no sujetas</th>
+    <th style='background: #034f84;color: white'>Ventas Afectas</th>
+  </tr>
+
+<?php 
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {     
+  echo "<tr style='border:black 1px solid;border-radius:8px;min-height:800px;'>"."<td style='text-align: center;border-right: 1px solid black'>". $row["cantidad_venta"]."</td>". "<td style='text-align: center;border-right: 1px solid black' colspan='2'>" . $row["producto"]. "</td>"."<td style='text-align: center;border-right: 1px solid black'>" . $row["precio_venta"]."<td>"."</td>". "</td>". "<td style='text-align: center;'>".$row["afectas"]."</td>"."</tr>";
+ }//Fin while
+
+} else {
+    echo "0 results";
+}
+$conn->close();
+
+?>
+
+<?php 
+for($j=0;$j<count($total_venta);$j++){
+      
+?>
+<tr>
+  <td colspan="4" rowspan="2" style="border:solid #034f84 1px">Son:<br></td>
+  <td colspan="1" style="border:solid #034f84 1px;text-align:right;"><span><?php echo $total_venta[$j]["subtotal"];?></span></td>
+</tr>
+<tr>
+  <td colspan="3" style="color:white; margin-top:solid white 1px">Son:<br></td>
+ </tr>
+    <?php } ?>
+</table>
+</div>
+
+
+
+<div>
+<div style="height:100px; border: solid 1px white;"></div>
 <?php
 $servername = "localhost";
 $username = "root";

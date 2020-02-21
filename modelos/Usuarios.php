@@ -1,87 +1,63 @@
 <?php
 
-   require_once("../config/conexion.php");
+require_once("../config/conexion.php");
 
-   class Usuarios extends Conectar {
-        public function get_filas_usuario(){
-
-             $conectar= parent::conexion();
-             $sql="select * from usuarios";
-             $sql=$conectar->prepare($sql);
-             $sql->execute();
-             $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-             return $sql->rowCount();
-        }
-
-
-        public function login(){
-            $conectar=parent::conexion();
-            parent::set_names();
-            if(isset($_POST["enviar"])){
-            //********VALIDACIONES  DE ACCESO*****************
-            $password = $_POST["password"];
-            $usuario = $_POST["usuario"];
-        //********************FIN VALIDACIONES  DE ACCESO************
-
-              $estado = "1";
-
-          if(empty($usuario) and empty($password)){
-
-          header("Location:".Conectar::ruta()."vistas/index.php?m=2");
-                 exit();
+class Usuarios extends Conectar {
+  public function get_filas_usuario(){
+        $conectar= parent::conexion();
+        $sql="select * from usuarios";
+        $sql=$conectar->prepare($sql);
+        $sql->execute();
+        $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $sql->rowCount();
+}
 
 
-                }
+public function login(){
+  $conectar=parent::conexion();
+  parent::set_names();
+  if(isset($_POST["enviar"])){
+//********VALIDACIONES  DE ACCESO*****************
+    $password = $_POST["password"];
+    $usuario = $_POST["usuario"];
+    $sucursal_login = $_POST["sucursal_login"];
 
-//::Nota: Realiza una comparación con una expresión regular.    
-        else if(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/", $password)) {
-//******************************************************************************************************
+    $estado = "1";
+    if(empty($usuario) or empty($password) or empty($sucursal_login)){
+      header("Location:".Conectar::ruta()."vistas/index.php?m=2");
+      exit();
+    }else if(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/", $password)) {
+    }else {
+      
+      $sql= "select * from usuarios where usuario=? and password=? and estado=?";
 
-            }
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $usuario);
+        $sql->bindValue(2, $password);
+        $sql->bindValue(3, $estado);
+        $sql->execute();
+        $resultado = $sql->fetch();
 
-             else {
-
-        $sql= "select * from usuarios where usuario=? and password=? and estado=?";
-
-               $sql=$conectar->prepare($sql);
-               $sql->bindValue(1, $usuario);
-               $sql->bindValue(2, $password);
-               $sql->bindValue(3, $estado);
-               $sql->execute();
-               $resultado = $sql->fetch();
-
-               if(is_array($resultado) and count($resultado)>0){
-
-                $_SESSION["id_usuario"] = $resultado["id_usuario"];
-                $_SESSION["correo"] = $resultado["correo"];     
-                $_SESSION["usuario"] = $resultado["usuario"];
-                $_SESSION["cedula"] = $resultado["cedula"];
-                $_SESSION["nombre"] = $resultado["nombres"];
-
-                  
+    if(is_array($resultado) and count($resultado)>0){
+        $_SESSION["id_usuario"] = $resultado["id_usuario"];
+        $_SESSION["correo"] = $resultado["correo"];     
+        $_SESSION["usuario"] = $resultado["usuario"];
+        $_SESSION["cedula"] = $sucursal_login;
+        $_SESSION["nombre"] = $resultado["nombres"];                  
 //PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS**************************
 
-        require_once("Usuarios.php");
+  require_once("Usuarios.php");
 
-        $usuario = new Usuarios();
+    $usuario = new Usuarios();        
+       //VERIFICAR SI EL USUARIO TIENE PERMISOS A CIERTOS MODULOS
+    $marcados = $usuario->listar_permisos_por_usuario($resultado["id_usuario"]);
         
-       //VERIFICAMOS SI EL USUARIO TIENE PERMISOS A CIERTOS MODULOS
-        $marcados = $usuario->listar_permisos_por_usuario($resultado["id_usuario"]);
-        
-        //print_r($marcados);
-
-      //declaramos el array para almacenar todos los registros marcados
-
+    //declarar el array para almacenar todos los registros marcados
        $valores=array();
-
-      //Almacenamos los permisos marcados en el array
-
-          foreach($marcados as $row){
-
-              $valores[]= $row["id_permiso"];
-          }
-
-
+    //Almacenamos los permisos marcados en el array
+    foreach($marcados as $row){
+        $valores[]= $row["id_permiso"];
+    }
       ////Determinamos los accesos del usuario
       //si los id_permiso estan en el array $valores entonces se ejecuta la session=1, en caso contrario el usuario no tendria acceso al modulo
       
@@ -97,30 +73,21 @@
       in_array(9,$valores)?$_SESSION['usuarios']=1:$_SESSION['usuarios']=0;
       in_array(10,$valores)?$_SESSION['empresa']=1:$_SESSION['empresa']=0;
       in_array(11,$valores)?$_SESSION['ordenes']=1:$_SESSION['ordenes']=0;
-      in_array(12,$valores)?$_SESSION['creditos']=1:$_SESSION['creditos']=0;
-      //**********************************************************************//
-     
-          
+      //in_array(12,$valores)?$_SESSION['cotizaciones']=1:$_SESSION['cotizaciones']=0;
+      in_array(12,$valores)?$_SESSION['cobros']=1:$_SESSION['cobros']=0;
+      //in_array(17,$valores)?$_SESSION['evaluaciones']=1:$_SESSION['evaluaciones']=0;
+      //**********************************************************************//FIN PERMISOS DEL USUARIO   
+      header("Location:".Conectar::ruta()."vistas/home.php");
 
-      //FIN PERMISOS DEL USUARIO   
-
-       header("Location:".Conectar::ruta()."vistas/home.php");
-
-              exit();
-
-
-          } else {
-                          
-               //si no existe el registro entonces le aparece un mensaje
-                          header("Location:".Conectar::ruta()."vistas/index.php?m=1");
-              exit();
-            } 
-                  
-        }//cierre del else
-
-
-}//condicion enviar
-        }
+      exit();
+    } else {                         
+    //si no existe el registro entonces le aparece un mensaje
+    header("Location:".Conectar::ruta()."vistas/index.php?m=1");
+    exit();
+    } 
+  }//cierre del else
+  }//condicion enviar
+}///FIN FUNCION LOGIN
 
        //listar los usuarios
         public function get_usuarios(){

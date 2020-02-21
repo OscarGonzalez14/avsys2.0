@@ -43,55 +43,31 @@
 <?php require_once("modal/detalle_abonos_pac.php");?>
 
 <div class="row">
-<h5 align="center">ABONOS</h5>
+<h1 align="center"> MODULO ABONOS</h1>
   <div class="col-sm-12"></div>
 </div>
 
  <div class="row">
  <div class="col-sm-1"></div>
   <div class="col-sm-2">
-    <a href="#"><h3><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos_metro()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Sucursal</button></h3></a>
+    <a href="#"><h1><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos_metro()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Sucursal</button></h1></a>
    </div>
 
    <div class="col-sm-2">
-<h3><button class="btn btn-blue btn-block" id="empresarial" onClick="lista_creditos_empresarial()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h3>
+  <a href="cobros_emp.php"><h1><button class="btn btn-blue btn-block" id="empresarial"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h1></a>
    </div>
 
       <div class="col-sm-3">
-  <h3><button class="btn btn-dark btn-block" id="c_automatico" onClick="lista_creditos_c_aut()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h3>
+  <h1><button class="btn btn-dark btn-block" id="c_automatico"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h1>
    </div>
 
       <div class="col-sm-3">
-<h3><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos_personal()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Créditos Personales</button></h3>
+<h1><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos_personal()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> C. Personales</button></h1>
    </div>
  <div class="col-sm-1"></div>
  
  </div><!--FIN ROW 1-->  
 
-
- <!--ROW 2-->   
-<div class="row">
-
-  <div class="col-sm-12">
-  <h4 align="center" id="titulo"></h4>
-   <table id="creditos_data" class="table table-bordered table-striped">
-     <thead>
-       <tr>
-        <th>Paciente</th>
-        <th >Monto</th>
-        <th>Saldo</th>
-        <th>Sucursal</th>
-        <th>Abonar</th>        
-        <th>Detalle Crédito</th>
-        <th>Imprimir Factura</th>
-       </tr>
-     </thead>
-     <tbody>
-     </tbody>
-   </table> 
-  </div>
-
-</div>
 
 </div><!-- /.content-wrapper -->
  

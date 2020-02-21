@@ -37,13 +37,12 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1 align="center">
-        SISTEMA OPTICA AVPLUS
-      </h1>
+      <h1 align="center">BIENVENID@: <span style="text-transform: uppercase;"><?php echo $_SESSION["usuario"];?></span> </h1>
       <br>
+      <h1 align="center">OPTICA AV PLUS <span style="text-transform: uppercase;"><?php echo $_SESSION["cedula"];?></span></h1>
       <br>
 <div align="center"><img src="../img/logooficial2.png" align="center"/></div>    </section>
-
+<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["cedula"];?>"/>
 <?php
      
      } else {

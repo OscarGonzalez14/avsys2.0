@@ -32,7 +32,7 @@ require_once("../config/conexion.php");
         <th style='text-align: left;'>Id</th>
         <th style='text-align: left;'>Paciente</th>
         <th style='text-align: left;'>Empresa</th>        
-        <th style='text-align: left;'>Monto</th>
+        <th style='text-align: left;'>Monto Creditos</th>
         <th style='text-align: left;'>Saldo</th>
         <th style='text-align: left;'>Cuota</th>        
         <th style='text-align: center;'>Abonar</th>      

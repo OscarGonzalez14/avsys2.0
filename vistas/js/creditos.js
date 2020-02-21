@@ -146,10 +146,8 @@ tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
        
           "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
        
-          "sInfoPostFix":    "",
-       
-          "sSearch":         "Buscar:",
-       
+          "sInfoPostFix":    "",      
+              
           "sUrl":            "",
        
           "sInfoThousands":  ",",
@@ -375,7 +373,7 @@ $(document).on('click', '.abonos_p', function(){
         $("#nombres_ini").val(data.nombres);
         $("#num_venta_rec_ini").val(data.numero_venta);
         $("#telefono").val(data.telefono);
-        $("#empresa").val(data.empresa);
+        $("#empresa").val(data.nombre);
         $("#monto").val(data.monto);
         $("#saldo_act").val(data.saldo);
         $("#id_paciente_ini").val(data.id_paciente);

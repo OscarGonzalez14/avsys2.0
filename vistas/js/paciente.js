@@ -59,6 +59,7 @@ function limpiar()
 //Función Listar
 function listar()
 {
+	var sucursal_paciente = $("#sucursal_paciente").val();
 	tabla=$('#paciente_data').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -73,8 +74,9 @@ function listar()
 		"ajax":
 				{
 					url: '../ajax/paciente.php?op=listar',
-					type : "get",
-					dataType : "json",						
+					type : "post",
+					//dataType : "json",
+					data:{sucursal_paciente:sucursal_paciente},						
 					error: function(e){
 						console.log(e.responseText);	
 					}
@@ -176,7 +178,48 @@ function mostrarc(id_paciente)
 	}
 
 
+function guardarPaciente(){
+	var codigo_paciente =$("#codigo_paciente").val();
+    var nombres=$("#nombres").val();
+    var telefono=$("#telefono").val();
+	var edad=$("#edad").val();
+	var dui=$("#dui").val();
+	var ocupacion =$("#ocupacion").val();
+	var correo=$("#correo").val();
+	var empresa=$("#empresa").val();
+	var cod_empresa_pac=$("#cod_emp").val();
+	var id_usuario=$("#id_usuario").val();    
+	var sucursal = $("#sucursal").val();
+    
 
+    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
+if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" || empresa != ""){
+    $.ajax({
+    url:"../ajax/paciente.php?op=guardar_paciente",
+    method:"POST",
+    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,id_usuario:id_usuario,cod_empresa_pac:cod_empresa_pac},
+    cache: false,
+    dataType:"html",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },        
+      
+  success:function(data){
+  setTimeout ("bootbox.alert('Se ha registrado el Paciente con exito');", 100);
+  //refresca la pagina, se llama a la funtion explode
+  setTimeout ("explode();", 2000);          
+}
+
+}); 
+}else{
+    bootbox.alert("Algun campo obligatorio no fue llenado");
+    return false;
+} //cierre del condicional de validacion de los campos del paciente
+  
+    
+}
 
 	//la funcion guardaryeditar(e); se llama cuando se da click al boton submit
 function guardaryeditar(e)
@@ -229,33 +272,22 @@ function editarp(id_paciente)
 	$.post("../ajax/paciente.php?op=editarp",{id_paciente : id_paciente}, function(data, status)
 	{
 		data = JSON.parse(data);
-
-
-
-		   console.log(data);
+		console.log(data);
 		
-
-		
-					$('#pacienteModal').modal('show');
-
-					
+					$('#pacienteModal').modal('show');					
 					$('#id_paciente').val(data.id_paciente);
 					$('#codigo').val(data.codigo);
 					$('#nombres').val(data.nombres);	
 					$('#telefono').val(data.telefono);
 					$('#ocupacion').val(data.ocupacion);	
 					$('#empresa').val(data.empresa);
-					$('#edad').val(data.edad);		
-
+					$('#edad').val(data.edad);
+					$('#dui').val(data.dui);
 	                //$("#codigos").attr('disabled', 'disabled');
 					$('#correo').val(data.correo);
 				
                     //$('#id_paciente').val(data.id_paciente);
-
-					$('.modal-title').text("Editar Paciente");
-
-
-		      
+					$('.modal-title').text("Editar Paciente");	      
 		
 				
 		});
@@ -272,6 +304,8 @@ function editarp(id_paciente)
     //Función Listar
 function listar_en_ventas(){
 
+	//var sucursal_paciente = $('#sucursal_paciente').val();
+
 	tabla_en_ventas=$('#lista_pacientes_data').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -286,8 +320,9 @@ function listar_en_ventas(){
 		"ajax":
 				{
 					url: '../ajax/paciente.php?op=listar_en_ventas',
-					type : "get",
-					dataType : "json",						
+					type : "post",
+					dataType : "json",
+					//data:{sucursal_paciente:sucursal_paciente},					
 					error: function(e){
 						console.log(e.responseText);	
 					}
@@ -362,14 +397,12 @@ function listar_en_ventas(){
 			data:{id_paciente:id_paciente},
 			dataType:"json",
 			success:function(data)
-			{
-               
+			{           
              
       
 				$('#modalPaciente').modal('hide');
 				$('#cod_pac').val(data.codigo);
 				$('#nombre_pac').val(data.nombres);
-
 				$('#id_paciente').val(id_paciente);
 				
                         
@@ -381,10 +414,9 @@ function listar_en_ventas(){
      
      //ELIMINAR paciente
 
-	 function eliminarp(id_paciente){
-
+function eliminarp(id_paciente){
 	  
-	    bootbox.confirm("¿Está Seguro de eliminar el paciente?", function(result){
+	 bootbox.confirm("¿Está Seguro de eliminar el paciente?", function(result){
 		if(result)
 		{
 

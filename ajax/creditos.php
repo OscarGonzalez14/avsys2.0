@@ -113,7 +113,7 @@ case 'pacientes_empresarial':
 	}
 		$sub_array[] = $row["id_paciente"];
 		$sub_array[] = $row["nombres"];
-		$sub_array[] = $row["empresa"];
+		$sub_array[] = $row["nombre"];
 		$sub_array[] = $row["monto"];
 		$sub_array[] = $row["saldo"];       
 		$sub_array[] = round($cuota_mensual,2);
@@ -263,7 +263,7 @@ case 'get_pacientes_c_automatico':
 					$output["nombres"] = $row["nombres"];
 					$output["numero_venta"] = $row["numero_venta"];
 					$output["telefono"] = $row["telefono"];
-					$output["empresa"] = $row["empresa"];
+					$output["nombre"] = $row["nombre"];
 					$output["monto"] = $row["monto"];
 					$output["saldo"] = $row["saldo"];
 					$output["id_paciente"] = $row["id_paciente"];

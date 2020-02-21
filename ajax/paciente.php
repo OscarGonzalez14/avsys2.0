@@ -1,66 +1,42 @@
 <?php
 
 	  //llamo a la conexion de la base de datos 
-      require_once("../config/conexion.php");
+     require_once("../config/conexion.php");
      //llamo al modelo pacientes
-      require_once("../modelos/Pacientes.php");
-
+     require_once("../modelos/Pacientes.php");
       //llamo al modelo Ventas
      require_once("../modelos/Ventas.php");
 
   
    $pacientes = new Paciente();
 
-   $id_usuario=isset($_POST["id_usuario"]);
-   $id_paciente=isset($_POST["id_paciente"]);
-   $codigo = isset($_POST["codigo"]);
-   $nombres=isset($_POST["nombres"]);
-   $telefono=isset($_POST["telefono"]);
-   $edad=isset($_POST["edad"]);
-   $ocupacion=isset($_POST["ocupacion"]);
-   $empresa=isset($_POST["empresa"]);
-   $correo=isset($_POST["correo"]);
+    switch($_GET["op"]){
 
+    case "guardar_paciente":
+		$pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["id_usuario"],$_POST["cod_empresa_pac"]);	  
+    break;
 
-     switch($_GET["op"]){
-
-     case "guardaryeditar":
-
-			
-
-			$pacientes->registrar_paciente($codigo,$nombres,$telefono,$edad,$ocupacion,$empresa,$correo,$id_usuario);
-
-			       	   	  
-
-	
-     break;
-
-     case 'agregaConsulta':
+    case 'agregaConsulta':
      	$datos=$pacientes->get_pacientes();
 
      	foreach ($datos as $row) {
      		$output["id_paciente"]=$row["id_paciente"];
      		$output["nombres"]=$row["nombres"];
      	}
-
-     	echo json_encode($output);
-
-
-     	break;
+    echo json_encode($output);
+    break;
 
      case 'mostrar':
     
 	$datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
 
-    				foreach($datos as $row)
-    				{
-    					$output["id_paciente"] = $row["id_paciente"];
-						$output["nombres"] = $row["nombres"];
-						$output["codigo"] = $row["codigo"];
-						
-    				}
-        
-         echo json_encode($output);
+    	foreach($datos as $row)
+    	{
+    		$output["id_paciente"] = $row["id_paciente"];
+			$output["nombres"] = $row["nombres"];
+			$output["codigo"] = $row["codigo"];						
+    	}
+    echo json_encode($output);
 
 
 	 break;
@@ -80,13 +56,11 @@
 						$output["correo"] = $row["correo"];
 						$output["codigo"] = $row["codigo"];
 						$output["edad"] = $row["edad"];
-						
+						$output["dui"] = $row["dui"];						
     				}
         
-         echo json_encode($output);
-
-
-	 break;
+    echo json_encode($output);
+	break;
 
       case "activarydesactivar":
      
@@ -101,39 +75,27 @@
 		     
 	        } 
 
-     break;
+ break;
 
-     case "listar":
+case "listar":
 
-     $datos=$pacientes->get_pacientes();
+	$datos=$pacientes->get_pacientes($_POST["sucursal_paciente"]);
+	$data= Array();
 
-     //Vamos a declarar un array
- 	 $data= Array();
+    foreach($datos as $row)
 
-     foreach($datos as $row)
-
-			{
-				$sub_array = array();
-
-
-				
+	{
+		$sub_array = array();			
 			
-	             $sub_array[] = $row["codigo"];
-				 $sub_array[] = $row["nombres"];
-				 $sub_array[] = $row["telefono"];
-				 $sub_array[] = $row["correo"];
-				 $sub_array[] = date("d-m-Y",strtotime($row["fecha_reg"]));
-            
-               $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-infos btn-md"><i class="fa fa-hospital-o" aria-hidden="true"></i> Agregar Consulta</button>';
-
-                 
-                 $sub_array[] = '<button type="button" onClick="editarp('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';
-
-
-                 $sub_array[] = '<button type="button" onClick="eliminarp('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-dark btn-md"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>';
-                
-				$data[] = $sub_array;
-			}
+	        $sub_array[] = $row["codigo"];
+	        $sub_array[] = date("d-m-Y",strtotime($row["fecha_reg"]));
+			$sub_array[] = $row["nombres"];
+			$sub_array[] = $row["telefono"];
+			$sub_array[] = $row["correo"];			            
+            $sub_array[] = '<button type="button" onClick="editar_paciente('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Paciente</button>';             
+                                                
+		$data[] = $sub_array;
+	}
 
       $results = array(
  			"sEcho"=>1, //Información para el datatables

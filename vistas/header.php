@@ -55,7 +55,7 @@
 
   <link rel="stylesheet" href="../public/datatables/jquery.dataTables.min.css">
   <link href="../public/datatables/buttons.dataTables.min.css" rel="stylesheet"/>
-    <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
+  <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 
 
   <!-- Theme style -->
@@ -121,13 +121,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-             
-            <span class="hidden-xs"> <?php echo $_SESSION["usuario"]?></span>
+            <span style="text-transform: uppercase;text-align:center">OPTICA AV PLUS <?php echo $_SESSION["cedula"];?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="hidden-xs" style="text-transform: uppercase;text-align:center"><?php echo $_SESSION["usuario"]?></span>
             <i class="fa fa-sign-out" aria-hidden="true"> Cerrar Sesión</i>
             </a>
             <ul class="dropdown-menu">
                <li class="user-footer">
-
                 <div >
                   <a href="logout.php" class="btn btn-danger btn-block">Salir</a>
                 </div>
@@ -156,23 +155,74 @@
           
         </li>
 
-         <?php if($_SESSION["categoria"]==1)
+         <?php if($_SESSION["empresa"]==1)
           {
+            echo '
 
-            echo '<li class="">
-
-              <a href="sucursales.php">
-                <i class="fa fa-list" aria-hidden="true"></i> <span>Sucursales</span>
-
-              </a>
+             <li class="">
+          <a href="empresas.php">
+            <i class="fa fa-building-o" aria-hidden="true"></i><span>Empresas</span>            
+          </a>
          
-          </li>';
+        </li>';
 
-          }
+            }
+
+         ?>        
+
+
+         <?php if($_SESSION["pacientes"]==1)
+          {
+            echo '
+
+             <li class="">
+          <a href="pacientes.php">
+            <i class="fa fa-user" aria-hidden="true"></i> <span>Pacientes</span>            
+          </a>
+         
+        </li>';;
+
+            }
+
+         ?>
+
+      <?php if($_SESSION["evaluaciones"]==1)
+          {
+            echo '
+
+          <li class="treeview">
+            <a href="evaluaciones.php">
+            <i class="fa fa-user-md" aria-hidden="true"></i><span>Evaluaciones</span>  
+            <span class="pull-right-container badge bg-blue"><i class="fa fa-angle-left pull-right"></i></span>          
+            </a>         
+
+          <ul class="treeview-menu">
+          <li><a href="evaluaciones.php"><i class="fa fa-circle-o"></i> Realizar Evaluación</a></li>
+            <li><a href="ev_realizadas.php"><i class="fa fa-circle-o"></i> Evaluaciones Realizadas</a></li>
+          </ul>
+          </li>
+          ';
+
+            }
 
          ?>
 
         
+         <?php if($_SESSION["cotizaciones"]==1)
+          {
+            echo '
+
+             <li class="">
+              <a href="cotizaciones.php">
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i></i> <span>Cotizaciones</span>            
+              </a>         
+            </li>';
+
+            }
+
+         ?>
+
+
         <?php if($_SESSION["productos"]==1)
          
           {
@@ -188,7 +238,7 @@
             <li><a href="bodegas.php"><i class="fa fa-circle-o"></i> Bodegas</a></li>
             <li><a href="mov_internos.php"><i class="fa fa-circle-o"></i> Traslados Internos</a></li>
             <li><a href="tras_suc.php"><i class="fa fa-circle-o"></i> Traslados a Sucursal</a></li>
-          </ul
+          </ul>
          
         </li>';
 
@@ -197,33 +247,18 @@
          ?>
 
 
-         <?php if($_SESSION["pacientes"]==1)
-          {
 
-            echo '
-
-             <li class="">
-          <a href="pacientes.php">
-            <i class="fa fa-user" aria-hidden="true"></i> <span>Pacientes</span>
-            
-          </a>
-         
-        </li>';;
-
-            }
-
-         ?>
 
          <?php if($_SESSION["ordenes"]==1)
           {
             echo '
              <li class="treeview">
               <a href="ordenes.php">
-               <i class="fa fa-file-o" aria-hidden="true"></i><span>Ordenes</span>
+               <i class="fa fa-file-o" aria-hidden="true"></i><span>Envios a Lab.</span>
               </a>
 
             <ul class="treeview-menu">
-              <li><a href="ordenes.php"><i class="fa fa-circle-o"></i> Ordenes</a></li>
+              <li><a href="ordenes.php"><i class="fa fa-circle-o"></i> Envios a Lab.</a></li>
               <a href="ordenes_vencidas.php">
                 <i class="class="fa fa-circle-o" aria-hidden="true"></i><span> Ordenes Vencidas</span>
                   <span class="pull-right-container badge bg-blue">
@@ -238,7 +273,7 @@
          ?>
 
 
-          <?php if($_SESSION["creditos"]==1)
+          <?php if($_SESSION["cobros"]==1)
           {
           
           echo ' 
@@ -251,7 +286,8 @@
 
           <ul class="treeview-menu">
             <li><a href="abonos.php"><i class="fa fa-circle-o"></i> Creditos y Cobros</a></li>
-            <li><a href="control_cobros.php"><i class="fa fa-circle-o"></i> Control de Cobros</a></li>      
+            <li><a href="control_cobros.php"><i class="fa fa-circle-o"></i> Control de Cobros</a></li>
+            <li><a href="orden_desc.php"><i class="fa fa-circle-o"></i> Ordenes de Descuento</a></li>       
           </ul>
          
         </li>';
@@ -316,40 +352,7 @@
 
      ?>
 
-
-       <?php if($_SESSION["reporte_compras"]==1)
-          {
-
-          echo '
-
-       <li class="treeview">
-          <a href="reporte_compras.php">
-            <i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Reportes de Ingresos</span>
-            <span class="pull-right-container badge bg-blue">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-
-          <ul class="treeview-menu">
-          <li><a href="reporte_general_compras.php"><i class="fa fa-circle-o"></i>Reporte General de Ingresos</a></li>
-            <li><a href="reporte_general_compras.php"><i class="fa fa-circle-o"></i>Reporte General de Ingresos</a></li>
-            
-            <li><a href="reporte_compras_mensual.php"><i class="fa fa-circle-o"></i> Reporte Mensual Ingresos</a></li>
-
-            <li><a href="reporte_compras_proveedor.php"><i class="fa fa-circle-o"></i> Reporte Compras a Laboratorio</a></li>
-
-
-          </ul>
-         
-        </li>';
-       
-       }
-
-     ?>
-
-  
-
-       <?php if($_SESSION["usuarios"]==1)
+<?php if($_SESSION["usuarios"]==1)
           {
 
             echo ' 
