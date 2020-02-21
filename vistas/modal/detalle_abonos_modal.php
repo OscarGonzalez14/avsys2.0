@@ -10,13 +10,13 @@
   </style>
 
 
-   <div class="modal fade" id="detalle_venta">
+   <div class="modal fade" id="detalle_abonos_modal">
           <div class="modal-dialog modal-lg">
             <div class="bg-warning">
               <div class="modal-header" id="encabezado">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" align="center"><i class="fa fa-search-plus" aria-hidden="true"></i> DETALLE DE VENTA</h4>
+                <h4 class="modal-title" align="center"><i class="fa fa-search-plus" aria-hidden="true"></i> DETALLE DE ABONOS POR PACIENTE</h4>
               </div>
               <div class="modal-body">
 
@@ -35,7 +35,8 @@
             <th>No. Venta </th>
             <th>Fecha Venta</th>
             <th>Vendedor</th>
-            <th>SucursalESSS</th>
+            <th>Sucursal</th>
+            <th>Empresa</th>
           </tr>
         </thead>
 
@@ -47,6 +48,7 @@
           <td><h5 id="fecha_venta"></h5><input type="hidden" name="fecha_venta" id="fecha_venta"></td>
           <td><h5 id="vendedor"></h5><input type="hidden" name="vendedor" id="vendedor"></td>
           <td><h5 id="sucursal"></h5><input type="hidden" name="sucursal" id="sucursal"></td>
+          <td><h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
 
 
 
@@ -56,13 +58,13 @@
 
 
                           <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+                            <table id="detalles_abono" class="table table-striped table-bordered table-condensed table-hover">
                               <thead style="background-color:#A9D0F5">
-                                    <th>Cantidad</th>
-                                    <th colspan="2">Producto</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Descuento</th>
-                                    <th>Total</th>
+                                    <th>Fecha Abono</th>
+                                    <th>Nombre</th>
+                                    <th>Empresa</th>
+                                    <th>Monto Abono</th>
+                                    
                                 </thead>
                                         
                                

@@ -354,7 +354,7 @@ function calcularc()
   document.f1.n_saldo.value=saldo_n;
 }
 
-//ESTE EVENO ONCLICK CARGA LOS DATOS GENERALES DEL PACIENTE Y MONTO DEL CREDITO
+//ESTE EVENO ONCLICK CARGA LOS DATOS GENERALES DEL PACIENTE Y MONTO DEL CREDITO  EN MODAL DE ABONOS
 $(document).on('click', '.abonos_p', function(){
   $('#detalle_abonos').modal('show');
   $(".modal-title").text("Realizar Abono");  
@@ -397,4 +397,21 @@ $(document).on('click', '.abonos_p', function(){
     })
 });
 
+$(document).on('click', '.det_abonos', function(){
+    //toma el valor del id
+    var id_paciente = $(this).attr("id");
+    $('#detalle_abonos_modal').modal('show');
+    $.ajax({
+      url:"../ajax/creditos.php?op=ver_detalle_abonos",
+      method:"POST",
+      data:{id_paciente:id_paciente},
+      cache:false,
+      //dataType:"json",
+      success:function(data)
+      {       
+        $("#detalles_abono").html(data);
+                 
+      }
+    })
+  });
 init();

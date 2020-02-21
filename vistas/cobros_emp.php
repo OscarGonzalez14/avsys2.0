@@ -20,6 +20,7 @@ require_once("../config/conexion.php");
         <!-- Main content -->
 
 <?php require_once("modal/detalle_abonos_pac.php");?>
+<?php require_once("modal/detalle_abonos_modal.php");?>
 
   <h2 align="center">ABONOS EMPRESARIAL</h2>
   
@@ -34,7 +35,8 @@ require_once("../config/conexion.php");
         <th style='text-align: left;'>Empresa</th>        
         <th style='text-align: left;'>Monto Creditos</th>
         <th style='text-align: left;'>Saldo</th>
-        <th style='text-align: left;'>Cuota</th>        
+        <th style='text-align: left;'>Cuota</th>
+        <th style='text-align: left;'>Historial</th>                
         <th style='text-align: center;'>Abonar</th>      
         <th style='text-align: center;'>Imprimir Factura</th>
        </tr>

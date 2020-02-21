@@ -118,7 +118,9 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["saldo"];       
 		$sub_array[] = round($cuota_mensual,2);
 
-		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';		
+		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';
+		$sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
+
 		$sub_array[] = '<a href="'.$href.'" method="POST" target="_blank"><button type="button"  class="btn '.$atrib.' btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
 		$data[]= $sub_array;
 	}
@@ -130,7 +132,12 @@ case 'pacientes_empresarial':
  		echo json_encode($results);
 	break;
 
+case "ver_detalle_abonos":
 
+  	   $datos= $creditos->get_detalle_abonos($_POST["id_paciente"]);	
+
+
+  	 break;
 
 case 'get_pacientes_c_automatico':
 
