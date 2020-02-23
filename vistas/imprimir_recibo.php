@@ -14,6 +14,7 @@ $datos=$recibos->get_recibo_id($_GET["numero_venta"]);
 $venta=$recibos->get_detalle_venta($_GET["numero_venta"]);
 $datos_paciente = $recibos->get_detalle_recibo_paciente($_GET["numero_venta"]);
 $get_num_rec = $recibos->get_numero_recibo($_GET["numero_venta"]);
+///////
 
 
 ob_start(); 
@@ -106,7 +107,7 @@ ob_start();
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="57"><div align="center"><span class=""><?php echo $datos_paciente[$i]["nombres"];?></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class=""><?php echo $datos_paciente[$i]["telefono"];?></span></div></td>
-    <td style="text-align: right" colspan="24"><div align="center"><span class=""><?php echo $datos_paciente[$i]["empresa"];?></span></div></td>
+    <td style="text-align: right" colspan="24"><div align="center"><span class=""><?php echo $datos_paciente[$i]["nombre"];?></span></div></td>
 </tr>
 
 <tr>
@@ -136,11 +137,11 @@ ob_start();
 
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Marca Aro</span></div></td>
-    <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="19"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["marca_aro"];?></strong></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Modelo</span></div></td>
-    <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="19"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["modelo_aro"];?></strong></span></div></td>
     <td style="text-align: center" colspan="8"><div align="center"><span class="">Color</span></div></td>
-    <td style="text-align: center" colspan="16"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="16"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["color_aro"];?></strong></span></div></td>
 </tr>
 
 <tr style="font-size:10pt" class="even_row">
@@ -241,7 +242,7 @@ ob_start();
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="57"><div align="center"><span class=""><?php echo $datos_paciente[$i]["nombres"];?></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class=""><?php echo $datos_paciente[$i]["telefono"];?></span></div></td>
-    <td style="text-align: right" colspan="24"><div align="center"><span class=""><?php echo $datos_paciente[$i]["empresa"];?></span></div></td>
+    <td style="text-align: right" colspan="24"><div align="center"><span class=""><?php echo $datos_paciente[$i]["nombre"];?></span></div></td>
 </tr>
 
 <tr>

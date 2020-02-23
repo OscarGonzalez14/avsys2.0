@@ -301,13 +301,31 @@ case 'get_pacientes_c_automatico':
 								foreach ($errors as $error) {
 										echo $error;
 									}
-								?>
+				?>
 					</div>
 					<?php
 			      }
 
 break;
+///////////////LISTAR DETALLE PACIENTES EN ABONOS
+case "ver_detalle_pac_abonos":
+    $datos= $creditos->get_detalle_paciente_abonos($_POST["id_paciente"]);	
 
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["telefono"] = $row["telefono"];
+			$output["numero_venta"] = $row["numero_venta"];
+			$output["vendedor"] = $row["vendedor"];
+			$output["fecha_venta"] = $row["fecha_venta"];
+			$output["sucursal"] = $row["sucursal"];
+												
+		}		
+		      
+        echo json_encode($output);
+} 
+
+break;
 	case "buscar_abonos_paciente":
 
 	$comprobar_abonos=$creditos->comprobar_abonos_ant($_POST["id_paciente"] ,$_POST["id_credito"]);

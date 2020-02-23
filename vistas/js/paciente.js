@@ -193,7 +193,7 @@ function guardarPaciente(){
     
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" || empresa != ""){
+if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" || cod_empresa_pac != ""){
     $.ajax({
     url:"../ajax/paciente.php?op=guardar_paciente",
     method:"POST",
@@ -214,7 +214,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
 
 }); 
 }else{
-    bootbox.alert("Algun campo obligatorio no fue llenado");
+    bootbox.alert("Algun campo obligatorio no fue llenado correctamente");
     return false;
 } //cierre del condicional de validacion de los campos del paciente
   

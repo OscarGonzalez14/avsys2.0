@@ -55,6 +55,19 @@ public function get_pacientes_metro()
     $sql->execute();
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  //////////
+public function get_detalle_paciente_abonos($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.nombres,p.telefono,p.id_paciente,v.numero_venta,v.vendedor,v.sucursal,v.fecha_venta from pacientes as p inner join ventas as v on p.id_paciente=v.id_paciente where p.id_paciente=? limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+  ///////////
 public function get_detalle_paciente($numero_venta){
 	$conectar=parent::conexion();
 	parent::set_names();
@@ -161,7 +174,7 @@ public function get_detalle_abonos($id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
   
-  $sql="select p.id_paciente,a.n_recibo,a.fecha_abono,p.nombres,e.nombre,a.monto_abono,v.tipo_pago from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=?";
+  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,p.nombres,e.nombre,a.monto_abono,v.tipo_pago from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=?";
 
           //echo $sql; exit();
   $sql=$conectar->prepare($sql);            
@@ -186,7 +199,7 @@ $html.="<tr class='filas'>
 <td>".$row['fecha_abono']."</td>
 <td>".$row['nombres']."</td>
 <td>".$row['nombre']."</td> 
-<td>".$row['monto_abono']."</td>";
+<td>".'$ '.$row['monto_abono']."</td>";
  
   $subtotal= $subtotal+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
               
@@ -197,20 +210,20 @@ $html.="<tr class='filas'>
                                     <th></th>
                                     <th></th>
                                     <th>
-                                    <p>TOTAL</p>
+                                    <p style='text-align:right; border: solid 1px black'>TOTAL ABONADO:&nbsp; </p>
                                     </th>
 
                                     <th>
 
-                                    <p><strong>".$subtotal."</strong></p>
+                                    <p style='text-align:right; border: solid 1px black'><strong>".$subtotal."&nbsp;</strong></p>
 
                                    </th> 
                                 </tfoot>";
       
       echo $html;
 
-    }
-
+}
+///METODO PARA CARGAR DATOS DEL PACEINTE EN MODAL DE ABONOS
 
 
 //METODO PARA VER SI EXISTEN ABONOS ANTERIORES

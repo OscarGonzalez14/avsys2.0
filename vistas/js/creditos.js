@@ -409,9 +409,36 @@ $(document).on('click', '.det_abonos', function(){
       //dataType:"json",
       success:function(data)
       {       
+        
         $("#detalles_abono").html(data);
                  
       }
     })
   });
+
+//////////EVENTO PARA CARGAR DETALLE DE PACIENTE ENN MODAL ABONOS
+$(document).on('click', '.det_abonos', function(){
+    //toma el valor del id
+    var id_paciente = $(this).attr("id");
+    $.ajax({
+      url:"../ajax/creditos.php?op=ver_detalle_pac_abonos",
+      method:"POST",
+      data:{id_paciente:id_paciente},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {       
+        $("#numero_venta").val(data.numero_venta);
+        $("#fecha_venta").val(data.fecha_venta);
+        $("#vendedor").val(data.vendedor);
+                
+      }
+    })
+  });
+
+$(document).on('click', '#empresa', function(){
+    
+    $('#empresasModal').modal('show');
+  });
+
 init();

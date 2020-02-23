@@ -18,6 +18,8 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" align="center"><i class="fa fa-search-plus" aria-hidden="true"></i> DETALLE DE ABONOS POR PACIENTE</h4>
               </div>
+
+              
               <div class="modal-body">
 
                  <div class="container box">
@@ -30,28 +32,17 @@
 
         <thead style="background-color:#A9D0F5">
           <tr>
-            <th>Paciente</th>
-            <th>Telefono</th>
             <th>No. Venta </th>
             <th>Fecha Venta</th>
             <th>Vendedor</th>
-            <th>Sucursal</th>
-            <th>Empresa</th>
+                        
           </tr>
         </thead>
 
-        <tbody>
-                            
-          <td> <h5 id="nombres"></h5><input type="hidden" name="nombres" id="nombres"></td>
-          <td> <h5 id="telefono"></h5><input type="hidden" name="telefono" id="telefono"></td>
-          <td><h5 id="numero_venta"></h5><input type="hidden" name="numero_venta" id="numero_venta"></td>
-          <td><h5 id="fecha_venta"></h5><input type="hidden" name="fecha_venta" id="fecha_venta"></td>
-          <td><h5 id="vendedor"></h5><input type="hidden" name="vendedor" id="vendedor"></td>
-          <td><h5 id="sucursal"></h5><input type="hidden" name="sucursal" id="sucursal"></td>
-          <td><h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
-
-
-
+        <tbody>                            
+          <td><input type="text" name="numero_venta" id="numero_venta" class="form-control"></td>
+          <td><input type="text" name="fecha_venta" id="fecha_venta" class="form-control"></td>
+          <td><input type="text" name="vendedor" id="vendedor" class="form-control"></td>
         </tbody>
 
       </table>
