@@ -1254,7 +1254,7 @@ obj.value es el valor del campo de texto*/
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 
-    if(nombre_pac!="" && sucursal!="" && tipo_venta!=""){
+    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
 
     $("#descuento").attr('disabled', 'disabled');
      console.log('error!');

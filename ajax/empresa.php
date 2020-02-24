@@ -46,7 +46,7 @@ require_once('../modelos/Empresa.php');
 				{
 					$output["id_empresas"] = $row["id_empresas"];
 					$output["nombre"] = $row["nombre"];				
-					
+					$output["direccion"] = $row["direccion"];	
 				}	
 		}
 

@@ -8,17 +8,7 @@ var tabla_cobros_pac;
 //Función que se ejecuta al inicio
 function init(){ 
 
-  lista_creditos_empresarial();
 } 
-
-function actualizar(){
-
-  location.reload();
-
-  lista_creditos_empresarial();
-
- } 
-
 
 function lista_creditos_metro()
 {
@@ -104,6 +94,7 @@ function lista_creditos_metro()
 function lista_creditos_empresarial()
 {
 
+var id_empresas= $("#cod_emp").val();
 tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
@@ -118,8 +109,9 @@ tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
     "ajax":
         {
           url: '../ajax/creditos.php?op=pacientes_empresarial',
-          type : "get",
-          dataType : "json",            
+          type : "post",
+          //dataType : "json",
+          data:{id_empresas:id_empresas},           
           error: function(e){
             console.log(e.responseText);  
           }
@@ -127,7 +119,7 @@ tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
-    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+    "iDisplayLength": 5,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
       
       "language": {
@@ -373,7 +365,7 @@ $(document).on('click', '.abonos_p', function(){
         $("#nombres_ini").val(data.nombres);
         $("#num_venta_rec_ini").val(data.numero_venta);
         $("#telefono").val(data.telefono);
-        $("#empresa").val(data.nombre);
+        $("#empresa_emp").val(data.nombre);
         $("#monto").val(data.monto);
         $("#saldo_act").val(data.saldo);
         $("#id_paciente_ini").val(data.id_paciente);
@@ -435,6 +427,43 @@ $(document).on('click', '.det_abonos', function(){
       }
     })
   });
+
+
+//////////SUMA TOTAL DE CREDITOS  POR EMPRESA
+$(document).on('click', '.suma_creditos', function(){
+    //toma el valor del id
+    var id_empresa_total = $('#cod_emp').val();
+    $.ajax({
+      url:"../ajax/creditos.php?op=suma_total_creditos",
+      method:"POST",
+      data:{id_empresa_total:id_empresa_total},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {       
+        $("#tot_creditos").val(data.suma_creditos);
+      }
+    })
+  });
+/////////////////SUMA DE ABONOS PARA MES POR EMPRESA
+
+$(document).on('click', '#suma_abonos', function(){
+    //toma el valor del id
+    var id_empresa_total = $('#cod_emp').val();
+    $.ajax({
+      url:"../ajax/creditos.php?op=suma_total_abonos",
+      method:"POST",
+      data:{id_empresa_total:id_empresa_total},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {       
+        $("#tot_recuperado").val(data.suma_abonos);
+      }
+    })
+  });
+
+
 
 $(document).on('click', '#empresa', function(){
     

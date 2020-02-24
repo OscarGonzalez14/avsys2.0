@@ -41,7 +41,7 @@ class Empresa extends Conectar
 
     $conectar= parent::conexion();
     //$output = array();
-    $sql="select id_empresas,nombre from empresas where id_empresas=?";
+    $sql="select id_empresas,nombre,direccion from empresas where id_empresas=?";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $id_empresa);

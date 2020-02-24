@@ -26,7 +26,8 @@ $.ajax({
 	{                       
 		$('#empresasModal').modal('hide');
 		$('#cod_emp').val(data.id_empresas);
-		$('#empresa').val(data.nombre);				
+		$('#empresa').val(data.nombre);
+		$('#sucursal_emp').val(data.direccion);			
 	}
 })
 	

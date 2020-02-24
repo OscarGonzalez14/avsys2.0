@@ -67,7 +67,7 @@ case 'pacientes_metrocentro':
 
 case 'pacientes_empresarial':
 
-	$datos=$creditos->get_pacientes_empresarial();
+	$datos=$creditos->get_pacientes_empresarial($_POST["id_empresas"]);
 	$data = Array();
 
 	foreach ($datos as $row) {
@@ -114,9 +114,9 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["id_paciente"];
 		$sub_array[] = $row["nombres"];
 		$sub_array[] = $row["nombre"];
-		$sub_array[] = $row["monto"];
-		$sub_array[] = $row["saldo"];       
-		$sub_array[] = round($cuota_mensual,2);
+		$sub_array[] = "$ ".$row["monto"];
+		$sub_array[] = "$ ".$row["saldo"];       
+		$sub_array[] = "$ ".round($cuota_mensual,2);
 
 		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';
 		$sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
@@ -326,6 +326,9 @@ case "ver_detalle_pac_abonos":
 } 
 
 break;
+
+
+
 	case "buscar_abonos_paciente":
 
 	$comprobar_abonos=$creditos->comprobar_abonos_ant($_POST["id_paciente"] ,$_POST["id_credito"]);
@@ -613,4 +616,37 @@ case "buscar_detalle_credito_photo":
 
      break;
 	
+
+
+
+///////////////LISTAR DETALLE PACIENTES EN ABONOS
+case "suma_total_creditos":
+    $datos= $creditos->get_suma_creditos($_POST["id_empresa_total"]);	
+
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["suma_creditos"] = "$ ".$row["suma_creditos"];
+								
+		}		
+		      
+        echo json_encode($output);
+} 
+
+break;
+
+case "suma_total_abonos":
+    $datos= $creditos->get_suma_abonos($_POST["id_empresa_total"]);	
+
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["suma_abonos"] = "$ ".$row["suma_abonos"];
+								
+		}	      
+    echo json_encode($output);
+} 
+
+break;
+
 }

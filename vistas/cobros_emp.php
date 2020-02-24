@@ -21,20 +21,36 @@ require_once("../config/conexion.php");
 
 <?php require_once("modal/detalle_abonos_pac.php");?>
 <?php require_once("modal/detalle_abonos_modal.php");?>
-<input type="text" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
+
+<input type="hidden" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
   <h2 align="center">ABONOS EMPRESARIAL</h2>
     <div class="row">
+
+
         <div class="col-sm-3" style="margin-left:35px;">
           <label for="ex3">Empresa</label>
-          <input type="text" name="sucursal" id="empresa" class="form-control" style="border: solid #212529 2px;border-radius: 5px" >
+          <input type="text" name="sucursal" id="empresa" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly placeholder="HAGA CLIC Y SELECIONE UNA EMPRESA">
         </div>
+
         <div class="col-sm-2">
         <label for="sucursal">Sucursal</label>
-          <input type="text" name="sucursal" id="sucursal" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly>
+          <input type="text" name="sucursal_emp" id="sucursal_emp" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly>
         </div>
-        <div class="col-sm-4">
-        <button type="button" class="btn btn-dark" id="btn_venta_fecha_mes" style="margin-top:25px;border-radius:5px"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
+
+        <div class="col-sm-1">
+        <button type="button" class="btn btn-dark suma_creditos" id="suma_abonos" style="margin-top:25px;border-radius:5px;" onClick="lista_creditos_empresarial();" onMouseOver="this.style.color='white'" onMouseOut="this.style.color='white'"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
         </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+          <label for="sucursal">Total Creditos</label>
+          <input type="text" name="tot_creditos" id="tot_creditos" class="form-control" style="border: solid gray 1px;border-radius: 5px;color:black;text-align:right;font-size:18px" readonly>
+        </div>
+
+        <div class="col-sm-2">
+          <label for="sucursal">Recuperado del Mes</label>
+          <input type="text" name="tot_recuperado" id="tot_recuperado" class="form-control" style="border: solid gray 1px;border-radius: 5px;color:black;text-align:right;font-size:18px" readonly>
+        </div>
+
     </div>
 <div class="row">
 
@@ -60,6 +76,9 @@ require_once("../config/conexion.php");
   </div>
 
 </div>
+<hr style="height: 2px; width: 80%; color:black">
+
+
 
 </div><!-- /.content-wrapper -->
  <div id="empresasModal" class="modal fade" data-modal-index="2">
@@ -92,6 +111,8 @@ require_once("../config/conexion.php");
   </div>
 </div>
 </div>
+
+
  <script>
 n =  new Date();
 //Año

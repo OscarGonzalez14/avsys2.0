@@ -262,8 +262,7 @@
 <input type="hidden" name="id_paciente" id="id_paciente"/>                
   </table>
  <div class="boton_registrar">
-<button type="button" onClick="registrarVenta()" class="btn btn-blue pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
-<button type="button" class="btn btn-dark pull-right btn-block abono_ini" onClick="recibo_uno()"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
+<button type="button" onClick="registrarVenta()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
 </div>
 
 </div> 

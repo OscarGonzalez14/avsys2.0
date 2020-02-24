@@ -188,7 +188,7 @@
 
   		$html="
 
-			<option value=''>Seleccione</>
+			<option value='0'>Seleccione</>
 			<option value='2'> 2 Meses</>
 			<option value='3'> 3 Meses</>
 			<option value='4'> 4 Meses</>

@@ -38,7 +38,7 @@
         <td><input type='text' class='form-control' id='num_venta_rec_ini' name='num_venta_rec_ini' readonly></td>          
           <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control' readonly></td>
           <td align="center"><input type="text" name="telefono" id="telefono" class='form-control' readonly></td>
-          <td align="center"><input type="text" name="empresa" id="empresa" class='form-control' readonly></td>          
+          <td align="center"><input type="text" name="empresa_emp" id="empresa_emp" class='form-control' readonly></td>          
          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;"> </td>
         </tbody>
       </table>

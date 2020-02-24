@@ -121,7 +121,7 @@
 
       <div class="col-xs-7">
         <label for="ex3">Empresa</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="correo del paciente" required readonly>
+        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required readonly>
       </div>
 
       <div class="col-xs-1">

@@ -16,12 +16,13 @@ class Creditos extends Conectar
 
 
 ///////////////LISTAR CREDITOS DATATABLES COBROS EMPRESARIAL
-public function get_pacientes_empresarial()
+public function get_pacientes_empresarial($id_empresas)
   {
     $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.plazo,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' order by id_credito asc;
+    $sql="select p.id_paciente,c.plazo,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,e.id_empresas,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and e.id_empresas=? order by id_credito asc;;
     ";
     $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$_POST["id_empresas"]);
     $sql->execute();
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -186,8 +187,8 @@ public function get_detalle_abonos($id_paciente){
   $html= "
       <thead style='background-color:#A9D0F5'>
           <th>Fecha Abono</th>
-          <th>Paciente</th>
-          <th>Empresa</th>
+          <th colspan='2'>Paciente</th>
+          <th colspan='2'>Empresa</th>
           <th>Monto Abono</th>
       </thead>";           
 
@@ -197,28 +198,25 @@ public function get_detalle_abonos($id_paciente){
          
 $html.="<tr class='filas'>
 <td>".$row['fecha_abono']."</td>
-<td>".$row['nombres']."</td>
-<td>".$row['nombre']."</td> 
-<td>".'$ '.$row['monto_abono']."</td>";
+<td colspan='2'>".$row['nombres']."</td>
+<td colspan='2'>".$row['nombre']."</td> 
+<td>".'<span style="text-align: rigth">'.'$ '.$row['monto_abono'].'<span>'."</td>";
  
   $subtotal= $subtotal+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
               
 }
 
   $html .= "<tfoot>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th>
-                                    <p style='text-align:right; border: solid 1px black'>TOTAL ABONADO:&nbsp; </p>
-                                    </th>
-
-                                    <th>
-
-                                    <p style='text-align:right; border: solid 1px black'><strong>".$subtotal."&nbsp;</strong></p>
-
-                                   </th> 
-                                </tfoot>";
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>
+    <p style='text-align:right; border: solid 1px black'>TOTAL ABONADO:&nbsp; </p>
+    </th>
+  <th>
+  <p style='text-align:right; border: solid 1px black'><strong>".'$ '.$subtotal."&nbsp;</strong></p>
+    </th> 
+</tfoot>";
       
       echo $html;
 
@@ -371,6 +369,28 @@ public function get_total_venta($numero_venta){
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);             
 
+}
+
+/////////////////////SUMA CREDITOS EMPRESARIAL
+public function get_suma_creditos($id_empresa_total){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select sum(c.saldo) as suma_creditos,p.id_empresas from creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente where p.id_empresas=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_empresa_total);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/////////////////////SUMA ABONOS POR MES EMPRESARIAL
+public function get_suma_abonos($id_empresa_total){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select c.saldo,sum(c.monto/c.plazo) as suma_abonos,p.id_empresas from creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente where p.id_empresas=? and c.saldo>0;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_empresa_total);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
 }//FIN DE LA CLASE
