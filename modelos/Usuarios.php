@@ -42,7 +42,7 @@ public function login(){
         $_SESSION["id_usuario"] = $resultado["id_usuario"];
         $_SESSION["correo"] = $resultado["correo"];     
         $_SESSION["usuario"] = $resultado["usuario"];
-        $_SESSION["cedula"] = $sucursal_login;
+        $_SESSION["sucursal"] = $sucursal_login;
         $_SESSION["nombre"] = $resultado["nombres"];                  
 //PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS**************************
 

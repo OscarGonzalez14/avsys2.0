@@ -134,7 +134,7 @@
 <input type="hidden" name="cod_emp" id="cod_emp"/>
 <input type="hidden" name="id_paciente" id="id_paciente"/>
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
-<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["cedula"];?>"/>
+<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
 
 <button class="btn btn-primary btn-block" onClick="guardarPaciente();"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>

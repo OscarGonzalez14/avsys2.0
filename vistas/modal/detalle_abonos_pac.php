@@ -2,7 +2,7 @@
 
  <style>
     #tamModal{
-      width: 75% !important;
+      width: 85% !important;
     }
      #head{
         background-color: #034f84;
@@ -128,7 +128,7 @@
 <input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
 <input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
-<input type="hidden" name="sucursal" id="sucursal" value="Metrocentro">
+<input type="text" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
 <input type="hidden" name="hora" id="hora" value="4:00 pm">
 
 

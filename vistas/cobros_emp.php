@@ -25,12 +25,10 @@ require_once("../config/conexion.php");
 <input type="hidden" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
   <h2 align="center">ABONOS EMPRESARIAL</h2>
     <div class="row">
-
-
         <div class="col-sm-3" style="margin-left:35px;">
           <label for="ex3">Empresa</label>
           <input type="text" name="sucursal" id="empresa" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly placeholder="HAGA CLIC Y SELECIONE UNA EMPRESA">
-        </div>
+    </div>
 
         <div class="col-sm-2">
         <label for="sucursal">Sucursal</label>
@@ -112,7 +110,7 @@ require_once("../config/conexion.php");
 </div>
 </div>
 
-
+hhhhhhhhhhhhhhhhhh
  <script>
 n =  new Date();
 //Año

@@ -1,5 +1,5 @@
- <style>
-    #tamanoModal{
+<style>
+    #size-modal{
       width: 75% !important;
     }
      #encabezado{
@@ -11,7 +11,7 @@
 
 
    <div class="modal fade" id="detalle_abonos_modal">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog" id="size-modal">
             <div class="bg-warning">
               <div class="modal-header" id="encabezado">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -30,19 +30,19 @@
                
       <table id="detalle_paciente" class="table table-striped table-bordered table-condensed table-hover">
 
-        <thead style="background-color:#A9D0F5">
+        <thead style="background-color:black; color:white">
           <tr>
-            <th>No. Venta </th>
-            <th>Fecha Venta</th>
-            <th>Vendedor</th>
+            <th style="text-align:center">No. Venta </th>
+            <th style="text-align:center">Fecha Venta</th>
+            <th style="text-align:center">Vendedor</th>
                         
           </tr>
         </thead>
 
         <tbody>                            
-          <td><input type="text" name="numero_venta" id="numero_venta" class="form-control"></td>
-          <td><input type="text" name="fecha_venta" id="fecha_venta" class="form-control"></td>
-          <td><input type="text" name="vendedor" id="vendedor" class="form-control"></td>
+          <td><input type="text" name="numero_venta" id="numero_venta" class="form-control" readonly style="text-align:center;color:black"></td>
+          <td><input type="text" name="fecha_venta" id="fecha_venta" class="form-control" readonly style="text-align:center;color:black"></td>
+          <td><input type="text" name="vendedor" id="vendedor" class="form-control" readonly style="text-align:center;color:black"></td>
         </tbody>
 
       </table>

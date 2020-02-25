@@ -626,7 +626,7 @@ case "suma_total_creditos":
 	if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row)
 		{					
-			$output["suma_creditos"] = "$ ".$row["suma_creditos"];
+			$output["suma_creditos"] = "$ ".number_format($row["suma_creditos"],2,".",",");
 								
 		}		
 		      
@@ -641,7 +641,7 @@ case "suma_total_abonos":
 	if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row)
 		{					
-			$output["suma_abonos"] = "$ ".$row["suma_abonos"];
+			$output["suma_abonos"] = "$ ".number_format($row["suma_abonos"],2,".",",");
 								
 		}	      
     echo json_encode($output);

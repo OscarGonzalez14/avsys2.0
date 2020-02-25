@@ -175,7 +175,7 @@ public function get_detalle_abonos($id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
   
-  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,p.nombres,e.nombre,a.monto_abono,v.tipo_pago from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=?";
+  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,a.sucursal,p.nombres,e.nombre,u.usuario,a.monto_abono,v.tipo_pago,v.subtotal from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join usuarios as u on a.id_usuario=u.id_usuario join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=?    ";
 
           //echo $sql; exit();
   $sql=$conectar->prepare($sql);            
@@ -189,9 +189,12 @@ public function get_detalle_abonos($id_paciente){
           <th>Fecha Abono</th>
           <th colspan='2'>Paciente</th>
           <th colspan='2'>Empresa</th>
+          <th colspan='2'>Recibió</th>
+          <th colspan='2'>Sucursal</th>
+          <th colspan='2'>No.Recibo</th>
           <th>Monto Abono</th>
       </thead>";           
-
+$abonos_p=0;
               foreach($resultado as $row)
         {
 
@@ -199,23 +202,27 @@ public function get_detalle_abonos($id_paciente){
 $html.="<tr class='filas'>
 <td>".$row['fecha_abono']."</td>
 <td colspan='2'>".$row['nombres']."</td>
-<td colspan='2'>".$row['nombre']."</td> 
-<td>".'<span style="text-align: rigth">'.'$ '.$row['monto_abono'].'<span>'."</td>";
+<td colspan='2'>".$row['nombre']."</td>
+<td colspan='2'>".$row['usuario']."</td>
+<td colspan='2'>".$row['sucursal']."</td>
+<td colspan='2' style='text-align: center; font-size: 18px'>".$row['n_recibo']."</td>
+<td style='text-align: rigth'>".'<span style="text-align: rigth">'.'$ '.number_format($row['monto_abono'], 2,".",",").'<span>'."</td>";
  
-  $subtotal= $subtotal+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
+  $abonos_p= $abonos_p+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
               
 }
-
+$saldo = $row["subtotal"]-$abonos_p;
   $html .= "<tfoot>
     <th></th>
-    <th></th>
-    <th></th>
+    <th><p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>MONTO DEL CREDITO:&nbsp;$".$row["subtotal"]."&nbsp;</p></th>
     <th>
-    <p style='text-align:right; border: solid 1px black'>TOTAL ABONADO:&nbsp; </p>
+    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>TOTAL ABONADO:&nbsp;<strong>".'$ '.number_format($abonos_p, 2,".",",")."&nbsp;</strong></p>
+    </th>
+    <th>
+    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>SALDO ACTUAL:&nbsp;<strong>".'$ '.number_format($saldo, 2,".",",")."&nbsp;</strong></p>
     </th>
   <th>
-  <p style='text-align:right; border: solid 1px black'><strong>".'$ '.$subtotal."&nbsp;</strong></p>
-    </th> 
+  </th> 
 </tfoot>";
       
       echo $html;

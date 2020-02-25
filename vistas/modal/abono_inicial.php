@@ -25,7 +25,7 @@
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr>
-            <th><p align="center">No. Venta</p></th>
+            <th><p align="center">No. Ventas</p></th>
             <th><p align="center">Fecha</p></th>
             <th><p align="center" p>Recibí de:</p></th>
             <th><p align="center" p>Telefono:</p></th>

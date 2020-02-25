@@ -184,7 +184,7 @@ $conectar=parent::conexion();
   
   //////REGISTRAR ABONOS
   
-  $sql2="insert into abonos values(null,?,?,now(),?,?,?,?);";
+  $sql2="insert into abonos values(null,?,?,now(),?,?,?,?,?);";
   $sql2=$conectar->prepare($sql2);
   $sql2->bindValue(1,$abono_act);
   $sql2->bindValue(2,$forma_pago);
@@ -193,7 +193,7 @@ $conectar=parent::conexion();
   $sql2->bindValue(4,$id_usuario);
   $sql2->bindValue(5,$num_recibo);
   $sql2->bindValue(6,$num_venta);
-  //$sql2->bindValue(8,$);
+  $sql2->bindValue(7,$sucursal);
   $sql2->execute();
 
   $num_venta = $_POST["num_venta"];
