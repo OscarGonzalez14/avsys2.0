@@ -26,7 +26,7 @@ break;
 
 case "get_numero_recibo_abonos":
 
-    $datos= $recibo->get_recibo_num();	
+    $datos= $recibo->get_recibo_num($_POST["sucursal_correlativo"]);	
 
     // si existe el proveedor entonces recorre el array
 	if(is_array($datos)==true and count($datos)>0){

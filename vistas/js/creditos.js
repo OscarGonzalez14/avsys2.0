@@ -348,9 +348,6 @@ function calcularc()
 
 //ESTE EVENO ONCLICK CARGA LOS DATOS GENERALES DEL PACIENTE Y MONTO DEL CREDITO  EN MODAL DE ABONOS
 $(document).on('click', '.abonos_p', function(){
-  $('#detalle_abonos').modal('show');
-  $(".modal-title").text("Realizar Abono");  
-  
   var numero_venta=$(this).attr("id");
 
   $.ajax({
@@ -374,12 +371,34 @@ $(document).on('click', '.abonos_p', function(){
     })
 
 });
+
+//////LISTAR 
+$(document).on('click', '.abonos_p', function(){
+  var numero_venta=$(this).attr("id");
+
+ $.ajax({
+      url:"../ajax/recibos.php?op=get_datos_recibo_aros",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#marca_aro").val(data.marca);
+        $("#modelo_aro").val(data.modelo);
+        $("#color_aro").val(data.color);
+      }
+    });
+
+});
+
 //ESTE EVENTO ONCLICK CARGA EL NUMERO DE RECIBO
 $(document).on('click', '.abonos_p', function(){
- 
+ var sucursal_correlativo = $("#sucursal").val();
   $.ajax({
       url:"../ajax/recibos.php?op=get_numero_recibo_abonos",
       method:"POST",
+       data:{sucursal_correlativo:sucursal_correlativo},
       cache:false,
       dataType:"json",
       success:function(data)

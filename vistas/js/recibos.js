@@ -130,7 +130,7 @@ if(monto != "" ){
   setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100);
   //refresca la pagina, se llama a la funtion explode
   //setTimeout ("explode();", 2000);
-  $('#detalle_abonos').modal('hide');
+  //$('#detalle_abonos').modal('hide');
   $('#productoModal').modal('hide');
 
 }

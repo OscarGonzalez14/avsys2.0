@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -121,7 +120,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span style="text-transform: uppercase;text-align:center">OPTICA AV PLUS <?php echo $_SESSION["cedula"];?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="text-transform: uppercase;text-align:center">OPTICA AV PLUS <?php echo $_SESSION["sucursal"];?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="hidden-xs" style="text-transform: uppercase;text-align:center"><?php echo $_SESSION["usuario"]?></span>
             <i class="fa fa-sign-out" aria-hidden="true"> Cerrar Sesión</i>
             </a>

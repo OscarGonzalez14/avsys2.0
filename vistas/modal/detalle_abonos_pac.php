@@ -1,4 +1,11 @@
+<script type="text/javascript">
 
+  $(document).ready(ocultar_btn_imprimir);
+  function ocultar_btn_imprimir(){
+
+  document.getElementById("print_rec_current").style.display = "none";
+}
+</script>
 
  <style>
     #tamModal{
@@ -18,7 +25,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head"><div id="valida_rec"></div>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
         <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
       </div>
       <div class="modal-body">
@@ -39,7 +46,7 @@
           <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control' readonly></td>
           <td align="center"><input type="text" name="telefono" id="telefono" class='form-control' readonly></td>
           <td align="center"><input type="text" name="empresa_emp" id="empresa_emp" class='form-control' readonly></td>          
-         <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;"> </td>
+          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;" readonly> </td>
         </tbody>
       </table>
     <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto" placeholder="CANTIDAD EN LETRAS"></td><br>
@@ -128,21 +135,33 @@
 <input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
 <input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
-<input type="text" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
+<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
 <input type="hidden" name="hora" id="hora" value="4:00 pm">
 
 
-      </div>
+  </div style="display:block">
       <div class="modal-footer">
-    <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark pull-right btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+        <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark btn-md" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+       <a  id="print_rec_current" href="" style="margin-top:8px;"><button type="button" class="btn btn-blue btn-md"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+  
       </div>
-    </div>
+  </div>
 
   </div>
 </div>
 
 <script>
 
+$(document).on('click', '#btn_enviar_ini', function(){
+    mostrar_btn_imprimir_rec();
+    var num_recibo_current = $("#num_recibo").val();
+    document.getElementById("print_rec_current").href = 'print_recibos.php?numero_recibo_pac='+num_recibo_current;
+    
+  });
+
+function mostrar_btn_imprimir_rec(){
+  document.getElementById("print_rec_current").style.display = "block";
+}
 function nuevo_saldo(){
 
   var saldo_act = document.getElementById("saldo_act").value;

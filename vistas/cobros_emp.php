@@ -25,7 +25,7 @@ require_once("../config/conexion.php");
 <input type="hidden" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
   <h2 align="center">ABONOS EMPRESARIAL</h2>
     <div class="row">
-        <div class="col-sm-3" style="margin-left:35px;">
+        <div class="col-sm-2" style="margin-left:35px;">
           <label for="ex3">Empresa</label>
           <input type="text" name="sucursal" id="empresa" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly placeholder="HAGA CLIC Y SELECIONE UNA EMPRESA">
     </div>
@@ -35,9 +35,12 @@ require_once("../config/conexion.php");
           <input type="text" name="sucursal_emp" id="sucursal_emp" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly>
         </div>
 
+
+
         <div class="col-sm-1">
         <button type="button" class="btn btn-dark suma_creditos" id="suma_abonos" style="margin-top:25px;border-radius:5px;" onClick="lista_creditos_empresarial();" onMouseOver="this.style.color='white'" onMouseOut="this.style.color='white'"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
         </div>
+
         <div class="col-sm-1"></div>
         <div class="col-sm-2">
           <label for="sucursal">Total Creditos</label>
@@ -51,7 +54,6 @@ require_once("../config/conexion.php");
 
     </div>
 <div class="row">
-
   <div class="col-sm-12" style="margin-left:35px;">
   <h4 align="center" id="titulo"></h4>
    <table id="creditos_empresarial" class="table table-bordered table-striped">
@@ -75,8 +77,6 @@ require_once("../config/conexion.php");
 
 </div>
 <hr style="height: 2px; width: 80%; color:black">
-
-
 
 </div><!-- /.content-wrapper -->
  <div id="empresasModal" class="modal fade" data-modal-index="2">
@@ -108,9 +108,9 @@ require_once("../config/conexion.php");
 
   </div>
 </div>
+
 </div>
 
-hhhhhhhhhhhhhhhhhh
  <script>
 n =  new Date();
 //Año

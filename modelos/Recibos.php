@@ -100,12 +100,13 @@ public function get_recibo_sucursal($sucursal){
 
 }
 
-public function get_recibo_num(){
+public function get_recibo_num($sucursal_correlativo){
 
     $conectar= parent::conexion();         
-    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal='Metrocentro'";
+    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal=?";
 
     $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal_correlativo);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -256,6 +257,17 @@ public function get_detalle_recibo_paciente($numero_venta){
   $sql="select e.nombre,p.nombres,p.telefono,r.numero_venta,r.numero_recibo,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono,r.marca_aro,r.modelo_aro,r.color_aro from pacientes as p inner join recibos as r on p.id_paciente=r.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where numero_venta=? order by r.numero_recibo desc limit 1;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function print_recibo_paciente($numero_recibo_pac){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select e.nombre,p.nombres,p.telefono,r.numero_venta,r.numero_recibo,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono,r.marca_aro,r.modelo_aro,r.color_aro from pacientes as p inner join recibos as r on p.id_paciente=r.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where r.numero_recibo=? order by r.numero_recibo desc limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_recibo_pac);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -118,7 +118,7 @@ case 'pacientes_empresarial':
 		$sub_array[] = "$ ".$row["saldo"];       
 		$sub_array[] = "$ ".round($cuota_mensual,2);
 
-		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'"><i class="fa fa-usd"></i>' .$txt.'</i></button>';
+		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'" data-toggle="modal" data-target="#detalle_abonos" data-backdrop="static" data-keyboard="false"><i class="fa fa-usd"></i>' .$txt.'</i></button>';
 		$sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
 
 		$sub_array[] = '<a href="'.$href.'" method="POST" target="_blank"><button type="button"  class="btn '.$atrib.' btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';

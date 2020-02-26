@@ -37,11 +37,13 @@ ob_start();
 <div style="height:300px; border: solid 1px white;">
 <!---**********NOTAAAAAAA: CAMBIA AL SUBIR AL HOSTING CONECTION BD*************-->
 <?php
+$numero=$_GET["numero_venta"];
 $servername = "localhost";
 $username = "root";
 $password = "oscar14";
 $dbname = "avplu2";
 
+echo $numero;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
