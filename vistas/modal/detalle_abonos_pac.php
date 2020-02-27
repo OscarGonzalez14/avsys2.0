@@ -70,8 +70,8 @@
           <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;" readonly></td>
           <td align='center'><input class='form-control' type='text' class='monto' name='abono_ant' id="abono_ant" style="text-align: right;" readonly></td>
           <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
-          <td align='center'><input class='form-control' type='text' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;" required placeholder="ABONO ACTUAL"></td>          <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;" readonly></td>
-          <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
+          <td align='center'><input class='form-control' type='text' name='numero' id="numero" onclick="nuevo_saldo()" style="text-align: right;" required placeholder="ABONO ACTUAL"></td>          <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;" readonly></td>
+          <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
           <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
 
         </tbody>
@@ -103,19 +103,19 @@
   <div class="col-sm-4">
   <div class="input-group">
   <span class="input-group-addon">Diseño de Lente</span>
-  <input id="dis_lente" type="text" class="form-control" name="dis_lente" placeholder="---">
+  <input id="dis_lente" type="text" class="form-control" name="dis_lente" placeholder="---"readonly>
   </div>
   </div>
   <div class="col-sm-4">
       <div class="input-group">
   <span class="input-group-addon">Tipo de AR</span>
-  <input id="tipo_ar" type="text" class="form-control" name="tipo_ar" >
+  <input id="tipo_ar" type="text" class="form-control" name="tipo_ar" readonly>
   </div>
   </div>
   <div class="col-sm-4">
     <div class="input-group">
   <span class="input-group-addon">Marca de Photosensible</span>
-  <input id="photo" type="text" class="form-control" name="photo" >
+  <input id="photo" type="text" class="form-control" name="photo" readonly>
   </div>
   </div><br>
 <div class="col-sm-12">
@@ -142,7 +142,7 @@
   </div style="display:block">
       <div class="modal-footer">
         <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark btn-md" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
-       <a  id="print_rec_current" href="" style="margin-top:8px;"><button type="button" class="btn btn-blue btn-md"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+       <a  id="print_rec_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
   
       </div>
   </div>
@@ -181,8 +181,8 @@ function nuevo_saldo(){
 
 }
 
-    document.getElementById("numero").addEventListener("keyup",function(e){
-    document.getElementById("texto").value = NumeroALetras(this.value);
+    document.getElementById("forma_pago").addEventListener("click",function(e){
+    document.getElementById("texto").value = NumeroALetras($("#numero").val());
 });
  
  

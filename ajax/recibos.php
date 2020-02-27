@@ -75,6 +75,50 @@ case "get_datos_recibo_aros":
 	echo json_encode($output);
 		}
 break;
+///////////////////LISTA LETRAS ABONO ANTERIOR EMPRESARIAL
+case "get_abono_anterior":
+
+    $datos= $recibo->get_detalle_abono_anterior($_POST["numero_venta"]);	
+
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["abono_anterior"] = $row["abono_anterior"];
+		}
+		      
+	echo json_encode($output);
+		}
+break;
+
+//////////////GET LETRA MENSUAL Y SALADO EMPRESARIAL
+case "get_letra_mensual":
+
+    $datos= $recibo->get_detalle_letra_abono($_POST["numero_venta"]);	
+
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["cuota_mensual"] = $row["cuota_mensual"];
+			$output["saldo_actual"] = $row["saldo_actual"];
+		}
+		      
+	echo json_encode($output);
+}
+break;
+
+case "get_datos_recibo_lente":
+
+    $datos= $recibo->get_detalle_lentes_rec_ini($_POST["numero_venta"]);	
+
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["dis_lente"] = $row["dis_lente"];							
+	}
+		      
+	echo json_encode($output);
+}
+break;
 
 case "registrar_abono_inicial";
 	$recibo->agrega_detalle_abono($_POST['num_recibo'],$_POST['num_venta'],$_POST['monto'],$_POST['sucursal'],$_POST['id_paciente'],$_POST['id_usuario'],$_POST['hora'],$_POST['telefono'],$_POST['paciente'],$_POST['empresa'],$_POST['cant_letras'],$_POST['abono_ant'],$_POST['abono_act'],$_POST['saldo'],$_POST['forma_pago'],$_POST['marca_aro'],$_POST['modelo_aro'],$_POST['color_aro'],$_POST['lente'],$_POST['tipo_ar'],$_POST['photo'],$_POST['observaciones'],$_POST['asesor'],$_POST['prox_abono']);

@@ -62,18 +62,15 @@
     echo json_encode($output);
 	break;
 
-      case "activarydesactivar":
-     
-     //los parametros id_paciente y est vienen por via ajax
-     $datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
-
-          // si existe el id del paciente entonces recorre el array
-	      if(is_array($datos)==true and count($datos)>0){
-
-              //edita el estado del paciente
-		      $pacientes->editar_estado($_POST["id_paciente"],$_POST["est"]);
+case "activarydesactivar":     
+//los parametros id_paciente y est vienen por via ajax
+$datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
+     // si existe el id del paciente entonces recorre el array
+	 if(is_array($datos)==true and count($datos)>0){
+         //edita el estado del paciente
+		 $pacientes->editar_estado($_POST["id_paciente"],$_POST["est"]);
 		     
-	        } 
+	   } 
 
  break;
 

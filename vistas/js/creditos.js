@@ -391,6 +391,58 @@ $(document).on('click', '.abonos_p', function(){
     });
 
 });
+//////////////////////LISTAR ABONO ANTERIOR
+$(document).on('click', '.abonos_p', function(){
+  var numero_venta=$(this).attr("id");
+
+ $.ajax({
+      url:"../ajax/recibos.php?op=get_abono_anterior",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#abono_ant").val(data.abono_anterior);
+      }
+    });
+
+});
+////////////////////LETRA POR CUOTA
+$(document).on('click', '.abonos_p', function(){
+  var numero_venta=$(this).attr("id");
+
+ $.ajax({
+      url:"../ajax/recibos.php?op=get_letra_mensual",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#numero").val(data.cuota_mensual);
+        $("#saldo").val(data.saldo_actual);
+      }
+    });
+
+});
+
+
+$(document).on('click', '.abonos_p', function(){
+  var numero_venta=$(this).attr("id");
+
+ $.ajax({
+      url:"../ajax/recibos.php?op=get_datos_recibo_lente",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#dis_lente").val(data.dis_lente);
+      }
+    });
+});
 
 //ESTE EVENTO ONCLICK CARGA EL NUMERO DE RECIBO
 $(document).on('click', '.abonos_p', function(){

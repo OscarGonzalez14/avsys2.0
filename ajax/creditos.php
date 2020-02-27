@@ -271,8 +271,8 @@ case 'get_pacientes_c_automatico':
 					$output["numero_venta"] = $row["numero_venta"];
 					$output["telefono"] = $row["telefono"];
 					$output["nombre"] = $row["nombre"];
-					$output["monto"] = $row["monto"];
-					$output["saldo"] = $row["saldo"];
+					$output["monto"] =$row["monto"];
+					$output["saldo"] =$row["saldo"];
 					$output["id_paciente"] = $row["id_paciente"];
 								
 				}

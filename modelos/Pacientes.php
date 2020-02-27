@@ -6,12 +6,12 @@ require_once("../config/conexion.php");
 class Paciente extends Conectar
 {
 
-public function get_pacientes(){
+public function get_pacientes($sucursal_paciente){
 
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select*from pacientes order by id_paciente DESC";
+  $sql="select*from pacientes where sucursal=? order by id_paciente DESC";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal_paciente);

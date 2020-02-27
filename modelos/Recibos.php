@@ -265,7 +265,7 @@ public function print_recibo_paciente($numero_recibo_pac){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select e.nombre,p.nombres,p.telefono,r.numero_venta,r.numero_recibo,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono,r.marca_aro,r.modelo_aro,r.color_aro from pacientes as p inner join recibos as r on p.id_paciente=r.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where r.numero_recibo=? order by r.numero_recibo desc limit 1;";
+  $sql="select e.nombre,p.nombres,p.telefono,r.numero_venta,r.numero_recibo,r.cant_letras,r.monto,r.a_anteriores,r.abono_act,r.saldo,r.forma_pago,r.asesor,r.id_usuario,r.prox_abono,r.marca_aro,r.modelo_aro,r.color_aro,r.lente from pacientes as p inner join recibos as r on p.id_paciente=r.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where r.numero_recibo=? order by r.numero_recibo desc limit 1;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$numero_recibo_pac);
   $sql->execute();
@@ -282,7 +282,39 @@ public function get_detalle_aros_rec_ini($numero_venta){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+/////////////DEVUELVE ABONO ANTERIOR
 
+public function get_detalle_abono_anterior($numero_venta){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select monto_abono as abono_anterior,numero_venta from abonos where numero_venta=? order by id_abono DESC limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_detalle_letra_abono($numero_venta){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select monto as monto_credito,monto/plazo as cuota_mensual,saldo-(monto/plazo) as saldo_actual, numero_venta from creditos where numero_venta=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+public function get_detalle_lentes_rec_ini($numero_venta){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select p.id_producto,p.modelo as dis_lente,p.categoria,v.numero_venta from detalle_ventas as v inner join producto as p on p.id_producto=v.id_producto where v.numero_venta=? and p.categoria='lentes';";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 public function get_detalle_venta($numero_venta){
   $conectar=parent::conexion();

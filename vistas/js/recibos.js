@@ -110,7 +110,7 @@ function registra_abono_inicial(){
     
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(monto != "" ){
+if(monto != "" || forma_pago=="0"){
     $.ajax({
     url:"../ajax/recibos.php?op=registrar_abono_inicial",
     method:"POST",

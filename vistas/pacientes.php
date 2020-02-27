@@ -31,9 +31,9 @@
       <div class="content-wrapper">        
         <!-- Main content -->
 <section class="content">
-  <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["cedula"];?>">
+  <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["sucursal"];?>">
   <div id="resultados_ajax"></div>
-  <h3 align="center">PACIENTES <span style="text-transform: uppercase;"><?php echo $_SESSION["cedula"];?></span></h3>
+  <h3 align="center">PACIENTES <span style="text-transform: uppercase;"><?php echo $_SESSION["sucursal"];?></span></h3>
 
 <div class="row">
   <div class="col-md-12">
