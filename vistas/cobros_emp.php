@@ -38,8 +38,6 @@ require_once("../config/conexion.php");
           <input type="text" name="sucursal_emp" id="sucursal_emp" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly>
         </div>
 
-
-
         <div class="col-sm-1">
         <button type="button" class="btn btn-dark suma_creditos" id="suma_abonos" style="margin-top:25px;border-radius:5px;" onClick="lista_creditos_empresarial();" onMouseOver="this.style.color='white'" onMouseOut="this.style.color='white'"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
         </div>

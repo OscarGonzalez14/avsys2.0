@@ -175,7 +175,7 @@ public function get_detalle_abonos($id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
   
-  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,a.sucursal,p.nombres,e.nombre,u.usuario,a.monto_abono,v.tipo_pago,v.subtotal from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join usuarios as u on a.id_usuario=u.id_usuario join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=?    ";
+  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,a.sucursal,p.nombres,e.nombre,u.usuario,a.monto_abono,v.tipo_pago,v.subtotal from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join usuarios as u on a.id_usuario=u.id_usuario join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=? group by a.n_recibo";
 
           //echo $sql; exit();
   $sql=$conectar->prepare($sql);            

@@ -132,6 +132,7 @@
 
       </div>
       <div class="modal-footer">
+    <button type="button" onClick="explode()" class="btn btn-dark pull-left btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Cerrar</button>
     <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark pull-right btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
       </div>
     </div>

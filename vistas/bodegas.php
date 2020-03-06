@@ -38,7 +38,7 @@
     <div class="col-p">
       <div class="table-plan" id="sa">
         <br>
-          <a class="show_bdsa" data-toggle="modal" data-target="#lista_productos_bodegas_Modal">Ingresar Productos</a>
+          <a class="show_bdsa" data-toggle="modal" data-target="#lista_productos_bodegas_Modal" id="agrega_prods">Ingresar Productos</a>
           <a class="show_bdsa" data-toggle="modal" data-target="#lista_acc_bodegas_Modal">Ingresar Accesorios</a>
           <a>Historial de Ingresos</a>
       </div>
@@ -157,6 +157,15 @@
 <script type="text/javascript" src="js/bodegas.js"></script>
 <script type="text/javascript" src="js/productos.js"></script>
 
+<script type="text/javascript">
+
+$('body').keyup(function(e) {
+    if(e.which == 13){
+      $('#lista_productos_bodegas_data').modal('show');
+      $("#lista_productos_bodegas_data [type='search']").focus();
+    }
+  });
+</script>
 </body>
 </html>
  <?php  } else {

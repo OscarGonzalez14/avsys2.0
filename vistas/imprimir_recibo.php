@@ -272,11 +272,11 @@ ob_start();
 
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Marca Aro</span></div></td>
-    <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="19"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["marca_aro"];?></strong></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Modelo</span></div></td>
-    <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="19"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["modelo_aro"];?></strong></span></div></td>
     <td style="text-align: center" colspan="8"><div align="center"><span class="">Color</span></div></td>
-    <td style="text-align: center" colspan="16"><div align="center"><span class=""></span></div></td>
+    <td style="text-align: center;color:#034f84" colspan="16"><div align="center"><span class=""><strong><?php echo $datos_paciente[$i]["color_aro"];?></strong></span></div></td>
 </tr>
 
 <tr style="font-size:10pt" class="even_row">
@@ -284,7 +284,7 @@ ob_start();
     <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Tipo AR</span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
-    <td style="text-align: center" colspan="8"><div align="center"><span class="" style="font-size:14px;text-align:left">Photosensible</span></div></td>
+    <td style="text-align: center" colspan="8"><div align="center"><span class=""style="font-size:14px;text-align:left">Photosensible</span></div></td>
     <td style="text-align: center" colspan="16"><div align="center"><span class=""></span></div></td>
 </tr>
 <tr>

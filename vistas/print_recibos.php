@@ -85,7 +85,7 @@ ob_start();
 </tr>
 </table>
 
-<div style="height:370px;width:100%;margin-top:0px;">
+<div style="height:360px;width:100%;margin-top:0px;">
     
     <table width="80%" class="change_order_items">
 
@@ -144,7 +144,7 @@ ob_start();
 
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Lente</span></span></div></td>
-    <td style="text-align: center;color:#034f84;font-size:11px" colspan="19"><div align="center"><span class=""><?php echo $datos_recibo[$i]["lente"];?></span></div></td>
+    <td style="text-align: center;color:#034f84;font-size:9px" colspan="19"><div align="center"><span class=""><?php echo $datos_recibo[$i]["lente"];?></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Tipo AR</span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
     <td style="text-align: center" colspan="8"><div align="center"><span class=""style="font-size:14px;text-align:left">Photosensible</span></div></td>
@@ -214,7 +214,7 @@ ob_start();
 </tr>
 </table>
 
-<div style="height:340px;width:100%;margin-top:0px;">
+<div style="height:360px;width:100%;margin-top:0px;">
     
     <table width="80%" class="change_order_items">
 
@@ -272,7 +272,7 @@ ob_start();
 
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Lente</span></span></div></td>
-    <td style="text-align: center;color:#034f84;font-size:11px" colspan="19"><div align="center"><span class=""><?php echo $datos_recibo[$i]["lente"];?></span></div></td>
+    <td style="text-align: center;color:#034f84;font-size:9px" colspan="19"><div align="center"><span class=""><?php echo $datos_recibo[$i]["lente"];?></span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class="">Tipo AR</span></div></td>
     <td style="text-align: center" colspan="19"><div align="center"><span class=""></span></div></td>
     <td style="text-align: center" colspan="8"><div align="center"><span class=""style="font-size:14px;text-align:left">Photosensible</span></div></td>

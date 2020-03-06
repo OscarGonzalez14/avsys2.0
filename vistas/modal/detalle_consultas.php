@@ -51,10 +51,10 @@ function genPDF(){
         <!---->
         <thead style="background-color:#A9D0F5" >
           <tr>
-            <th colspan="2"><p align="center">Codigo</p></th>
-            <th colspan="2"><p align="center">Paciente</p></th>
-            <th><p colspan="1" align="center">Fecha de consulta</p></th>
-            <th><p colspan="1" align="left">Atendido por: </p></th>
+            <th colspan="2" style="padding:4px;border:black 0.5px solid;color:black"><p align="center">Codigo</p></th>
+            <th colspan="2" style="padding:4px;border:black 0.5px solid;color:black"><p align="center">Paciente</p></th>
+            <th style="padding:4px;border:black 0.5px solid;color:black"><p colspan="1" align="center">Fecha de consulta</p></th>
+            <th style="padding:4px;border:black 0.5px solid;color:black"><p colspan="1" align="left">Atendido por: </p></th>
           </tr>
         </thead>
           <tbody>                            

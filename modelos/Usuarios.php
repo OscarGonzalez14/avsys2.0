@@ -75,7 +75,7 @@ public function login(){
       in_array(11,$valores)?$_SESSION['ordenes']=1:$_SESSION['ordenes']=0;
       //in_array(12,$valores)?$_SESSION['cotizaciones']=1:$_SESSION['cotizaciones']=0;
       in_array(12,$valores)?$_SESSION['cobros']=1:$_SESSION['cobros']=0;
-      //in_array(17,$valores)?$_SESSION['evaluaciones']=1:$_SESSION['evaluaciones']=0;
+      in_array(13,$valores)?$_SESSION['evaluaciones']=1:$_SESSION['evaluaciones']=0;
       //**********************************************************************//FIN PERMISOS DEL USUARIO   
       header("Location:".Conectar::ruta()."vistas/home.php");
 

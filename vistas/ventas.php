@@ -163,10 +163,7 @@
     <div class="col-xs-3">
       <label for="sel1">Sucursal:</label>                
       <select class="form-control" name="sucursal" id="sucursal" required>
-          <option  value="">Seleccione una sucursal</option>
-          <option  value="Metrocentro">Metrocentro</option>
-          <option  value="Santa Ana">Santa Ana</option>
-          <option  value="Empresarial">Empresarial</option>
+          <option  value="<?php echo $_SESSION["sucursal"];?>"><?php echo $_SESSION["sucursal"];?></option>          
       </select>
     </div> 
 

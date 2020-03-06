@@ -76,7 +76,7 @@ $datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
 
 case "listar":
 
-	$datos=$pacientes->get_pacientes($_POST["sucursal_paciente"]);
+	$datos=$pacientes->get_pacientes_consultas($_POST["sucursal_paciente"]);
 	$data= Array();
 
     foreach($datos as $row)
@@ -88,8 +88,10 @@ case "listar":
 	        $sub_array[] = date("d-m-Y",strtotime($row["fecha_reg"]));
 			$sub_array[] = $row["nombres"];
 			$sub_array[] = $row["telefono"];
+			$sub_array[] = $row["empresa"];
 			$sub_array[] = $row["correo"];			            
-            $sub_array[] = '<button type="button" onClick="editar_paciente('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Paciente</button>';             
+            $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-infos btn-md"><i class="fa fa-hospital-o" aria-hidden="true"></i> Agregar Consulta</button>';
+            //$sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Editar Consulta</button>';              
                                                 
 		$data[] = $sub_array;
 	}

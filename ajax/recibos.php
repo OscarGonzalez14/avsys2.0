@@ -73,7 +73,7 @@ case "get_datos_recibo_aros":
 		}
 		      
 	echo json_encode($output);
-		}
+}
 break;
 ///////////////////LISTA LETRAS ABONO ANTERIOR EMPRESARIAL
 case "get_abono_anterior":
@@ -83,7 +83,7 @@ case "get_abono_anterior":
     // si existe el proveedor entonces recorre el array
 	if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row){					
-			$output["abono_anterior"] = $row["abono_anterior"];
+			$output["abono_anterior"] = number_format($row["abono_anterior"],2,".",",");
 		}
 		      
 	echo json_encode($output);
@@ -98,8 +98,8 @@ case "get_letra_mensual":
     // si existe el proveedor entonces recorre el array
 	if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row){					
-			$output["cuota_mensual"] = $row["cuota_mensual"];
-			$output["saldo_actual"] = $row["saldo_actual"];
+			$output["cuota_mensual"] = number_format($row["cuota_mensual"],2,".",",");
+			$output["saldo_actual"] = number_format($row["saldo_actual"],2,".",".");
 		}
 		      
 	echo json_encode($output);

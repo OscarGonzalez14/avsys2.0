@@ -28,6 +28,7 @@ function listar_en_bodegas(){
 
 	tabla_en_bodegas = $('#lista_productos_bodegas_data').dataTable(
 	{
+		
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla

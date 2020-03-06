@@ -96,9 +96,9 @@ if(isset($_SESSION["id_usuario"])){
         </thead>
 
         <tbody>
-        <td align="center"><select class='form-control' id='sucursal' name='sucursal'><option value='' required>Seleccione Sucursal</option><option value='Metrocentro'>Metrocentro</option><option value='Empresarial'>Empresarial</option><option value='Santa Ana'>Santa Ana</option></select></td></td>   
+        <td align="center"><select class='form-control' id='sucursal' name='sucursal' required><option value=''>Seleccione Sucursal</option><option value='Metrocentro'>Metrocentro</option><option value='Empresarial'>Empresarial</option><option value='Santa Ana'>Santa Ana</option></select></td></td>   
         <td><input type='text' class='form-control' id='paciente' name='paciente'></td>
-          <td align="center"><select class='form-control' id='foptica' name='optica'><option value='' required>Seleccione</option><option value='Lomed'>Lomed</option><option value='PrismaLab'>PrismaLab</option><option value='OptiProcesos'>OptiProcesos</option></select></td></td>
+          <td align="center"><select class='form-control' id='foptica' name='optica' required><option value=''>Seleccione</option><option value='Lomed'>Lomed</option><option value='PrismaLab'>PrismaLab</option><option value='OptiProcesos'>OptiProcesos</option></select></td></td>
         </tbody>
       </table>
 
@@ -140,8 +140,8 @@ if(isset($_SESSION["id_usuario"])){
       <tr>
         <td><strong>POLICARBONATO</strong></td>
         <td><input type="text" class="form-control" name="policarbonato" ></td>
-        <td><strong>AR</strong>&nbsp;&nbsp;&nbsp;<label class="checkbox-inline"><input type="checkbox" name="anti" value="Si">Si</label>
-        <label class="checkbox-inline"><input type="checkbox" value="No" name="anti">No</label></td>
+        <td><strong>AR</strong></td>
+        <td><select class='form-control' id='anti' name='anti' required><option value=''>Seleccione un Opción</option><option value='Si'>Si</option><option value='No'>No</option></select></td>
         <td style="text-align:right"><strong>CLASE DE LENTES</strong></td>
         <td colspan="2"><input type="text" class="form-control" name="tipo_lentes" ></td>
       </tr>
@@ -241,12 +241,13 @@ if(isset($_SESSION["id_usuario"])){
 <input type="hidden" name="estado" id="estado" value="Enviado de Optica a Laboratorio"/>
 <input id="id_credito" type="hidden" name="id_credito">
 <input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
-
+<button type="submit"  class="btn btn-blue pull-right btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Crear Orden</button>
 <br>
 
       </div>
       <div class="modal-footer">
-    <button type="submit"  class="btn btn-dark pull-right btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Crear Orden</button>
+    
+    </div>
 </form>    
       </div>
     </div>

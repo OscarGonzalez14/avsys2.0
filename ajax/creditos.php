@@ -272,7 +272,7 @@ case 'get_pacientes_c_automatico':
 					$output["telefono"] = $row["telefono"];
 					$output["nombre"] = $row["nombre"];
 					$output["monto"] =$row["monto"];
-					$output["saldo"] =$row["saldo"];
+					$output["saldo"] =number_format($row["saldo"],2,".",",");
 					$output["id_paciente"] = $row["id_paciente"];
 								
 				}

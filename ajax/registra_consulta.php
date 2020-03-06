@@ -38,11 +38,29 @@ $odesferasf = $_POST["odesferasf"];
 $odcilindrosf = $_POST["odcilindrosf"];
 $odejesf = $_POST["odejesf"];
 $dprismaf = $_POST["dprismaf"];
-$oddicionf  = $_POST["oddicionf"];     
+$oddicionf  = $_POST["oddicionf"];
+
+$odavsclejos = $_POST["odavsclejos"];
+$odavphlejos = $_POST["odavphlejos"];
+$odavcclejos= $_POST["odavcclejos"];
+$odavsccerca = $_POST["odavsccerca"];
+$oiavcolindrosf = $_POST["oiavcolindrosf"];
+$oiavesferasf = $_POST["oiavesferasf"];
+$oiavejesf = $_POST["oiavejesf"];
+$oiavprismaf = $_POST["oiavprismaf"];
+$oiavadicionf = $_POST["oiavadicionf"];
+$prisoicorrige = $_POST["prisoicorrige"];
+$addodcorrige = $_POST["addodcorrige"];
+$prisodcorrige = $_POST["prisodcorrige"];
+$addoicorrige = $_POST["addoicorrige"];
+$addoicorrige = $_POST["addoicorrige"];
+$ishihara = $_POST["ishihara"];
+$amsler = $_POST["amsler"];
+$anexos = $_POST["anexos"];
 
 $conexion = new Conexion();
 $cnn = $conexion->getConexion();
-$sql = "INSERT INTO consulta (motivo,patologias,id_paciente,id_usuario,oiesfreasl,oicilindrosl,oiejesl,oiprismal,oiadicionl,odesferasl,odcilndrosl,odejesl,odprismal,odadicionl,oiesferasa,oicolindrosa,oiejesa,oiprismaa,oiadiciona,odesferasa,odcilindrosa,odejesa,dprismaa,oddiciona,sugeridos,diagnostico,medicamento,observaciones,oiesferasf,oicolindrosf,oiejesf,oiprismaf,oiadicionf,odesferasf,odcilindrosf,odejesf,dprismaf,oddicionf) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$sql = "INSERT INTO consulta (motivo,patologias,id_paciente,id_usuario,oiesfreasl,oicilindrosl,oiejesl,oiprismal,oiadicionl,odesferasl,odcilndrosl,odejesl,odprismal,odadicionl,oiesferasa,oicolindrosa,oiejesa,oiprismaa,oiadiciona,odesferasa,odcilindrosa,odejesa,dprismaa,oddiciona,sugeridos,diagnostico,medicamento,observaciones,oiesferasf,oicolindrosf,oiejesf,oiprismaf,oiadicionf,odesferasf,odcilindrosf,odejesf,dprismaf,oddicionf,odavsclejos,odavphlejos,odavcclejos,odavsccerca,odavcccerca,oiavesferasf,oiavcolindrosf,oiavejesf,oiavprismaf,oiavadicionf,prisoicorrige,addodcorrige,prisodcorrige,addoicorrige,ishihara,amsler,anexos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 $statement = $cnn->prepare( $sql );
 	//Enlazar los parámetros de la consulta con los valores del formulario
@@ -85,7 +103,28 @@ $statement->bindParam(34,$odesferasf,PDO::PARAM_STR );
 $statement->bindParam(35,$odcilindrosf,PDO::PARAM_STR );
 $statement->bindParam(36,$odejesf,PDO::PARAM_STR );
 $statement->bindParam(37,$dprismaf,PDO::PARAM_STR );
-$statement->bindParam(38,$oddicionf,PDO::PARAM_STR ); 
+$statement->bindParam(38,$oddicionf,PDO::PARAM_STR );
+
+$statement->bindParam(39,$odavsclejos,PDO::PARAM_STR );
+$statement->bindParam(40,$odavphlejos,PDO::PARAM_STR );
+$statement->bindParam(41,$odavcclejos,PDO::PARAM_STR );
+$statement->bindParam(42,$odavsccerca,PDO::PARAM_STR );
+$statement->bindParam(43,$oiavcolindrosf,PDO::PARAM_STR );
+$statement->bindParam(44,$oiavesferasf,PDO::PARAM_STR );
+$statement->bindParam(45,$oiavejesf,PDO::PARAM_STR );
+$statement->bindParam(46,$oiavprismaf,PDO::PARAM_STR );
+$statement->bindParam(47,$oiavadicionf,PDO::PARAM_STR );
+$statement->bindParam(48,$prisoicorrige,PDO::PARAM_STR );
+$statement->bindParam(49,$addodcorrige,PDO::PARAM_STR );
+$statement->bindParam(50,$prisodcorrige,PDO::PARAM_STR );
+$statement->bindParam(51,$addoicorrige,PDO::PARAM_STR );
+$statement->bindParam(52,$addoicorrige,PDO::PARAM_STR );
+$statement->bindParam(53,$ishihara,PDO::PARAM_STR );
+$statement->bindParam(54,$amsler,PDO::PARAM_STR );
+$statement->bindParam(55,$anexos,PDO::PARAM_STR );
+
+
+
 
 
 echo $statement->execute() ? header('Location: ../vistas/pacientes.php')

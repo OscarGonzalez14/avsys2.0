@@ -18,7 +18,7 @@
 
   <style>
     #tamanoModal{
-      width: 75% !important;
+      width: 80% !important;
     }
      #encabezado{
         background-color: #034f84;
@@ -30,161 +30,46 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
-<section class="content">
-  <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["sucursal"];?>">
-  <div id="resultados_ajax"></div>
-  <h3 align="center">PACIENTES <span style="text-transform: uppercase;"><?php echo $_SESSION["sucursal"];?></span></h3>
+        <section class="content">
+             <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["sucursal"];?>">
+             <div id="resultados_ajax"></div>
 
-<div class="row">
-  <div class="col-md-12">
-      <div class="box">
-        <div class="box-header with-border">
-  <h1 class="box-title"><button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#pacienteModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Paciente</button></h1>
-  
-  <a href="#"><button class="btn btn-dark btn-lg"><i class="fa fa-list-alt" aria-hidden="true"></i>Expedientes</button></h1></a>
-  <div class="box-tools pull-right"></div></div>
-                    <!-- /.box-header -->
-                    <!-- centro -->
-    <div class="panel-body table-responsive">                          
-        <table id="paciente_data" class="table table-bordered table-striped">
+             <h3 align="center">PACIENTES <span style="text-transform: uppercase;"><?php echo $_SESSION["sucursal"];?></span></h3>
 
-            <thead>                              
-                <tr>                                  
-                <th>Codigo</th>
-                <th>Fecha</th>
-                <th>Nombres</th>
-                <th>Empresa</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Agregar</th>                                 
-                </tr>
-            </thead>
-          <tbody></tbody>
-        </table>
-    </div>                 
-                    <!--Fin centro -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="box">
+                    <div class="box-header with-border">
+            <a href="consultas.php"><button class="btn btn-blue btn-lg"><i class="fa fa-address-card-o" aria-hidden="true"></i>
+                              Evaluaciones Realizadas</button></h1></a>            
+            <div class="box-tools pull-right"></div>
+            </div>
+            <div class="panel-body table-responsive">
+                          
+              <table id="paciente_data" class="table table-bordered table-striped">
+                <thead>                              
+                    <tr>                                  
+                    <th>Codigo</th>
+                    <th>Fecha</th>
+                    <th>Nombres</th>
+                    <th>Correo</th>
+                    <th>Fecha de Registro</th>
+                    <th>Agregar consulta</th>
+                    <!--<th>Editar</th>-->
+                                                  
+                    </tr>
+                </thead>
+                <tbody></tbody>
+              </table>                     
+            </div> 
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+  </div><!-- /.row -->
 </section><!-- /.content -->
-
-    </div><!-- /.content-wrapper -->
+</div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
     
-   <!--FORMULARIO VENTANA MODAL-->
-  
-<div class="modal fade" id="pacienteModal" data-modal-index="1">
-    <div class="modal-dialog modal-lg">    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Agregar Paciente</h4>
-        </div>
-<div class="modal-body">
-
-  
-    <div class="form-group row">
-
-      <div class="col-xs-3">
-       <label>Codigo de Paciente</label>
-    <input type="text" class="form-control" id="codigo_paciente" name="codigo_paciente" readonly value="<?php $codigos=$codigo->codigo_paciente(); ?>">
-      </div>
-
-      <div class="col-xs-9">
-        <label for="ex1">Nombre</label>
-        <input class="form-control" id="nombres" name="nombres" type="text" placeholder="Escriba el Nombre del paciente"  required onkeyup="mayus(this);">
-      </div>
-      <div class="col-xs-3">
-        <label for="ex2">Telefono</label>
-        <input class="form-control" id="telefono" type="text" name="telefono" required>
-      </div>
-
-      <div class="col-xs-2">
-        <label for="ex3">Edad</label>
-        <input class="form-control" id="edad" type="number" name="edad" placeholder="edad" required>
-      </div>
-
-      <div class="col-xs-3">
-        <label for="ex3">DUI</label>
-        <input class="form-control" id="dui" type="text" name="dui" placeholder="DUI" required>
-      </div>
-
-      <div class="col-xs-4">
-        <label for="ex3">Ocupación</label>
-        <input class="form-control" id="ocupacion" type="text" name="ocupacion" placeholder="ocupacion del paciente" onkeyup="mayus(this);" required>
-      </div>
-
-      <div class="col-xs-4">
-        <label for="ex3">Correo</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
-      </div>
-
-      <div class="col-xs-7">
-        <label for="ex3">Empresa</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required readonly>
-      </div>
-
-      <div class="col-xs-1">
-      <label>Buscar</label>
-      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#empresasModal"><span class="glyphicon glyphicon-search"></button>       
-    </div>
-
-    </div>
-
-<input type="hidden" name="cod_emp" id="cod_emp"/>
-<input type="hidden" name="id_paciente" id="id_paciente"/>
-<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
-<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
-
-<button class="btn btn-primary btn-block" onClick="guardarPaciente();"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
-Guardar</button>
-
-
-  </div>
-        <div class="modal-footer">
-          <button class="btn btn-dark" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-
- <!--FIN FORMULARIO VENTANA MODAL-->
- <!-- Modal -->
-<div id="empresasModal" class="modal fade" data-modal-index="2">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">EMPRESAS</h4>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">        
-             <table id="lista_pacientes_data_emp" class="table table-bordered table-striped">               
-                <thead>
-                  <tr>
-                    <th >Codigo</th>          
-                    <th >Nombre</th>
-                    <th >Sucursal</th>
-                    <th >Agregar</th>
-                  </tr>
-                </thead>               
-              </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-</div>
-<!--FORMULARIO VENTANA MODAL CONSULTAS-->
+ <!--FORMULARIO VENTANA MODAL CONSULTAS-->
 <div class="modal fade" id="consultasModal" role="dialog">
     <div class="modal-dialog" id="tamanoModal">
     
@@ -328,19 +213,19 @@ Guardar</button>
     <tbody>
     <tr>
         <td>OD</td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odavsclejos"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odavphlejos"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odavcclejos"></td>
-        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="odavsccerca"></td>
-        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="odavcccerca"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odsclejos"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odphlejos"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odcclejos"></td>
+        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="odsccerca"></td>
+        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="odcccerca"></td>
       </tr>
       <tr>
         <td>OI</td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiavesferasf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiavcolindrosf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiavejesf"></td>
-        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="oiavprismaf"></td>
-        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="oiavadicionf"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiesferasf"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oicolindrosf"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiejesf"></td>
+        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="oiprismaf"></td>
+        <td style="background-color:#E0E0E0"> <input type="text" class="form-control" placeholder="---" name="oiadicionf"></td>
       </tr>
   </tbody>
   </table>
@@ -358,7 +243,6 @@ Guardar</button>
         <th style="text-align:center">CILIDROS</th>
         <th style="text-align:center">EJE</th>
         <th style="text-align:center">PRISMA</th>
-        <th style="text-align:center">CORRIGE</th>
         <th style="text-align:center">ADICION</th>
         <th style="text-align:center">CORRIGE</th>
       </tr>
@@ -370,9 +254,8 @@ Guardar</button>
         <td> <input type="text" class="form-control" placeholder="---" name="odcilindrosf"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="odejesf"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="dprismaf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="prisodcorrige"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="oddicionf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="addodcorrige"></td>        
+        <td> <input type="text" class="form-control" placeholder="---" name="odcorrige"></td>        
       </tr>
       <tr>
         <td>OI</td>
@@ -380,14 +263,13 @@ Guardar</button>
         <td> <input type="text" class="form-control" placeholder="---" name="oicolindrosf"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="oiejesf"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="oiprismaf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="prisoicorrige"></td>
         <td> <input type="text" class="form-control" placeholder="---" name="oiadicionf"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="addoicorrige"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oicorrige"></td>
       </tr>
     <tr style="display:hidden">
       <td colspan="1" style="display:hidden"></td>
       <td style="text-align:center;display:hidden" colspan="3"></td>
-      <td style="text-align:center;display:hidden" colspan="4"><span style="color:white">.</span></td>
+      <td style="text-align:center;display:hidden" colspan="3"><span style="color:white">.</span></td>
     </tr>
   </table>
 
@@ -395,20 +277,6 @@ Guardar</button>
   <!--rxfinal-->
 </div><!--fin agudezaVisual Rxfinal-->
 
-<div class="col-xs-12">
-    <label for="ex3">Test de ISHIHARA</label>
-    <input class="form-control" id="ishihara" type="text" name="ishihara" placeholder="Lentes sugeridos">
-</div>
-
-<div class="col-xs-12">
-    <label for="ex3">Test de AMSLER</label>
-    <input class="form-control" id="amsler" type="text" name="amsler" placeholder="Lentes sugeridos">
-</div>
-
-<div class="col-xs-12">
-    <label for="ex3">Superficie Ocular y Anexos</label>
-    <input class="form-control" id="anexos" type="text" name="anexos" placeholder="Lentes sugeridos">
-</div>
 
  
     <div class="col-xs-12">
@@ -452,6 +320,7 @@ Guardar</button>
     </div>
   </div>
  <!--FIN FORMULARIO VENTANA MODAL-->
+
 <script>
     $(function(){
       $('.btn[data-toggle=modal]').on('click', function(){

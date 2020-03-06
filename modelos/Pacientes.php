@@ -6,12 +6,12 @@ require_once("../config/conexion.php");
 class Paciente extends Conectar
 {
 
-public function get_pacientes($sucursal_paciente){
+public function get_pacientes_consultas($sucursal_paciente){
 
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select*from pacientes where sucursal=? order by id_paciente DESC";
+  $sql=" select p.id_paciente, p.codigo,p.fecha_reg,p.sucursal,e.nombre,p.telefono from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where sucursal=? order by id_paciente DESC";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal_paciente);
@@ -103,22 +103,21 @@ public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$oc
          
         }
 
- public function valida_registro($telefono){
+public function valida_registro($telefono){
+    $conectar= parent::conexion();
+    parent::set_names();
 
-          $conectar= parent::conexion();
-          parent::set_names();
+    $sql="select * from pacientes where telefono=?";
 
-          $sql="select * from pacientes where telefono=?";
+    $sql=$conectar->prepare($sql);
 
-                $sql=$conectar->prepare($sql);
+    //$sql->bindValue(1, $correo);
+    $sql->bindValue(1, $telefono);
+    $sql->execute();
 
-                //$sql->bindValue(1, $correo);
-                $sql->bindValue(1, $telefono);
-                $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-                return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-
-        }
+  }
 
 public function eliminar_paciente($id_paciente)
         {
