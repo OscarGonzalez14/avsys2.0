@@ -49,5 +49,17 @@ class Empresa extends Conectar
 
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-  }      
+  }
+
+public function get_detalle_empresas(){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select e.id_empresas as id,e.nombre,e.direccion,e.telefono,e.correo,p.nombres,count(p.nombres) as pacientes,sum(c.saldo)as saldo,sum(c.monto/c.plazo)as recuperado,e.responsable as rec from pacientes as p inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on c.id_paciente=p.id_paciente group by e.id_empresas;";////////agregar where e.id_empresas=?
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 }

@@ -1,5 +1,5 @@
 <?php
-	include '../config/conn.php';
+include '../config/conn.php';
 
 $id_paciente = $_POST["codigos"];
 $motivo = $_POST["motivo"];

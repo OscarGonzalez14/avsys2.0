@@ -53,7 +53,37 @@ require_once('../modelos/Empresa.php');
 	echo json_encode($output);
 
     break;
-	
+
+
+case 'listar_detalle_empresas':
+    	     
+    $datos=$empresa->get_detalle_empresas();
+ 	$data= Array();
+
+     foreach($datos as $row){					
+		$sub_array = array();
+
+	    $sub_array[] = $row["id"];
+	    $sub_array[] = $row["nombre"];
+	    $sub_array[] = $row["direccion"];
+	    $sub_array[] = $row["telefono"];
+	    $sub_array[] = $row["correo"];
+	    $sub_array[] = $row["nombres"];
+	    $sub_array[] = $row["pacientes"];
+	    $sub_array[] = $row["saldo"];
+	    $sub_array[] = $row["recuprado"];
+	    $sub_array[] = $row["rec"];
+		
+        $data[] = $sub_array;
+	}
+
+    $results = array(
+ 		"sEcho"=>1, //Información para el datatables
+ 		"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 		"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 		"aaData"=>$data);
+ 	echo json_encode($results);
+    break;
 
 }//cierre switch
   

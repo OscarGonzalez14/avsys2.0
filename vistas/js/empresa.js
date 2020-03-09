@@ -1,16 +1,11 @@
 var tabla_en_pacientes;
+var tabla_detalle_empresas;
 
 //Función que se ejecuta al inicio (se llama al final de este archivo)
 function init(){
     
-  listar_en_pacientes()
-	//ventana modal de la empresa
-
-	$("#empresa_form").on("submit", function(e)
-	{
-		editar_empresa(e);
-	})
-	
+  listar_en_pacientes();
+  detalle_por_empresas();
 	
 }
 
@@ -223,6 +218,88 @@ function editar_empresa(e)
 
 		});
 
+}
+
+
+///////////////detalle y resumen de saldos por empresa
+
+function detalle_por_empresas(){
+
+	tabla_detalle_empresas=$('#get_detalle_empresas_data').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		         
+		            'excelHtml5',
+
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/empresa.php?op=listar_detalle_empresas',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
 }
 
 

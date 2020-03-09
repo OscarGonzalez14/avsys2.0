@@ -52,7 +52,28 @@ public function get_filas_ordenes_vencidas(){
     $sql->execute();
     $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     return $sql->rowCount();      
-}   
+}  
+
+public function get_rxfinal_autocomplete($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.id_paciente,p.nombres,c.oiesferasf,c.oicolindrosf,c.oiejesf,c.oiprismaf,c.oiadicionf,c.odesferasf,c.odcilindrosf,c.odejesf,c.dprismaf,c.oddicionf from pacientes as p inner join consulta as c on p.id_paciente=c.id_paciente where p.id_paciente=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+} 
  
+public function get_pacientes_ordenes(){
+
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.id_paciente,p.nombres,e.nombre from pacientes as p inner join empresas as e on p.id_empresas=e.id_empresas order by p.id_paciente DESC";
+  $sql=$conectar->prepare($sql);
+  //$sql->bindValue(1,$sucursal_paciente);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+       }
 
 }

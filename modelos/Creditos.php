@@ -19,7 +19,7 @@ class Creditos extends Conectar
 public function get_pacientes_empresarial($id_empresas)
   {
     $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.plazo,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,e.id_empresas,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and e.id_empresas=? order by id_credito asc;;
+    $sql="select p.id_paciente,c.plazo,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,e.id_empresas,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and e.id_empresas=? group by c.id_credito order by id_credito asc;
     ";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$_POST["id_empresas"]);

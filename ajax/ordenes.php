@@ -96,6 +96,62 @@ case "listar_ordenes_vencidas":
 
 
 break;
+
+//////////////listar pacientes para agregar en orden
+
+case "listar_pac_en_ordenes":
+
+     $datos=$ordenes->get_pacientes_ordenes();
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+     foreach($datos as $row){					
+				 $sub_array = array();
+	             $sub_array[] = $row["nombres"];
+				 $sub_array[] = $row["nombre"];	
+
+                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
+				$data[] = $sub_array;
+			}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+//////////////fin agregar ven orden
+
+/////////AGREGAR DATOS A ORDEN
+case "complete_campos_orden":
+    $datos= $ordenes->get_rxfinal_autocomplete($_POST["id_paciente"]);	
+
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["nombres"] = $row["nombres"];
+			$output["oiesferasf"] = $row["oiesferasf"];
+			$output["oicolindrosf"] = $row["oicolindrosf"];
+			$output["oiejesf"] = $row["oiejesf"];
+			$output["oiprismaf"] = $row["oiprismaf"];
+			$output["oiadicionf"] = $row["oiadicionf"];
+			$output["odesferasf"] = $row["odesferasf"];
+			$output["odcilindrosf"] = $row["odcilindrosf"];
+			$output["odejesf"] = $row["odejesf"];
+			$output["dprismaf"] = $row["dprismaf"];
+			$output["oddicionf"] = $row["oddicionf"];
+			//$output[""] = $row[""];
+
+												
+		}		
+		      
+        echo json_encode($output);
+} 
+
+break;
      
 case 'recibe_orden':
     
@@ -106,7 +162,7 @@ case 'rechazar_orden':
     
       $actualiza=$ordenes->rechazar_orden($_POST["id_orden"]);
 break;
-     
+  
      
 }
 ?>

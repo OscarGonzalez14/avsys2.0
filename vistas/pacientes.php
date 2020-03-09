@@ -299,9 +299,29 @@ Guardar</button>
     </tbody>
   </table>
 </div><!--FIN AUTOREFRACT-->
+
 </div>
   <!--==================== FIN Autorefractometro==================-->
+<!--=======OBLEAS=======-->
+<div class="" style="margin:5px">
 
+<table class="table" style="border: solid 2px gray;border-radius:8px;width:100%" width="100%">
+    <tr>
+        
+        <td> <input type="text" class="form-control" placeholder="DIP" name="dip"></td>
+        <td> <input type="text" class="form-control" placeholder="OD" name="oddip"></td>
+        <td> <input type="text" class="form-control" placeholder="OI" name="oidip"></td>
+        <td>AO</td>
+        <td><input type="text" class="form-control" placeholder="OD" name="aood"></td>
+        <td><input type="text" class="form-control" placeholder="OI" name="aooi"></td>
+        <td>AP</td>
+        <td><input type="text" class="form-control" placeholder="OD" name="apod"></td>
+        <td><input type="text" class="form-control" placeholder="OI" name="opoi"></td>
+      </tr>      
+  </tbody>
+  </table>
+</div>
+<!--======= FIN OBLEAS=======-->
 
   <!--==================== Rx Final==================-->
 <div class="final-agudeza" style="display:flex">

@@ -23,7 +23,7 @@ if(isset($_SESSION["id_usuario"])){
     <div class="panel panel-default">        
         <div class="panel-body">
           <div class="btn-group text-center">
-            <a class="btn btn-dark btn-lg" data-toggle="modal" data-target="#nueva_orden"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden</a>
+            <a class="btn btn-dark btn-lg" data-toggle="modal" data-target="#nueva_orden" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden</a>
           </div>
        </div>
     </div>   
@@ -73,7 +73,7 @@ if(isset($_SESSION["id_usuario"])){
 
 
 <!-- Modal -->
-<div id="nueva_orden" class="modal fade" role="dialog">
+<div id="nueva_orden" class="modal fade" role="dialog" data-modal-index="1"> 
   <div class="modal-dialog" id="tamModal">
 
     <!-- Modal content-->
@@ -90,14 +90,14 @@ if(isset($_SESSION["id_usuario"])){
         <thead>
           <tr>
              <th><p align="center">Sucursal</p></th>  
-            <th><p align="center">Nombre del Paciente</p></th>
+            <th><p align="center">Seleccionar Paciente</p></th>
             <th><p align="center">Seleccione Laboratorio</p></th>
           </tr>
         </thead>
 
         <tbody>
         <td align="center"><select class='form-control' id='sucursal' name='sucursal' required><option value=''>Seleccione Sucursal</option><option value='Metrocentro'>Metrocentro</option><option value='Empresarial'>Empresarial</option><option value='Santa Ana'>Santa Ana</option></select></td></td>   
-        <td><input type='text' class='form-control' id='paciente' name='paciente'></td>
+        <td><input type='text' class='form-control' id='paciente' name='paciente' placeholder="Click Para Seleccionar Paciente" data-toggle="modal" data-target="#modalPaciente" readonly></td>
           <td align="center"><select class='form-control' id='foptica' name='optica' required><option value=''>Seleccione</option><option value='Lomed'>Lomed</option><option value='PrismaLab'>PrismaLab</option><option value='OptiProcesos'>OptiProcesos</option></select></td></td>
         </tbody>
       </table>
@@ -117,19 +117,19 @@ if(isset($_SESSION["id_usuario"])){
     <tbody>
       <tr>
         <td>OD</td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odesfreasl" ></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odcilindrosl" ></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odejesl" ></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odadicionl" ></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="odprismal"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odesfreaslord" id="odesfreaslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odcilindroslord" id="odcilindroslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odejeslord" id="odejeslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odadicionlord" id="odadicionlord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="odprismalord" id="odprismalord"></td>
       </tr>
       <tr>
         <td>OI</td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiesferasl"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oicilndrosl"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiejesl"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiadicionl"></td>
-        <td> <input type="text" class="form-control" placeholder="---" name="oiprismal"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiesferaslord" id="oiesferaslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oicilndroslord" id="oicilndroslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiejeslord" id="oiejeslord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiadicionlord" id="oiadicionlord"></td>
+        <td> <input type="text" class="form-control" placeholder="---" name="oiprismalord" id="oiprismalord"></td>
         
       </tr>
     </tbody>
@@ -256,7 +256,43 @@ if(isset($_SESSION["id_usuario"])){
 </div>
 <!--MUESTRA DETALLE ORDEN-->
 
-
+<!--LISTAR PACIENTES-->
+<div class="modal fade" id="modalPaciente" data-modal-index="2">
+    <div class="modal-dialog modal-lg">           
+        <div class="bg-warning">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><i class="fa fa-user-circle" aria-hidden="true"></i> Agregar Pacientes a Orden</h4>
+        </div>
+<div class="modal-body">
+    <div class="container box">        
+        <!--column-12 -->
+      <div class="table-responsive">        
+          <table id="lista_pacientes_ordenes_data" class="table table-bordered table-striped">               
+                <thead>
+                  <tr>
+                       
+                    <th >Paciente</th>
+                    <th >Empresa</th>
+                    <th >Agregar</th>
+                  </tr>
+                </thead>               
+            </table>
+            <!--</div>-->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-dark pull-right" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+<!--modal body-->
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!--FIN LISTAR PACIENTES-->
 
 <!-- ==========MODAL MUESTRA ORDEN-->
 <div id="show_orden" class="modal fade" role="dialog">
@@ -373,6 +409,32 @@ if(isset($_SESSION["id_usuario"])){
 
     <!--AJAX VENTAS-->
 <script type="text/javascript" src="js/ordenes.js"></script>
+<script>
+    $(function(){
+      $('.btn[data-toggle=modal]').on('click', function(){
+        var $btn = $(this);
+        var currentDialog = $btn.closest('.modal-dialog'),
+        targetDialog = $($btn.attr('data-target'));;
+        if (!currentDialog.length)
+          return;
+        targetDialog.data('previous-dialog', currentDialog);
+        currentDialog.addClass('aside');
+        var stackedDialogCount = $('.modal.in .modal-dialog.aside').length;
+        if (stackedDialogCount <= 5){
+          currentDialog.addClass('aside-' + stackedDialogCount);
+        }
+      });
+
+      $('.modal').on('hide.bs.modal', function(){
+        var $dialog = $(this);  
+        var previousDialog = $dialog.data('previous-dialog');
+        if (previousDialog){
+          previousDialog.removeClass('aside');
+          $dialog.data('previous-dialog', undefined);
+        }
+      });
+    })
+  </script>
 
  <script>
 n =  new Date();

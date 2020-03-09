@@ -30,7 +30,7 @@
 <div class="content-wrapper">        
         <!-- Main content -->
 <section class="content">
-  <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["cedula"];?>">
+  <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["sucursal"];?>">
   <div id="resultados_ajax"></div>
   <h3 align="center">MODULO EMPRESAS</h3>
 
@@ -42,16 +42,19 @@
             <div class="box-tools pull-right"></div>
           </div>
     <div class="panel-body table-responsive">                          
-        <table id="paciente_data" class="table table-bordered table-striped">
+        <table id="get_detalle_empresas_data" class="table table-bordered table-striped">
           <thead>                              
               <tr>                                  
                 <th>Cod.</th>
                 <th>Nombre</th>
+                <th>Sucursal</th>
                 <th>Telefono</th>
-                <th>Dirección</th>
-                <th>NIT</th>
-                <th>Responsable RRHH</th>                                
-                <th width="10%">Editar</th>                                
+                <th>Correo</th>
+                <th>No.Pacientes</th>
+                <th>Responsable RRHH</th>
+                <th>Saldo</th>
+                <th>Rec. Mensual</th>                                
+                <!--<th width="10%">Editar</th> -->                               
               </tr>
           </thead>
           <tbody>                     

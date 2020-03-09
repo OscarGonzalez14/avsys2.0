@@ -20,6 +20,19 @@ public function get_pacientes_consultas($sucursal_paciente){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
        }
 
+public function get_pacientes(){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select*from pacientes";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal_paciente);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}       
+
 public function codigo_paciente(){
 
     $conectar=parent::conexion();
