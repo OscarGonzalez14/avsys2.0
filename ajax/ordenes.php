@@ -110,7 +110,7 @@ case "listar_pac_en_ordenes":
 	             $sub_array[] = $row["nombres"];
 				 $sub_array[] = $row["nombre"];	
 
-                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["id_consulta"].');" id="'.$row["id_consulta"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
+                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["paciente"].');" id="'.$row["id_consulta"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
 				$data[] = $sub_array;
 			}
 
@@ -149,7 +149,7 @@ case "complete_campos_orden":
 			$output["aooi"] = $row["aooi"];
 			$output["apod"] = $row["apod"];
 			$output["opoi"] = $row["opoi"];
-			//$output[""] = $row[""];
+			$output["id_paciente"] = $row["id_paciente"];
 
 												
 		}		

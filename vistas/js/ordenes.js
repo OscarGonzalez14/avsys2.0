@@ -347,7 +347,9 @@ $(document).on('click', '.add_pac_orden', function(){
         $("#odoblea").val(data.aood);
         $("#oioblea").val(data.aooi);
         $("#odpupilar").val(data.apod);
-        $("#oipupilar").val(data.opoi);                
+        $("#oipupilar").val(data.opoi);
+        $("#codi_pac").val(data.id_paciente);
+
       }
     })
   });

@@ -147,8 +147,7 @@ if(isset($_SESSION["id_usuario"])){
       </tr>
       <tr>
         <td colspan="2"> <input type="text" class="form-control" placeholder="COLOR" name="color_lente"></td>
-        <td colspan="2"> <input type="text" class="form-control" placeholder="BASE" name="base_lente"></td>
-          
+        <td colspan="2"> <input type="text" class="form-control" placeholder="BASE" name="base_lente"></td>                
       </tr>
     </tbody>
   </table>
@@ -184,7 +183,7 @@ if(isset($_SESSION["id_usuario"])){
 
       <tr>
         <td>ARO</td>
-        <td> <input type="text" class="form-control" name="aro"></td>
+        <td> <input type="text" class="form-control" name="aro" placeholder="Haga click" data-toggle="modal" data-target="#modal_ventas_orden" readonly></td>
         <td> <input type="text" class="form-control" name="color_aro" placeholder="COLOR"></td>
         <td> <input type="text" class="form-control" name="medidas_aro" placeholder="MEDIDAS"></td>        
       </tr>
@@ -235,7 +234,7 @@ if(isset($_SESSION["id_usuario"])){
   </div>
 </div>
 
-
+<input id="codi_pac" type="text" name="codi_pac" class="form-control">
 </div> 
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["usuario"]; ?>"/>
 <input type="hidden" name="estado" id="estado" value="Enviado de Optica a Laboratorio"/>
@@ -395,6 +394,10 @@ if(isset($_SESSION["id_usuario"])){
     <label for="fecha">Fecha y Hora de Envio:</label>
     <input id="fecha" type="text" name="fecha" class="form-control" readonly>
   </div>
+
+
+    <input id="codi_pac" type="text" name="codi_pac" class="form-control">
+  
 </div>
 </div> 
 </div>
@@ -404,6 +407,43 @@ if(isset($_SESSION["id_usuario"])){
     </div>
 
   </div>
+
+  <!--LISTAR  VENTAS POR PACIENTES-->
+<div class="modal fade" id="modal_ventas_orden" data-modal-index="3">
+    <div class="modal-dialog modal-lg">           
+        <div class="bg-warning">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><i class="fa fa-user-circle" aria-hidden="true"></i> Agregar Venta a Orden</h4>
+        </div>
+<div class="modal-body">
+    <div class="container box">        
+        <!--column-12 -->
+      <div class="table-responsive">        
+          <table id="lista_ventas_ordenes_data" class="table table-bordered table-striped">               
+                <thead>
+                  <tr>                       
+                    <th >Paciente</th>
+                    <th >Aro</th>
+                    <th >No.Venta</th>
+                  </tr>
+                </thead>               
+            </table>
+            <!--</div>-->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-dark pull-right" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+<!--modal body-->
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!--FIN LISTAR PACIENTES-->
 </div>
 <?php require_once("footer.php");?>
 

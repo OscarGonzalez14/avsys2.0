@@ -65,7 +65,6 @@ public function get_rxfinal_autocomplete($id_consulta){
 } 
  
 public function get_pacientes_ordenes(){
-
   $conectar=parent::conexion();
   parent::set_names();
   $sql="select c.id_consulta,p.nombres,e.nombre from consulta as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas;";
@@ -74,6 +73,16 @@ public function get_pacientes_ordenes(){
   $sql->execute();
 
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-       }
+}
+
+public function get_ordenes_ventas($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.nombres,p.id_paciente,a.modelo,a.categoria,d.numero_venta from pacientes as p inner join detalle_ventas as d on p.id_paciente=d.id_paciente inner join producto as a on d.id_producto=a.id_producto where a.categoria='aros' and p.id_paciente=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_consulta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+} 
 
 }
