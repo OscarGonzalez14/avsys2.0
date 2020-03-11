@@ -110,7 +110,7 @@ case "listar_pac_en_ordenes":
 	             $sub_array[] = $row["nombres"];
 				 $sub_array[] = $row["nombre"];	
 
-                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
+                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["id_consulta"].');" id="'.$row["id_consulta"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
 				$data[] = $sub_array;
 			}
 
@@ -127,7 +127,7 @@ case "listar_pac_en_ordenes":
 
 /////////AGREGAR DATOS A ORDEN
 case "complete_campos_orden":
-    $datos= $ordenes->get_rxfinal_autocomplete($_POST["id_paciente"]);	
+    $datos= $ordenes->get_rxfinal_autocomplete($_POST["id_consulta"]);	
 
 	if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row)
@@ -143,6 +143,12 @@ case "complete_campos_orden":
 			$output["odejesf"] = $row["odejesf"];
 			$output["dprismaf"] = $row["dprismaf"];
 			$output["oddicionf"] = $row["oddicionf"];
+			$output["oddip"] = $row["oddip"];
+			$output["oidip"] = $row["oidip"];
+			$output["aood"] = $row["aood"];
+			$output["aooi"] = $row["aooi"];
+			$output["apod"] = $row["apod"];
+			$output["opoi"] = $row["opoi"];
 			//$output[""] = $row[""];
 
 												

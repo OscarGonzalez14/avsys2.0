@@ -168,17 +168,17 @@ if(isset($_SESSION["id_usuario"])){
     <tbody>
       <tr>
         <td>OD</td>
-        <td> <input type="text" class="form-control" name="odoblea" ></td>
-        <td> <input type="text" class="form-control" name="odpupilar" ></td>
-        <td> <input type="text" class="form-control" name="oddplejos" ></td>
-        <td> <input type="text" class="form-control" name="odpcerca" ></td>
+        <td> <input type="text" class="form-control" name="odoblea"  id="odoblea"></td>
+        <td> <input type="text" class="form-control" name="odpupilar"  id="odpupilar"></td>
+        <td> <input type="text" class="form-control" name="oddplejos"  id="oddplejos"></td>
+        <td> <input type="text" class="form-control" name="odpcerca"  id="odpcerca"></td>
       </tr>
       <tr>
         <td>OI</td>
-        <td> <input type="text" class="form-control" name="oioblea"></td>
-        <td> <input type="text" class="form-control" name="oipupilar"></td>
-        <td> <input type="text" class="form-control" name="oidplejos"></td>
-        <td> <input type="text" class="form-control" name="oidpcerca"></td>
+        <td> <input type="text" class="form-control" name="oioblea" id="oioblea"></td>
+        <td> <input type="text" class="form-control" name="oipupilar" id="oipupilar"></td>
+        <td> <input type="text" class="form-control" name="oidplejos" id="oidplejos"></td>
+        <td> <input type="text" class="form-control" name="oidpcerca" id="oidpcerca"></td>
         
       </tr>
 

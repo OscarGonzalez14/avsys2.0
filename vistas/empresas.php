@@ -175,7 +175,7 @@ var nit = new Cleave('#nit_emp', {
   require_once("footer.php");
 ?>
 
-<script type="text/javascript" src="js/empresas.js"></script>
+<script type="text/javascript" src="js/empresa.js"></script>
 <?php
    
   } else {

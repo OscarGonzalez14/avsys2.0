@@ -68,11 +68,11 @@ case 'listar_detalle_empresas':
 	    $sub_array[] = $row["direccion"];
 	    $sub_array[] = $row["telefono"];
 	    $sub_array[] = $row["correo"];
-	    $sub_array[] = $row["nombres"];
+	    //$sub_array[] = $row["nombres"];
 	    $sub_array[] = $row["pacientes"];
-	    $sub_array[] = $row["saldo"];
-	    $sub_array[] = $row["recuprado"];
-	    $sub_array[] = $row["rec"];
+	     $sub_array[] = $row["responsable"];
+	    $sub_array[] = number_format($row["saldo"],2,".",",");
+	    $sub_array[] = number_format($row["recuperado"],2,".",",");	   
 		
         $data[] = $sub_array;
 	}

@@ -321,12 +321,12 @@ function show_orden(id_orden)
 
 $(document).on('click', '.add_pac_orden', function(){
     //toma el valor del id
-    var id_paciente = $(this).attr("id");
+    var id_consulta = $(this).attr("id");
     $('#modalPaciente').modal('hide');
     $.ajax({
       url:"../ajax/ordenes.php?op=complete_campos_orden",
       method:"POST",
-      data:{id_paciente:id_paciente},
+      data:{id_consulta:id_consulta},
       cache:false,
       dataType:"json",
       success:function(data)
@@ -342,7 +342,12 @@ $(document).on('click', '.add_pac_orden', function(){
         $("#oiejeslord").val(data.oiejesf);
         $("#oiadicionlord").val(data.oiprismaf);
         $("#oiprismalord").val(data.oiadicionf);
-                
+        $("#oddplejos").val(data.oddip);
+        $("#oidplejos").val(data.oidip);
+        $("#odoblea").val(data.aood);
+        $("#oioblea").val(data.aooi);
+        $("#odpupilar").val(data.apod);
+        $("#oipupilar").val(data.opoi);                
       }
     })
   });

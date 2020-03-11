@@ -137,7 +137,7 @@
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
 
-<button class="btn btn-primary btn-block" onClick="guardarPaciente();"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+<button class="btn btn-primary btn-block" onClick="guardarPaciente();" id="save_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>
 
 
@@ -302,27 +302,6 @@ Guardar</button>
 
 </div>
   <!--==================== FIN Autorefractometro==================-->
-<!--=======OBLEAS=======-->
-<div class="" style="margin:5px">
-
-<table class="table" style="border: solid 2px gray;border-radius:8px;width:100%" width="100%">
-    <tr>
-        
-        <td> <input type="text" class="form-control" placeholder="DIP" name="dip"></td>
-        <td> <input type="text" class="form-control" placeholder="OD" name="oddip"></td>
-        <td> <input type="text" class="form-control" placeholder="OI" name="oidip"></td>
-        <td>AO</td>
-        <td><input type="text" class="form-control" placeholder="OD" name="aood"></td>
-        <td><input type="text" class="form-control" placeholder="OI" name="aooi"></td>
-        <td>AP</td>
-        <td><input type="text" class="form-control" placeholder="OD" name="apod"></td>
-        <td><input type="text" class="form-control" placeholder="OI" name="opoi"></td>
-      </tr>      
-  </tbody>
-  </table>
-</div>
-<!--======= FIN OBLEAS=======-->
-
   <!--==================== Rx Final==================-->
 <div class="final-agudeza" style="display:flex">
   <!--==================== AgudezaVisual==================-->
@@ -414,7 +393,26 @@ Guardar</button>
   </div>
   <!--rxfinal-->
 </div><!--fin agudezaVisual Rxfinal-->
+<!--=======OBLEAS=======-->
+<div class="" style="margin:5px">
 
+<table class="table" style="border: solid 2px gray;border-radius:8px;width:100%" width="100%">
+    <tr>
+        
+        <td> <input type="text" class="form-control" placeholder="DIP" name="dip"></td>
+        <td> <input type="text" class="form-control" placeholder="OD" name="oddip"></td>
+        <td> <input type="text" class="form-control" placeholder="OI" name="oidip"></td>
+        <td>AO</td>
+        <td><input type="text" class="form-control" placeholder="OD" name="aood"></td>
+        <td><input type="text" class="form-control" placeholder="OI" name="aooi"></td>
+        <td>AP</td>
+        <td><input type="text" class="form-control" placeholder="OD" name="apod"></td>
+        <td><input type="text" class="form-control" placeholder="OI" name="opoi"></td>
+      </tr>      
+  </tbody>
+  </table>
+</div>
+<!--======= FIN OBLEAS=======-->
 <div class="col-xs-12">
     <label for="ex3">Test de ISHIHARA</label>
     <input class="form-control" id="ishihara" type="text" name="ishihara" placeholder="Lentes sugeridos">
@@ -515,6 +513,10 @@ $(document).on('click', '#addEmpresa', function() {
         $('#myModal').modal('show');
     });
 
+/*$(document).on('click', '#save_paciente', function(){    
+    $('#pacienteModal').modal('hide');
+  });
+*/
  </script>
 
   

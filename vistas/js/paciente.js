@@ -207,6 +207,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
     },        
       
   success:function(data){
+  	cerrarModal_pac();
   setTimeout ("bootbox.alert('Se ha registrado el Paciente con exito');", 100);
   //refresca la pagina, se llama a la funtion explode
   setTimeout ("explode();", 2000);          
@@ -220,7 +221,9 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
   
     
 }
-
+function cerrarModal_pac(){
+    $('#pacienteModal').modal('hide');
+}
 	//la funcion guardaryeditar(e); se llama cuando se da click al boton submit
 function guardaryeditar(e)
 {
