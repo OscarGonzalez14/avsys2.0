@@ -67,7 +67,7 @@ public function get_rxfinal_autocomplete($id_consulta){
 public function get_pacientes_ordenes(){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select c.id_consulta,p.nombres,e.nombre from consulta as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas;";
+  $sql="select c.id_consulta,Date_format(c.fecha_reg,'%d/%m/%Y') as fecha,p.nombres,e.nombre from consulta as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas;";
   $sql=$conectar->prepare($sql);
   //$sql->bindValue(1,$sucursal_paciente);
   $sql->execute();
@@ -75,14 +75,24 @@ public function get_pacientes_ordenes(){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function get_ordenes_ventas($id_paciente){
+public function ventas_aro_orden($id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select p.nombres,p.id_paciente,a.modelo,a.categoria,d.numero_venta from pacientes as p inner join detalle_ventas as d on p.id_paciente=d.id_paciente inner join producto as a on d.id_producto=a.id_producto where a.categoria='aros' and p.id_paciente=?;";
+  $sql="select p.nombres,p.id_paciente,a.modelo,a.categoria,a.color,a.medidas,d.numero_venta from pacientes as p inner join detalle_ventas as d on p.id_paciente=d.id_paciente inner join producto as a on d.id_producto=a.id_producto where a.categoria='aros' and p.id_paciente=?;";
   $sql=$conectar->prepare($sql);
-  $sql->bindValue(1,$id_consulta);
+  $sql->bindValue(1,$id_paciente);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 } 
 
+
+public function ventas_aro_orden_item($numero_venta){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select d.numero_venta,p.modelo,p.categoria,p.color,p.medidas from detalle_ventas as d inner join producto as p on p.id_producto=d.id_producto where p.categoria='aros' and d.numero_venta=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_venta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 }

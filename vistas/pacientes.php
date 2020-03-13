@@ -61,11 +61,11 @@
             </thead>
           <tbody></tbody>
         </table>
-    </div>                 
-                    <!--Fin centro -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+    </div>                
+    <!--Fin centro -->
+    </div><!-- /.box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
 </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->

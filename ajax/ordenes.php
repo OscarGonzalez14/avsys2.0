@@ -40,14 +40,12 @@
 					$estado='ORDEN RECIBIDA EN OPTICA';
 					$class = "btn btn-edit btn-block";
 				}
-				
-				
-			
-	             $sub_array[] = $row["numero_orden"];
-	             $sub_array[] = $row["fecha"];
-				 $sub_array[] = $row["optica"];
-				 $sub_array[] = $row["sucursal"];
-				 $sub_array[] = $row["paciente"];
+								
+			    $sub_array[] = $row["numero_orden"];
+	            $sub_array[] = $row["fecha"];
+				$sub_array[] = $row["optica"];
+				$sub_array[] = $row["sucursal"];
+				$sub_array[] = $row["paciente"];
             
                 $sub_array[] = '<button type="button" class="btn btn-dark btn-md" data-toggle="modal" data-target="#show_orden" onClick="show_orden_data('.$row["id_orden"].')"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button>';
                 $sub_array[] = '<button type="button" class="btn btn-dark btn-md"  onClick="rechazar_orden('.$row["id_orden"].')" ><i class="fa fa-thumbs-o-down"></i> Rechazar</button>';
@@ -62,7 +60,6 @@
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
  		echo json_encode($results);
-
 
 break;
 
@@ -107,10 +104,12 @@ case "listar_pac_en_ordenes":
 
      foreach($datos as $row){					
 				 $sub_array = array();
+				 $sub_array[] = $row["id_consulta"];
+				 $sub_array[] = $row["fecha"];
 	             $sub_array[] = $row["nombres"];
 				 $sub_array[] = $row["nombre"];	
 
-                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["paciente"].');" id="'.$row["id_consulta"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
+                 $sub_array[] = '<button type="button" onClick="agregar_paciente_orden('.$row["id_paciente"].');" id="'.$row["id_consulta"].'" class="btn btn-edit btn-md add_pac_orden"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';                
 				$data[] = $sub_array;
 			}
 
@@ -123,9 +122,8 @@ case "listar_pac_en_ordenes":
 
 
      break;
-//////////////fin agregar ven orden
 
-/////////AGREGAR DATOS A ORDEN
+/////////AGREGAR DATOS A ORDEN/////////////////
 case "complete_campos_orden":
     $datos= $ordenes->get_rxfinal_autocomplete($_POST["id_consulta"]);	
 
@@ -158,6 +156,40 @@ case "complete_campos_orden":
 } 
 
 break;
+
+case "buscar_ordenes_aros_orden":
+
+    $datos= $ordenes->ventas_aro_orden($_POST["id_paciente"]);
+        //Vamos a declarar un array
+ 	    $data= Array();
+
+	    foreach($datos as $row){
+	    $sub_array = array();
+       
+        $sub_array[] = $row["numero_venta"];
+        $sub_array[] = $row["nombres"];
+        //$sub_array[] = $row["id_paciente"];
+        $sub_array[] = $row["modelo"];
+        //$sub_array[] = $row["categoria"];
+       
+        $sub_array[] = $row["medidas"];
+        $sub_array[] = '<button type="button" id="'.$row["numero_venta"].'" class="btn btn-edit btn-md add_pac_orden_aro"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';
+
+        $data[] = $sub_array;
+        
+        }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
      
 case 'recibe_orden':
     
@@ -168,7 +200,23 @@ case 'rechazar_orden':
     
       $actualiza=$ordenes->rechazar_orden($_POST["id_orden"]);
 break;
-  
+case "complete_campos_orden_aro":
+    $datos= $ordenes->ventas_aro_orden_item($_POST["numero_venta"]);	
+
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			
+			$output["modelo"] = $row["modelo"];
+			$output["color"] = $row["color"];
+			$output["medidas"] = $row["medidas"];
+												
+		}		
+		      
+        echo json_encode($output);
+} 
+
+break; 
      
 }
 ?>

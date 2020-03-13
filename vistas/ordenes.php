@@ -183,9 +183,9 @@ if(isset($_SESSION["id_usuario"])){
 
       <tr>
         <td>ARO</td>
-        <td> <input type="text" class="form-control" name="aro" placeholder="Haga click" data-toggle="modal" data-target="#modal_ventas_orden" readonly></td>
-        <td> <input type="text" class="form-control" name="color_aro" placeholder="COLOR"></td>
-        <td> <input type="text" class="form-control" name="medidas_aro" placeholder="MEDIDAS"></td>        
+        <td> <input type="text" class="form-control" name="aro" id="aro_venta" placeholder="Haga click" data-toggle="modal" data-target="#modal_ventas_orden" required onkeypress="return false;" required></td>
+        <td> <input type="text" class="form-control" name="color_aro"  id="color_aro_venta" placeholder="COLOR" required onkeypress="return false;" required></td>
+        <td> <input type="text" class="form-control" name="medidas_aro"  id="medidas_aro_venta" placeholder="MEDIDAS" required onkeypress="return false;" required></td>        
       </tr>
       <tr>
         <td colspan="5"> <input type="text" class="form-control" placeholder="OBSERVACIONES" name="odesferasl"></td>
@@ -271,7 +271,8 @@ if(isset($_SESSION["id_usuario"])){
           <table id="lista_pacientes_ordenes_data" class="table table-bordered table-striped">               
                 <thead>
                   <tr>
-                       
+                    <th >No.Consulta</th>
+                    <th >Fecha consulta</th>   
                     <th >Paciente</th>
                     <th >Empresa</th>
                     <th >Agregar</th>
@@ -296,7 +297,6 @@ if(isset($_SESSION["id_usuario"])){
 <!-- ==========MODAL MUESTRA ORDEN-->
 <div id="show_orden" class="modal fade" role="dialog">
   <div class="modal-dialog" id="tamModal">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head">
@@ -353,8 +353,7 @@ if(isset($_SESSION["id_usuario"])){
         <td> <input type="text" class="form-control" placeholder="---" id="oicilndrosl_o"></td>
         <td> <input type="text" class="form-control" placeholder="---" id="oiejesl_o"></td>
         <td> <input type="text" class="form-control" placeholder="---" id="oiprismal_o"></td>
-        <td> <input type="text" class="form-control" placeholder="---" id="oiadicionl_o"></td>
-        
+        <td> <input type="text" class="form-control" placeholder="---" id="oiadicionl_o"></td>        
       </tr>
     </tbody>
   </table>
@@ -394,11 +393,8 @@ if(isset($_SESSION["id_usuario"])){
     <label for="fecha">Fecha y Hora de Envio:</label>
     <input id="fecha" type="text" name="fecha" class="form-control" readonly>
   </div>
-
-
-    <input id="codi_pac" type="text" name="codi_pac" class="form-control">
-  
-</div>
+    <input id="codi_pac" type="hidden" name="codi_pac" class="form-control">  
+  </div>
 </div> 
 </div>
       <div class="modal-footer">
@@ -424,9 +420,11 @@ if(isset($_SESSION["id_usuario"])){
           <table id="lista_ventas_ordenes_data" class="table table-bordered table-striped">               
                 <thead>
                   <tr>                       
-                    <th >Paciente</th>
-                    <th >Aro</th>
-                    <th >No.Venta</th>
+                    <th >#Venta</th>
+                    <th >Nombre</th>
+                    <th >Modelo</th>
+                    <th >Medidas</th>
+                    <th >Agregar</th>
                   </tr>
                 </thead>               
             </table>
@@ -474,6 +472,8 @@ if(isset($_SESSION["id_usuario"])){
         }
       });
     })
+
+    
   </script>
 
  <script>

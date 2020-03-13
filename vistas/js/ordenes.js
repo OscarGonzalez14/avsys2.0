@@ -342,6 +342,7 @@ $(document).on('click', '.add_pac_orden', function(){
         $("#oiejeslord").val(data.oiejesf);
         $("#oiadicionlord").val(data.oiprismaf);
         $("#oiprismalord").val(data.oiadicionf);
+
         $("#oddplejos").val(data.oddip);
         $("#oidplejos").val(data.oidip);
         $("#odoblea").val(data.aood);
@@ -350,6 +351,116 @@ $(document).on('click', '.add_pac_orden', function(){
         $("#oipupilar").val(data.opoi);
         $("#codi_pac").val(data.id_paciente);
 
+      }
+    })
+  });
+
+
+ $(document).on("click","#aro_venta", function(){
+
+    var id_paciente = $("#codi_pac").val();
+
+	var tabla_ventas_aro_orden= $('#lista_ventas_ordenes_data').DataTable({
+	        
+	"aProcessing": true,//Activamos el procesamiento del datatables
+	"aServerSide": true,//Paginación y filtrado realizados por el servidor
+	dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+
+	         "ajax":{
+	            url:"../ajax/ordenes.php?op=buscar_ordenes_aros_orden",
+                type : "post",
+				//dataType : "json",
+				data:{id_paciente:id_paciente},						
+				error: function(e){
+					console.log(e.responseText);
+
+				},
+
+	          
+	          },
+
+	            "bDestroy": true,
+				"responsive": true,
+				"bInfo":true,
+				"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+			    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+	          "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }, //cerrando language
+
+      });
+
+	       
+	    });
+
+
+$(document).on('click', '.add_pac_orden_aro', function(){
+    //toma el valor del id
+    var numero_venta = $(this).attr("id");
+    $('#modal_ventas_orden').modal('hide');
+    $.ajax({
+      url:"../ajax/ordenes.php?op=complete_campos_orden_aro",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {       
+        $("#aro_venta").val(data.modelo);
+        $("#color_aro_venta").val(data.color);
+        $("#medidas_aro_venta").val(data.medidas);
+       
       }
     })
   });
