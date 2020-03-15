@@ -732,6 +732,18 @@ case "ver_ultima_venta_lentes":
  		echo json_encode($results);
      break;
      
+case "get_correlativo_venta":
+    $datos= $ventas->get_correlativo_venta();	
 
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["correlativo"] = "V".$row["correlativo"];
+								
+		}	      
+    echo json_encode($output);
+} 
+
+break;
 
 }

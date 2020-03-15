@@ -70,7 +70,7 @@
     <?php require_once("modal/lista_ar_ventas_modal.php");?>
     <?php require_once("modal/lista_photo_ventas_modal.php");?>
     <?php require_once("modal/detalle_abonos_pac.php");?>
-    <?php require_once("modal/abono_inicial.php");?>
+    <?php require_once("modal/abono_inicial.php");?> 
   <div>
       <nav class="navbar navbar-inverse">
 
@@ -93,7 +93,7 @@
 
       <div class="col-xs-3">
         <label for="ex1">#Venta</label>
-        <input class="form-control" id="numero_venta" name="numero_venta" type="text" value="<?php $codigo=$venta->numero_venta();?>"  readonly>
+        <input class="form-control" id="numero_venta" name="numero_venta" type="text" readonly>
       </div>
 
      
@@ -183,23 +183,23 @@
     <div class="form-group row">
 
 <div class="col-xs-3">
-  <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal" id="ventas_aros_suc"><span class="glyphicon glyphicon-plus"></span> Aros</button>
+  <button class="btn btn-dark btn-block ventas_record" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal" id="ventas_aros_suc"><span class="glyphicon glyphicon-plus"></span> Aros</button>
   </div>
 
   <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_lentes_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span>  Lentes</button>  
+    <button class="btn btn-dark btn-block ventas_record" type="button" data-toggle="modal" data-target="#lista_lentes_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span>  Lentes</button>  
   </div> 
 
     <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Accesorios</button>  
+    <button class="btn btn-dark btn-block ventas_record" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Accesorios</button>  
   </div>
 
       <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_ar_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Tipo AR</button>  
+    <button class="btn btn-dark btn-block ventas_record" type="button" data-toggle="modal" data-target="#lista_ar_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Tipo AR</button>  
   </div>
 
   <div class="col-xs-3">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_photo_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Photosensible</button>  
+    <button class="btn btn-dark btn-block ventas_record" type="button" data-toggle="modal" data-target="#lista_photo_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Photosensible</button>  
   </div>
 
   </div><!--form-group-->
@@ -247,19 +247,18 @@
           <thead>            
     <th class="all" colspan="3"><p align="center">SUMAS</p></th> 
     <th class="all" colspan="2"><p align="right"></p></th>
-
     <th style="background:white" class="all" colspan="2" ><h5 id="subtotal" name="subtotal" align="center">000.00</h5><input type="hidden"></th>
                 
-        </tr>
-        </thead>
+</tr>
+</thead>
 
 <input type="hidden" name="grabar" value="si">
-<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input type="hidden" name="id_paciente" id="id_paciente"/>                
   </table>
  <div class="boton_registrar">
-<button type="button" onClick="registrarVenta()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
+<button type="button" class="btn btn-dark pull-right btn-block" id="btn_enviar" onClick="registrarVenta()"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
 </div>
 
 </div> 
@@ -297,7 +296,153 @@
 </div>
 <!--MODAL DE PRUEBA-->
 </div><!-- /.content-wrapper -->
- 
+<!--ORDEN DE DESCUENTO MODAL-->
+<style>
+    #tamaModal{
+      width: 75% !important;
+    }
+     #head-style{
+        background-color:#3e4444;
+        color: white;
+    }
+</style>
+<?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s"); $fecha_hoy=date("m-Y");?>
+<div id="orden_descuento_empresarial" class="modal fade" role="dialog">
+  <div class="modal-dialog" id="tamaModal">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" id="head-style"><div id="valida_rec"></div>
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <h5 class="modal-title" align="center"><i class="fa fa-list" aria-hidden="true"></i> DESCUENTO EN PLANILLA&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
+      </div>
+      <div class="modal-body">
+    
+    <div class="form-group row">
+
+      <div class="col-xs-6">
+       <label>Paciente</label>
+       <input type="text" class="form-control" id="paciente_ord" name="paciente_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-6">
+        <label for="ex1">Empresa:</label>
+        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+      </div>
+      <div class="col-xs-3">
+        <label for="ex2">Monto Aprobado:</label>
+        <input class="form-control" id="monto_ord" type="text" name="monto_ord" required onkeypress="return false;">
+      </div>
+      
+      <div class="col-xs-3">
+        <label for="ex3">Monto cuotas:</label>
+        <input class="form-control" id="cuotas_ord" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-3">
+        <label for="ex3">A partir:</label>
+        <input class="form-control" id="desde_ord" type="text" name="desde_ord" onkeypress="return false;" value="<?php echo $fecha_hoy;?>">
+      </div>
+
+      <div class="col-xs-3">
+        <label for="ex3">Hasta</label>
+        <input class="form-control" id="hasta_ord" type="date" name="hasta_ord" placeholder="DUI" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-3">
+        <label for="ex3">Ocupación</label>
+        <input class="form-control" id="ocupacion" type="text" name="ocupacion" placeholder="ocupacion del paciente" required  onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-1">
+        <label for="ex3">Edad</label>
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-2">
+        <label for="ex3">DUI</label>
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+      </div>
+
+      <div class="col-xs-2">
+        <label for="ex3">NIT</label>
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+      </div>
+
+      <div class="col-xs-3">
+        <label for="ex3">Correo</label>
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+      </div>
+
+      <div class="col-xs-1">
+        <label for="ex3">Teléfono</label>
+        <input class="form-control" id="empresa" type="text" name="empresa" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-2">
+        <label for="ex3">Teléfono Oficina</label>
+        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+      </div>      
+
+    <div class="col-xs-6">
+        <label for="ex3">1° Referencia</label>
+        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+    </div>
+    <div class="col-xs-4">
+      <label for="ex3">Teléfono 1° Referencia</label>
+      <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required onkeypress="return false;">
+     </div>
+
+    <div class="col-xs-8">
+        <label for="ex3">2° Referencia</label>
+        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+    </div>
+    <div class="col-xs-4">
+      <label for="ex3">Teléfono 2° Referencia</label>
+      <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required onkeypress="return false;">
+     </div>     
+
+<h5 align="center">SERVICIO QUE RECIBIÓ</h5>       
+  <table  class="table table-striped table-bordered table-condensed table-hover">
+    <thead style="background-color:#3e4444;color: white ">
+       <tr>
+      <th style="text-align:center;color:white">DETALLE ARO</th>
+      <th style="text-align:center;color:white">DISEÑO LENTE</th>
+      <th style="text-align:center;color:white">TIPO AR</th>
+      <th style="text-align:center;color:white">PHOTOSENSIBLE</th>
+      </tr>
+     </thead>
+
+     <tbody>
+      <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='abono_ant' id="abono_ant" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
+    </tbody>
+  </table>
+
+<input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
+<input id="id_credito" type="hidden" name="id_credito">
+<input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
+<input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
+<input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
+<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
+<input type="hidden" name="hora" id="hora" value="4:00 pm">
+
+</div>
+  </div style="display:block">
+      <div class="modal-footer">
+        <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark btn-md" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+       <a  id="print_rec_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+  
+      </div>
+  </div>
+
+  </div>
+</div>  
+</div>
+<!-- FIN ORDEN DE DESCUENTO MODAL-->
  <script>
 n =  new Date();
 //Año

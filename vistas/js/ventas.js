@@ -1001,4 +1001,13 @@ var year = currentDate.getFullYear()
 var d = day + "-" + month + "-" + year;
 })
 
+$(document).on('click', '.reiniciar_ventas', function(){
+
+	setTimeout ("reload_ventas();", 1000);
+    
+});
+
+ function reload_ventas(){
+	location.reload();
+}
 init();

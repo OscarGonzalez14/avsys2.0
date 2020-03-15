@@ -1,11 +1,15 @@
 var tabla_ordenes;
 var tabla_ordenes_vencidas;
 var tabla_paciente_ordenes;
+var tabla_get_vencidas;
+
+
 
 function init(){
 listar_ordenes();
 listar_ordenes_vencidas();
 listar_en_ordenes_pac();
+get_ordenes_vencidas();
 }
 /////////////LISTAR PACIENTES EN ORDENES
 function listar_en_ordenes_pac(){
@@ -464,5 +468,85 @@ $(document).on('click', '.add_pac_orden_aro', function(){
       }
     })
   });
+
+function get_ordenes_vencidas()
+{
+	tabla_get_vencidas=$('#data_ordenes_vencidas_retraso').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',		           
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/ordenes.php?op=get_ordenes_vencidas',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+}
+
+
 
 init();

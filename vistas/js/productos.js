@@ -1228,11 +1228,23 @@ obj.value es el valor del campo de texto*/
 
  //********************************************************************
  
+$(document).on('click', '.ventas_record', function(){
+    //toma el valor del id
+    
+    $.ajax({
+      url:"../ajax/ventas.php?op=get_correlativo_venta",
+      method:"GET",
+      //data:{sucursal:sucursal},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {       
+        $("#numero_venta").val(data.correlativo);
+      }
+    })
+    //setTimeout("registrarVenta();", 1000); 
+  });
 
-
-/* {'arrayCompra':JSON.stringify(detalles)}:Esa parte encapsula el arreglo detalles y lo envía como un solo parametro
-
-*/
 
  function registrarVenta(){
     
@@ -1245,7 +1257,7 @@ obj.value es el valor del campo de texto*/
     var usuario = $("#usuario").val();
     var tipo_venta = $("#tipo_venta").val();
     var sucursal = $("#sucursal").val();
-    var id_usuario = $("#id_usuario").val();
+    var id_usuario = $("#id_user").val();
     var id_paciente = $("#id_paciente").val();
     var plazo = $("#plazo").val();
     var descripcion = $("#descripcion").val();
@@ -1254,6 +1266,7 @@ obj.value es el valor del campo de texto*/
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 
+    if(tipo_pago != "Descuento en Planilla"){
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
 
     $("#descuento").attr('disabled', 'disabled');
@@ -1283,7 +1296,7 @@ obj.value es el valor del campo de texto*/
               //muestra un mensaje de exito
           //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
         //Se carga la modal de abono inicial  
-        setTimeout ("recibo_uno();", 1500); 
+        setTimeout ("recibo_uno();", 2000); 
          	
 		}
 
@@ -1295,6 +1308,10 @@ obj.value es el valor del campo de texto*/
 
 	 	 bootbox.alert("Debe llenar todos los campos");
 	 	 return false;
+	 }
+	 }else{
+	 	$('#orden_descuento_empresarial').modal("show");
+
 	 } 	
 	
   }

@@ -1251,4 +1251,16 @@ public function get_producto_para_venta($id_producto,$id_ingreso){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
-   }
+
+public function get_correlativo_venta(){
+
+    $conectar= parent::conexion();         
+    $sql= "select max(id_ventas+1) as correlativo from ventas;";
+
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+}

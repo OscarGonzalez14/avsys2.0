@@ -142,7 +142,7 @@
   </div style="display:block">
       <div class="modal-footer">
         <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark btn-md" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
-       <a  id="print_rec_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+       <a  id="print_rec_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
   
       </div>
   </div>

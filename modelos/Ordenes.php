@@ -95,4 +95,17 @@ public function ventas_aro_orden_item($numero_venta){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+///////////////////ORDENES VENCIDAS////////////////////
+public function get_ordenes_vencidas(){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select id_orden,numero_orden,fecha, paciente,fecha, lentes, optica,sucursal,estado,timestampdiff(hour,fecha_creacion,current_timestamp)as horas,timestampdiff(hour,fecha_creacion,current_timestamp)-72 as retraso,timestampdiff(day,fecha_creacion,current_timestamp)as dias  from ordenes where estado<4 having horas >72 order by fecha DESC;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_consulta);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+} 
+
 }

@@ -1,0 +1,4 @@
+select p.id_paciente,p.nombres,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/3 from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente where p.id_paciente=73;
+
+
+select p.id_paciente,p.nombres,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/3 as cuotas from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente where p.id_paciente=73;

@@ -217,6 +217,41 @@ case "complete_campos_orden_aro":
 } 
 
 break; 
+
+////////////////////LISTAR ORDENES VENCIDAS MAYOR A 72 HORAS
+
+case "get_ordenes_vencidas":
+	$datos=$ordenes->get_ordenes_vencidas();
+    $data= Array();
+
+
+    foreach($datos as $row)
+	{
+
+		$sub_array = array();			
+	    $sub_array[] = $row["numero_orden"];
+	    $sub_array[] = $row["fecha"];
+		$sub_array[] = $row["optica"];
+		$sub_array[] = $row["sucursal"];
+		$sub_array[] = $row["paciente"];
+		$sub_array[] = $row["lente"];            
+        $sub_array[] = $row["retraso"];
+        $data[] = $sub_array;
+	}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+break;
+
+
+
+
      
 }
 ?>
