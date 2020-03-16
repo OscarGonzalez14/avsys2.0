@@ -2,3 +2,46 @@ select p.id_paciente,p.nombres,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal
 
 
 select p.id_paciente,p.nombres,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/3 as cuotas from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente where p.id_paciente=73;
+
+
+id_paciente
+nombres                       
+ocupacion | edad | telefono | nombre  | subtotal | cuotas 
+
+/////////////////////////crear tabla descuentos en planilla
+
+CREATE TABLE IF NOT EXISTS `avplu2`.`desc_planilla` (
+  `id_desc_planilla` INT(11) NOT NULL,
+  `numero_venta` VARCHAR(100) NULL DEFAULT NULL,
+  `numero_orden` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_creacion` VARCHAR(45) NULL DEFAULT NULL,
+  `aro` VARCHAR(45) NULL DEFAULT NULL,
+  `photo` VARCHAR(45) NULL DEFAULT NULL,
+  `arnti-r` VARCHAR(45) NULL DEFAULT NULL,
+  `lente` VARCHAR(45) NULL DEFAULT NULL,
+  `referencia_uno` VARCHAR(145) NULL DEFAULT NULL,
+  `tel_ref_uno` VARCHAR(45) NULL DEFAULT NULL,
+  `referencia_dos` VARCHAR(145) NULL DEFAULT NULL,
+  `tel_ref_dos` VARCHAR(45) NULL DEFAULT NULL,
+  `id_usuario` INT(11) NOT NULL,
+  `id_paciente` INT(11) NOT NULL,
+  PRIMARY KEY (`id_desc_planilla`),
+  INDEX `fk_id_paciente_idx` (`id_paciente` ASC),
+  INDEX `fk_id_usuario_idx` (`id_usuario` ASC),
+  CONSTRAINT `fk_id_paciente`
+    FOREIGN KEY (`id_paciente`)
+    REFERENCES `avplu2`.`pacientes` (`id_paciente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_id_usuario`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `avplu2`.`usuarios` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -255,7 +255,7 @@
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="hidden" name="id_paciente" id="id_paciente"/>                
+<input type="text" name="id_paciente" id="id_paciente"/>                
   </table>
  <div class="boton_registrar">
 <button type="button" class="btn btn-dark pull-right btn-block" id="btn_enviar" onClick="registrarVenta()"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
@@ -320,12 +320,17 @@
     
     <div class="form-group row">
 
-      <div class="col-xs-6">
-       <label>Paciente</label>
-       <input type="text" class="form-control" id="paciente_ord" name="paciente_ord" required onkeypress="return false;">
-      </div>
+    <div class="col-xs-2">
+       <label>No.Venta</label>
+       <input type="text" class="form-control" id="venta_numero_ord" name="venta_numero_ord" required onkeypress="return false;">
+    </div>
 
-      <div class="col-xs-6">
+    <div class="col-xs-6">
+      <label>Paciente</label>
+      <input type="text" class="form-control" id="paciente_ord" name="paciente_ord" required onkeypress="return false;">
+    </div>
+
+      <div class="col-xs-4">
         <label for="ex1">Empresa:</label>
         <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
       </div>
@@ -349,57 +354,57 @@
         <input class="form-control" id="hasta_ord" type="date" name="hasta_ord" placeholder="DUI" required onkeypress="return false;">
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-xs-2">
         <label for="ex3">Ocupación</label>
-        <input class="form-control" id="ocupacion" type="text" name="ocupacion" placeholder="ocupacion del paciente" required  onkeypress="return false;">
+        <input class="form-control" id="ocupacion_ord" type="text" name="ocupacion_ord" placeholder="ocupacion del paciente" required>
       </div>
 
       <div class="col-xs-1">
         <label for="ex3">Edad</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required onkeypress="return false;">
+        <input class="form-control" id="edad_ord" type="text" name="edad_ord" placeholder="correo del paciente" required onkeypress="return false;">
       </div>
 
       <div class="col-xs-2">
-        <label for="ex3">DUI</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+        <label for="ex3">DUI*</label>
+        <input class="form-control" id="dui_ord" type="text" name="dui_ord" placeholder="correo del paciente" required>
       </div>
 
       <div class="col-xs-2">
         <label for="ex3">NIT</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+        <input class="form-control" id="nit_ord" type="text" name="nit_ord" placeholder="correo del paciente" required>
       </div>
 
       <div class="col-xs-3">
         <label for="ex3">Correo</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+        <input class="form-control" id="correo_ord" type="text" name="correo_ord" placeholder="correo del paciente" required>
       </div>
 
-      <div class="col-xs-1">
+      <div class="col-xs-2">
         <label for="ex3">Teléfono</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" required onkeypress="return false;">
+        <input class="form-control" id="tel_ord" type="text" name="tel_ord" required onkeypress="return false;">
       </div>
 
       <div class="col-xs-2">
         <label for="ex3">Teléfono Oficina</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+        <input class="form-control" id="tel_oficina_ord" type="text" name="tel_oficina_ord" placeholder="Empresa del paciente" required>
       </div>      
 
     <div class="col-xs-6">
-        <label for="ex3">1° Referencia</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+        <label for="ex3">1° Referencia*</label>
+        <input class="form-control" id="ref_uno" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
     </div>
     <div class="col-xs-4">
-      <label for="ex3">Teléfono 1° Referencia</label>
-      <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required onkeypress="return false;">
+      <label for="ex3">Teléfono 1° Referencia*</label>
+      <input class="form-control" id="tel_ref_uno" type="text" name="tel_ref_uno" placeholder="TELEFONO REF. 1" required>
      </div>
 
     <div class="col-xs-8">
-        <label for="ex3">2° Referencia</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required>
+        <label for="ex3">2° Referencia*</label>
+        <input class="form-control" id="ref_dos" type="text" name="ref_dos" placeholder="ESCRIBA REFERENCIA 2" required>
     </div>
     <div class="col-xs-4">
-      <label for="ex3">Teléfono 2° Referencia</label>
-      <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required onkeypress="return false;">
+      <label for="ex3">Teléfono 2° Referencia*</label>
+      <input class="form-control" id="tel_ref_dos" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
      </div>     
 
 <h5 align="center">SERVICIO QUE RECIBIÓ</h5>       
@@ -414,27 +419,18 @@
      </thead>
 
      <tbody>
-      <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='abono_ant' id="abono_ant" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='detalle_aro_ord' id="detalle_aro_ord" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='lente_ord' id="lente_ord" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='ar_ord' id="ar_ord" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: right;" readonly></td>
     </tbody>
   </table>
-
-<input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
-<input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input id="id_credito" type="hidden" name="id_credito">
-<input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
-<input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
-<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
-<input type="hidden" name="hora" id="hora" value="4:00 pm">
 
 </div>
   </div style="display:block">
       <div class="modal-footer">
-        <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark btn-md" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
-       <a  id="print_rec_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+        <button type="button" onClick="registra_orden_des()" class="btn btn-dark btn-md" id="btn_enviar_ord"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Orden</button>
+       <a  id="n_orden_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
   
       </div>
   </div>
