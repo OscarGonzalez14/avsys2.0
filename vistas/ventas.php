@@ -320,12 +320,16 @@
     
     <div class="form-group row">
 
+<div class="col-xs-2">
+        <label for="ex2">No.Orden:</label>
+        <input class="form-control" id="num_order_descuento" type="text" name="num_ord" required onkeypress="return false;">
+      </div>
     <div class="col-xs-2">
        <label>No.Venta</label>
        <input type="text" class="form-control" id="venta_numero_ord" name="venta_numero_ord" required onkeypress="return false;">
     </div>
 
-    <div class="col-xs-6">
+    <div class="col-xs-4">
       <label>Paciente</label>
       <input type="text" class="form-control" id="paciente_ord" name="paciente_ord" required onkeypress="return false;">
     </div>
@@ -361,12 +365,12 @@
 
       <div class="col-xs-1">
         <label for="ex3">Edad</label>
-        <input class="form-control" id="edad_ord" type="text" name="edad_ord" placeholder="correo del paciente" required onkeypress="return false;">
+        <input class="form-control" id="edad_ord" type="text" name="edad_ord" placeholder="correo del paciente" required>
       </div>
 
       <div class="col-xs-2">
         <label for="ex3">DUI*</label>
-        <input class="form-control" id="dui_ord" type="text" name="dui_ord" placeholder="correo del paciente" required>
+        <input class="form-control num_ord_correlativo" id="dui_ord" type="text" name="dui_ord" placeholder="correo del paciente" required>
       </div>
 
       <div class="col-xs-2">
@@ -380,8 +384,8 @@
       </div>
 
       <div class="col-xs-2">
-        <label for="ex3">Teléfono</label>
-        <input class="form-control" id="tel_ord" type="text" name="tel_ord" required onkeypress="return false;">
+        <label for="ex3">Teléfono*</label>
+        <input class="form-control num_ord_correlativo" id="tel_ord" type="text" name="tel_ord" required onkeypress="return false;">
       </div>
 
       <div class="col-xs-2">
@@ -391,7 +395,7 @@
 
     <div class="col-xs-6">
         <label for="ex3">1° Referencia*</label>
-        <input class="form-control" id="ref_uno" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
+        <input class="form-control num_ord_correlativo" id="ref_uno" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
     </div>
     <div class="col-xs-4">
       <label for="ex3">Teléfono 1° Referencia*</label>
@@ -419,18 +423,18 @@
      </thead>
 
      <tbody>
-      <td align='center'><input class='form-control' type='text' class='monto' name='detalle_aro_ord' id="detalle_aro_ord" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='lente_ord' id="lente_ord" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='ar_ord' id="ar_ord" style="text-align: right;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: right;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='detalle_aro_ord' id="detalle_aro_ord" style="text-align: center;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='lente_ord' id="lente_ord" style="text-align: center;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='ar_ord' id="ar_ord" style="text-align: center;" readonly></td>
+      <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: center;" readonly></td>
     </tbody>
   </table>
 
 </div>
   </div style="display:block">
       <div class="modal-footer">
-        <button type="button" onClick="registra_orden_des()" class="btn btn-dark btn-md" id="btn_enviar_ord"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Orden</button>
-       <a  id="n_orden_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+        <button type="button" onClick="registra_orden_descuento()" class="btn btn-dark btn-md" id="btn_enviar_ord_desc"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Orden</button>
+       <a  id="n_orden_desc_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
   
       </div>
   </div>
@@ -485,6 +489,7 @@ document.getElementById("hora").value = h;
 <script type="text/javascript" src="js/productos.js"></script>
 <script type="text/javascript" src="js/ventas.js"></script>
 <script type="text/javascript" src="js/recibos.js"></script>
+<script type="text/javascript" src="js/desc_planilla.js"></script>
 
 <?php
    

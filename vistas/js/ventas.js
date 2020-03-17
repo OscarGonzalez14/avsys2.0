@@ -1007,7 +1007,4 @@ $(document).on('click', '.reiniciar_ventas', function(){
     
 });
 
- function reload_ventas(){
-	location.reload();
-}
 init();

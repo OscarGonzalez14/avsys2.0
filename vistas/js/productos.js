@@ -1476,20 +1476,33 @@ var venta_numero = document.getElementById('numero_venta').value;
       dataType:"json",
       success:function(data)
       {
-        $("#detalle_aro_ord").val(data.detalle_aro);
+        $("#lente_ord").val(data.detalle_lente);
         
       }
     });
 
     $.ajax({
-      url:"../ajax/empresarial.php?op=get_datos_lente_orden_desc",
+      url:"../ajax/empresarial.php?op=get_datos_ar_orden_desc",
       method:"POST",
       data:{id_paciente:id_paciente,venta_numero:venta_numero},
       cache:false,
       dataType:"json",
       success:function(data)
       {
-        $("#lente_ord").val(data.detalle_lente);
+        $("#ar_ord").val(data.detalle_ar);
+        
+      }
+    });
+
+    $.ajax({
+      url:"../ajax/empresarial.php?op=get_datos_photo_orden_desc",
+      method:"POST",
+      data:{id_paciente:id_paciente,venta_numero:venta_numero},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#photo_ord").val(data.detalle_photo);
         
       }
     });

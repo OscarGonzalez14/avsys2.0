@@ -45,3 +45,20 @@ DEFAULT CHARACTER SET = utf8mb4;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+id_desc_planilla-->
+numero_venta-->venta_numero_ord
+numero_orden-->num_order_descuento
+fecha_creacion-->date
+aro-->detalle_aro_ord
+photo-->photo_ord
+arnti-r-->ar_ord
+lente-->lente_ord
+referencia_uno-->
+tel_ref_uno-->
+referencia_dos-->
+tel_ref_dos-->
+id_usuario-->
+id_paciente-->
+
