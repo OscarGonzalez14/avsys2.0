@@ -429,7 +429,7 @@
       <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: center;" readonly></td>
     </tbody>
   </table>
-
+<input class='form-control' type='hidden' class='monto' name='codigo_de aro' id="codigo_de_aro" style="text-align: center;" readonly>
 </div>
   </div style="display:block">
       <div class="modal-footer">

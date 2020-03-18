@@ -31,12 +31,14 @@ var referencia_dos=$("#ref_dos").val();
 var tel_ref_dos=$("#tel_ref_dos").val();
 var id_usuario=$("#id_user").val();
 var id_paciente=$("#id_paciente").val();
+var fin_orden = $("#hasta_ord").val();
+var id_aro = $("#codigo_de_aro").val();
 
 if(numero_orden != "" ){
     $.ajax({
     url:"../ajax/empresarial.php?op=guardar_orden_desc",
     method:"POST",
-    data:{numero_venta:numero_venta,numero_orden:numero_orden,fecha_creacion:fecha_creacion,aro:aro,photo:photo,arnti:arnti,lente:lente,referencia_uno:referencia_uno,tel_ref_uno:tel_ref_uno,referencia_dos:referencia_dos,tel_ref_dos:tel_ref_dos,id_usuario:id_usuario,id_paciente:id_paciente},
+    data:{numero_venta:numero_venta,numero_orden:numero_orden,fecha_creacion:fecha_creacion,aro:aro,photo:photo,arnti:arnti,lente:lente,referencia_uno:referencia_uno,tel_ref_uno:tel_ref_uno,referencia_dos:referencia_dos,tel_ref_dos:tel_ref_dos,id_usuario:id_usuario,id_paciente:id_paciente,fin_orden:fin_orden,id_aro:id_aro},
     cache: false,
     dataType:"html",
     error:function(x,y,z){
@@ -78,6 +80,85 @@ $(document).on('click', '#btn_enviar_ord_desc', function(){
     	return false;
     }
   });
+
+function listar()
+{
+	tabla=$('#').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/empresarial.php?op=listar_ordenes_descuento',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+}
 
 function mostrar_btn_orden_desc(){
   document.getElementById("n_orden_desc_current").style.display = "block";

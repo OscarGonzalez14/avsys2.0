@@ -168,6 +168,21 @@
             }
 
          ?>        
+      <?php if($_SESSION["desc_planilla"]==1)
+          {
+            echo '
+
+          <li class="treeview">
+            <a href="desc_planilla.php">
+            <i class="fa fa-user-md" aria-hidden="true"></i><span>Desc. Planilla</span>  
+            <span class="pull-right-container badge bg-blue"><i class="fa fa-angle-left pull-right"></i></span>          
+            </a>         
+          </li>
+          ';
+
+            }
+
+         ?>
 
 
          <?php if($_SESSION["pacientes"]==1)

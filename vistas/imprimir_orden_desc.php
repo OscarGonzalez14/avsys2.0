@@ -13,7 +13,7 @@ $empresarial=new Empresarial();
 //$datos=$recibos->get_recibo_id($_GET["numero_venta"]);
 //$venta=$recibos->get_detalle_venta($_GET["numero_recibo_pac"])
 $datos_orden_descuento = $empresarial->get_datos_ordenes_print($get_num_orden =$_GET["numero_orden_pac"],$id_paciente =$_GET["numero_paciente"]);
-
+$fecha_hoy=date("m-Y");
 
 
 ob_start(); 
@@ -98,7 +98,7 @@ ob_start();
   <td style="border: solid white 1px; text-align:left" colspan="100"><div align="left"><span class=""><span>Empresa: </span><?php echo $datos_orden_descuento[$i]["nombre"];?></span></div></td>    
 </tr>
 
-<tr><td style="border: solid white 1px;font-size:14px" colspan="100"><span>Por la presente y de conformidad con el artículo con el artículo No. 136 del código de trabajo,publicado en el Diario de Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de</span> <strong><u><span><?php echo $datos_orden_descuento[$i]["monto"];?></span></u></strong><span>&nbsp; en cuotoas mensuales de:&nbsp;<strong><u><span><?php echo number_format($datos_orden_descuento[$i]["cuotas"],2,".",",");?></span></u></strong> </span>
+<tr><td style="border: solid white 1px;font-size:14px" colspan="100"><span>Por la presente y de conformidad con el artículo con el artículo No. 136 del código de trabajo,publicado en el Diario de Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de</span> <strong><u><span><?php echo "$".$datos_orden_descuento[$i]["monto"];?></span></u></strong><span>&nbsp; en cuotoas mensuales de:&nbsp;<strong><u><span><?php echo "$".number_format($datos_orden_descuento[$i]["cuotas"],2,".",",");?></span></u></strong> </span><span>las cuales deberán pagar por mi cuenta a partir del mes de&nbsp;<strong><span><?php echo $fecha_hoy;?></span> </strong> hasta el mes de: <strong><?php echo $datos_orden_descuento[$i]["fin_orden"];?></strong> hasta </span>
 </td>
 </tr>
 <?php

@@ -34,9 +34,9 @@ case "get_datos_aro_orden_desc":
     $datos= $empresarial->get_detalle_aro_orden($_POST["id_paciente"],$_POST["venta_numero"]);
 		if(is_array($datos)==true and count($datos)>0){
 			foreach($datos as $row){
-				$output["detalle_aro"] = $row["detalle_aro"];					
-			}
-		      
+				$output["detalle_aro"] = $row["detalle_aro"];
+				$output["id_producto"] = $row["id_producto"];
+		      }
 			echo json_encode($output);
 		}
 break;
@@ -87,8 +87,38 @@ case "get_numero_mumero_order":
 break;
 
 case "guardar_orden_desc":
-$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente']);
+$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST["fin_orden"],$_POST["id_aro"]);
 break;
+
+ case "listar_ordenes_descuento":
+
+    $datos=$empresarial->get_descuentos_planilla();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+     foreach($datos as $row)
+      {
+        $sub_array = array();       
+       
+        $sub_array[] = $row["numero_orden"];
+        $sub_array[] = $row["nombres"];
+        $sub_array[] = $row["nombre"];        
+
+        $sub_array[] = '<button type="button" onClick="cambiarEstado();" name="estado" id="" class=""></button>';
+                
+        $data[] = $sub_array;
+      }
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
 
 }
 ?>

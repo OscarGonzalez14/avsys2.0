@@ -273,11 +273,10 @@ $conectar=parent::conexion();
     $plazo = $_POST["plazo"];
 
     $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
-
     $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
-        //$sql->bindValue(2,$cod_pac);
+    //$sql->bindValue(2,$cod_pac);
     $sql->bindValue(2,$codProd);
     $sql->bindValue(3,$marca." ".$modelo);
     $sql->bindValue(4,$importe);
@@ -287,7 +286,7 @@ $conectar=parent::conexion();
     $sql->bindValue(8,$id_usuario);
     $sql->bindValue(9,$id_paciente);
         
-        $sql->execute();
+    $sql->execute();
          
 
     $sql11="select * from existencias where id_producto=? and bodega=? and id_ingreso=? and categoriaub=?;";
@@ -311,17 +310,16 @@ $conectar=parent::conexion();
                   }
 
                 //la cantidad total es la suma de la cantidad más la cantidad actual
-                $cantidad_totales = $row["stock"] - $cantidad;
+              $cantidad_totales = $row["stock"] - $cantidad;
 
              
                //si existe el producto entonces actualiza el stock en producto
               
-               if(is_array($resultados)==true and count($resultados)>0) {
+            if(is_array($resultados)==true and count($resultados)>0) {
                      
                   //actualiza el stock en la tabla producto
 
-                 $sql12 = "update existencias set 
-                      
+                 $sql12 = "update existencias set                       
                       stock=?
                       where 
                       id_producto=? and bodega=? and id_ingreso=? and categoriaub=?

@@ -1464,6 +1464,7 @@ var venta_numero = document.getElementById('numero_venta').value;
       success:function(data)
       {
         $("#detalle_aro_ord").val(data.detalle_aro);
+        $("#codigo_de_aro").val(data.id_producto);
         
       }
     });
