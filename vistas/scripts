@@ -47,18 +47,9 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-id_desc_planilla-->
-numero_venta-->venta_numero_ord
-numero_orden-->num_order_descuento
-fecha_creacion-->date
-aro-->detalle_aro_ord
-photo-->photo_ord
-arnti-r-->ar_ord
-lente-->lente_ord
-referencia_uno-->
-tel_ref_uno-->
-referencia_dos-->
-tel_ref_dos-->
-id_usuario-->
-id_paciente-->
+//id_desc_planilla-->
+$numero_venta,$numero_orden,$fecha_creacion,$aro,photo,$arnti,$lente,$referencia_uno,$tel_ref_uno,$referencia_dos,$tel_ref_dos,$id_usuario,$id_paciente
+
+
+select p.nombres,e.nombre,o.aro,c.numero_venta,c.monto from pacientes as p inner join desc_planilla as o on p.id_paciente=o.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente;
 

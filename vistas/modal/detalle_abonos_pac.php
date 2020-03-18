@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
   $(document).ready(ocultar_btn_imprimir);
   function ocultar_btn_imprimir(){
 

@@ -94,5 +94,18 @@ public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creac
       
 }
 
+//////////////////////GET ORDENES DE DESCUENTO DATOS
+public function get_datos_ordenes_print($num_de_orden,$id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select p.id_paciente,p.nombres,e.nombre,o.aro,o.numero_orden,c.numero_venta,c.monto,c.plazo,c.monto/c.plazo as cuotas from pacientes as p inner join desc_planilla as o on p.id_paciente=o.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente where o.numero_orden=? and p.id_paciente=? group by o.numero_orden;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$num_de_orden);
+  $sql->bindValue(2,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
 ?>

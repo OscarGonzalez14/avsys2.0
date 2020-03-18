@@ -48,7 +48,7 @@ if(numero_orden != "" ){
   success:function(data){
   setTimeout ("bootbox.alert('Se ha Registrado la orden con exito');", 100);
   //refresca la pagina, se llama a la funtion explode
-  setTimeout ("explode();", 2000);          
+  //setTimeout ("explode();", 2000);          
 }
 
   }); 
@@ -61,5 +61,25 @@ if(numero_orden != "" ){
     
 }
 
+$(document).ready(hidden_btn_imprimir);
+  function hidden_btn_imprimir(){
+  document.getElementById("n_orden_desc_current").style.display = "none";
+}
 
+$(document).on('click', '#btn_enviar_ord_desc', function(){
+    
+    var num_de_orden = $("#num_order_descuento").val();
+    var id_paciente = $("#id_paciente").val();
+    if(num_de_orden !=""){
+    document.getElementById("n_orden_desc_current").href = 'imprimir_orden_desc.php?numero_orden_pac='+num_de_orden+'&'+'numero_paciente='+id_paciente;
+    mostrar_btn_orden_desc();
+    }else{
+    	alert("Hay campos incompletos");
+    	return false;
+    }
+  });
+
+function mostrar_btn_orden_desc(){
+  document.getElementById("n_orden_desc_current").style.display = "block";
+}
 init();
