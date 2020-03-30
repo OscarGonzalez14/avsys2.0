@@ -87,7 +87,7 @@ case "get_numero_mumero_order":
 break;
 
 case "guardar_orden_desc":
-$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST["fin_orden"],$_POST["id_aro"]);
+$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['id_aro'],$_POST['dui'],$_POST['nit'],$_POST['correo']);
 break;
 
  case "listar_ordenes_descuento":
@@ -120,5 +120,24 @@ break;
 
      break;
 
+case "buscar_orden":
+
+    $datos= $empresarial->buscar_orden($_POST["id_paciente"]);
+    $orden= $empresarial->pacientes_orden($_POST["id_paciente"]);
+    
+//$paciente= $empresarial->odern_por_paciente($_POST["id_paciente"]);
+		if(is_array($datos)==true and count($datos)>0){
+			foreach($orden as $row){
+				$output["paciente_id"] = $row["id_paciente"];
+			}
+		}else{
+			foreach($orden as $row){
+			$output["id_paciente"] = $row["id_paciente"];
+			}
+		}
+			
+		echo json_encode($output);
+
+     break;
 }
 ?>

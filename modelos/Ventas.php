@@ -1,4 +1,4 @@
-  
+
   <?php
 
  require_once("../config/conexion.php");
@@ -22,9 +22,9 @@ public function get_filas_venta(){
 }
 
 
-		 public function get_ventas(){
+     public function get_ventas(){
 
-		 $conectar= parent::conexion();
+     $conectar= parent::conexion();
        
          $sql="select * from ventas order by fecha_venta DESC";
 
@@ -35,8 +35,8 @@ public function get_filas_venta(){
          $sql->execute();
 
          return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-		
-		}
+    
+    }
 
     public function get_bonos(){
 
@@ -47,24 +47,24 @@ public function get_filas_venta(){
       return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-		public function get_detalle_paciente($numero_venta){
+    public function get_detalle_paciente($numero_venta){
 
-		   $conectar=parent::conexion();
+       $conectar=parent::conexion();
            parent::set_names();
 
-		      $sql="select p.nombres,p.telefono,v.numero_venta,v.fecha_venta,v.sucursal,u.usuario from pacientes as p inner join ventas as v on p.id_paciente=v.id_paciente inner join usuarios as u on u.id_usuario=v.id_usuario where v.numero_venta=?
-		      ;";
+          $sql="select p.nombres,p.telefono,v.numero_venta,v.fecha_venta,v.sucursal,u.usuario from pacientes as p inner join ventas as v on p.id_paciente=v.id_paciente inner join usuarios as u on u.id_usuario=v.id_usuario where v.numero_venta=?
+          ;";
 
-		      //echo $sql; exit();
+          //echo $sql; exit();
 
-		      $sql=$conectar->prepare($sql);
+          $sql=$conectar->prepare($sql);
           $sql->bindValue(1,$numero_venta);
-		      $sql->execute();
-		      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+          $sql->execute();
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
-		   
+       
             
-		}
+    }
 
     public function get_det_ultima_venta(){
 
@@ -140,20 +140,20 @@ public function get_detalle_venta_fac($numero_venta){
 
 public function get_detalle_ventas_paciente($numero_venta){
 
-	$conectar=parent::conexion();
+  $conectar=parent::conexion();
   parent::set_names();
   $moneda="$";   
 
-	$sql="select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta=?;";
+  $sql="select d.cantidad_venta, d.producto,d.precio_venta,d.descuento,v.subtotal,d.importe from  detalle_ventas as d, ventas as v where d.numero_venta=v.numero_venta and d.numero_venta=?;";
 
-		      //echo $sql; exit();
-	$sql=$conectar->prepare($sql);            
+          //echo $sql; exit();
+  $sql=$conectar->prepare($sql);            
 
   $sql->bindValue(1,$numero_venta);
-	$sql->execute();
-	$resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  $sql->execute();
+  $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
-	$html= "
+  $html= "
       <thead style='background-color:#A9D0F5'>
           <th>Cantidad</th>
           <th>Producto</th>
@@ -162,10 +162,10 @@ public function get_detalle_ventas_paciente($numero_venta){
           <th>Subtotales</th>                                   
       </thead>";           
 
-		          foreach($resultado as $row)
-				{
+              foreach($resultado as $row)
+        {
 
-			   
+         
 $html.="<tr class='filas'>
 <td>".$row['cantidad_venta']."</td>
 <td>".$row['producto']."</td>
@@ -177,65 +177,62 @@ $html.="<tr class='filas'>
               
 }
 
-		 $html .= "<tfoot>
+     $html .= "<tfoot>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th>
                                     <p>TOTAL</p>
                                     </th>
-
                                     <th>
-
                                     <p><strong>".$subtotal."</strong></p>
-
                                    </th> 
                                 </tfoot>";
-			
-			echo $html;
+      
+      echo $html;
 
-		}
+    }
 
      public function numero_venta(){
 
-		    $conectar=parent::conexion();
-		    parent::set_names();
+        $conectar=parent::conexion();
+        parent::set_names();
 
-		 
-		    $sql="select numero_venta from detalle_ventas;";
+     
+        $sql="select numero_venta from detalle_ventas;";
 
-		    $sql=$conectar->prepare($sql);
+        $sql=$conectar->prepare($sql);
 
-		    $sql->execute();
-		    $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
-		       //aqui selecciono solo un campo del array y lo recorro que es el campo numero_venta
-		       foreach($resultado as $k=>$v){
+           //aqui selecciono solo un campo del array y lo recorro que es el campo numero_venta
+           foreach($resultado as $k=>$v){
 
-		                 $numero_venta["numero"]=$v["numero_venta"];
+                     $numero_venta["numero"]=$v["numero_venta"];
 
-		               
-		          
-		             }
-		          //luego despues de tener seleccionado el numero_venta digo que si el campo numero_venta està vacio entonces se le asigna un F000001 de lo contrario ira sumando
+                   
+              
+                 }
+              //luego despues de tener seleccionado el numero_venta digo que si el campo numero_venta està vacio entonces se le asigna un F000001 de lo contrario ira sumando
 
-		        
+            
 
-		                   if(empty($numero_venta["numero"]))
-		                {
-		                  echo 'V000001';
-		                }else
-		          
-		                  {
-		                    $num     = substr($numero_venta["numero"] , 1);
-		                    $dig     = $num + 1;
-		                    $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
-		                    echo 'V'.$fact;
-		                    //echo 'F'.$new_cod;
-		                  } 
+                       if(empty($numero_venta["numero"]))
+                    {
+                      echo 'V000001';
+                    }else
+              
+                      {
+                        $num     = substr($numero_venta["numero"] , 1);
+                        $dig     = $num + 1;
+                        $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
+                        echo 'V'.$fact;
+                        //echo 'F'.$new_cod;
+                      } 
 
-		       //return $data;
-		  }
+           //return $data;
+      }
 
 
 public function agrega_detalle_venta(){       
@@ -245,29 +242,29 @@ $detalles = array();
 $detalles = json_decode($_POST['arrayVenta']);
    
 $conectar=parent::conexion();
-	foreach ($detalles as $k => $v) {
-		//echo $v->codProd;
-		//IMPORTANTE:estas variables son del array detalles
-		$cantidad = $v->cantidad;
-		$codProd = $v->codProd;
-		$modelo = $v->modelo;
-		$marca = $v->marca;
+  foreach ($detalles as $k => $v) {
+    //echo $v->codProd;
+    //IMPORTANTE:estas variables son del array detalles
+    $cantidad = $v->cantidad;
+    $codProd = $v->codProd;
+    $modelo = $v->modelo;
+    $marca = $v->marca;
     $color = $v->color;
     $medidas = $v->medidas;
-		$precio_venta = $v->precio_venta; 
-		$dscto = $v->dscto;
+    $precio_venta = $v->precio_venta; 
+    $dscto = $v->dscto;
     $importe = $v->importe;
     $id_ingreso = $v->id_ingreso;
     $categoriaub = $v->categoriaub;
 
-		$numero_venta = $_POST["numero_venta"];
-		$cod_pac = ["cod_pac"];
-		$nombre_pac = $_POST["nombre_pac"];
-		$tipo_pago =$_POST["tipo_pago"];
-		$subtotal = $_POST["subtotal"];
-		$usuario = $_POST["usuario"];
+    $numero_venta = $_POST["numero_venta"];
+    $cod_pac = ["cod_pac"];
+    $nombre_pac = $_POST["nombre_pac"];
+    $tipo_pago =$_POST["tipo_pago"];
+    $subtotal = $_POST["subtotal"];
+    $usuario = $_POST["usuario"];
     $sucursal = $_POST["sucursal"];
-		$tipo_venta = $_POST["tipo_venta"];
+    $tipo_venta = $_POST["tipo_venta"];
     $id_usuario = $_POST["id_usuario"];
     $id_paciente = $_POST["id_paciente"];
     $plazo = $_POST["plazo"];
@@ -335,9 +332,9 @@ $conectar=parent::conexion();
                 $sql12->execute();               
 }
 
-	     }//cierre del foreach
+       }//cierre del foreach
 
-	
+  
    
 
            $sql2="insert into ventas 
@@ -373,7 +370,7 @@ $conectar=parent::conexion();
            $sql7->execute();
 
           
-  	  }
+      }
 //////////////////////REGISTRAR ABONOS
 
 public function agrega_detalle_abono(){
@@ -468,11 +465,11 @@ public function agrega_detalle_abono(){
 
   //////////////FIN REGISTRAR ABONOS    
 
-  	  public function get_ventas_por_id($id_ventas){
+      public function get_ventas_por_id($id_ventas){
 
-		 $conectar= parent::conexion();
+     $conectar= parent::conexion();
 
-		 $id_ventas=$_POST["id_ventas"];
+     $id_ventas=$_POST["id_ventas"];
        
          $sql="select * from ventas where id_ventas=?";
          
@@ -482,30 +479,30 @@ public function agrega_detalle_abono(){
 
          return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-		
-		}
+    
+    }
 
-			/*cambiar estado de la venta, solo se cambia si se quiere eliminar una venta y se revertería la cantidad de venta al stock*/
+      /*cambiar estado de la venta, solo se cambia si se quiere eliminar una venta y se revertería la cantidad de venta al stock*/
 
-		public function cambiar_estado(){
+    public function cambiar_estado(){
 
-			$conectar=parent::conexion();
-			parent::set_names();
+      $conectar=parent::conexion();
+      parent::set_names();
             
             //si estado es igual a 0 entonces lo cambia a 1
-			$estado = 0;
-			//el parametro est se envia por via ajax, viene del $est:est
-			/*si el estado es ==0 cambiaria a PAGADO Y SE EJECUTARIA TODO LO QUE ESTA ABAJO*/
-		if($_POST["est"] == 0){
-				$estado = 1;
-			
+      $estado = 0;
+      //el parametro est se envia por via ajax, viene del $est:est
+      /*si el estado es ==0 cambiaria a PAGADO Y SE EJECUTARIA TODO LO QUE ESTA ABAJO*/
+    if($_POST["est"] == 0){
+        $estado = 1;
+      
 
-			//declaro $numero_venta, viene via ajax
+      //declaro $numero_venta, viene via ajax
 
-			$numero_venta=$_POST["numero_venta"];
+      $numero_venta=$_POST["numero_venta"];
 
 
-			$sql="update ventas set 
+      $sql="update ventas set 
             
             estado=?
             where 
@@ -525,7 +522,6 @@ public function agrega_detalle_abono(){
 
 
       $sql_detalle= "update detalle_ventas set
-
           estado=?
           where 
           numero_venta=?
@@ -596,9 +592,7 @@ public function agrega_detalle_abono(){
                $sql6="update producto set 
                stock=?
                where
-
                id_producto=?
-
                ";
                
                $sql6=$conectar->prepare($sql6);   
@@ -615,17 +609,17 @@ public function agrega_detalle_abono(){
 
           else {
 
-          	  /*si el estado es igual a 0, entonces pasaria a ANULADO y reverteria de nuevo la cantidad de productos al stock*/
+              /*si el estado es igual a 0, entonces pasaria a ANULADO y reverteria de nuevo la cantidad de productos al stock*/
 
-          	  if($_POST["est"] == 1){
-				$estado = 0;
+              if($_POST["est"] == 1){
+        $estado = 0;
 
-			//declaro $numero_venta, viene via ajax
+      //declaro $numero_venta, viene via ajax
 
-			$numero_venta=$_POST["numero_venta"];
+      $numero_venta=$_POST["numero_venta"];
 
 
-			$sql="update ventas set 
+      $sql="update ventas set 
             
             estado=?
             where 
@@ -645,7 +639,6 @@ public function agrega_detalle_abono(){
 
 
       $sql_detalle= "update detalle_ventas set
-
           estado=?
           where 
           numero_venta=?
@@ -716,9 +709,7 @@ public function agrega_detalle_abono(){
                $sql6="update producto set 
                stock=?
                where
-
                id_producto=?
-
                ";
                
                $sql6=$conectar->prepare($sql6);   
@@ -734,29 +725,29 @@ public function agrega_detalle_abono(){
 
 
 
-			   }//cierre del if del estado del else
+         }//cierre del if del estado del else
 
 
           }
 
 
-		}//CIERRE DEL METODO
+    }//CIERRE DEL METODO
 
 
 
-		//BUSCA REGISTROS VENTAS-FECHA
+    //BUSCA REGISTROS VENTAS-FECHA
 
   public function lista_busca_registros_fecha($fecha_inicial, $fecha_final){
 
                 $conectar= parent::conexion();
 
-		        $date_inicial = $_POST["fecha_inicial"];
-		        $date = str_replace('/', '-', $date_inicial);
-		        $fecha_inicial = date("Y-m-d", strtotime($date));
+            $date_inicial = $_POST["fecha_inicial"];
+            $date = str_replace('/', '-', $date_inicial);
+            $fecha_inicial = date("Y-m-d", strtotime($date));
 
-	            $date_final = $_POST["fecha_final"];
-	            $date = str_replace('/', '-', $date_final);
-	            $fecha_final = date("Y-m-d", strtotime($date));
+              $date_final = $_POST["fecha_final"];
+              $date = str_replace('/', '-', $date_final);
+              $fecha_final = date("Y-m-d", strtotime($date));
 
        
          

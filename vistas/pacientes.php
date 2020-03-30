@@ -94,6 +94,7 @@
       <div class="col-xs-9">
         <label for="ex1">Nombre</label>
         <input class="form-control" id="nombres" name="nombres" type="text" placeholder="Escriba el Nombre del paciente"  required onkeyup="mayus(this);">
+      
       </div>
       <div class="col-xs-3">
         <label for="ex2">Telefono</label>
@@ -207,11 +208,16 @@ Guardar</button>
 
 
 
-      <div class="col-xs-9">
+      <div class="col-xs-6">
         <label for="ex3">Nombre</label>
         <input class="form-control" id="nombre_pac" type="text" name="nombre_pac" readonly>
       </div>
-     
+
+<div class="col-xs-3">
+        <label for="ex3">Fecha de Consulta</label>
+        <input class="form-control" id="fecha_consulta" type="text" name="fecha_consulta" placeholder="dd/mm/YY">
+      </div>
+
  <div class="col-xs-12">
       <label for="comment">Motivo de Consulta</label>
       <textarea cols="80" class="form-control" rows="2" id="motivo" name="motivo"></textarea>
@@ -517,6 +523,11 @@ $(document).on('click', '#addEmpresa', function() {
     $('#pacienteModal').modal('hide');
   });
 */
+  var fecha = new Cleave('#fecha_consulta', {
+    delimiter: '/',
+    blocks: [2,2,2],
+    uppercase: true
+});
  </script>
 
   

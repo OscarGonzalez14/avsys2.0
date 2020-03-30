@@ -62,9 +62,9 @@
 <h3><button class="btn btn-edit btn-block" id="empresarial" onClick="corte_recuperado()" ><i class="fa fa-file-excel-o" aria-hidden="true"></i> Corte de Caja Recuperado</button></h3>
    </div>
 
-      <div class="col-sm-2">
+<div class="col-sm-2">
   <h3><button class="btn btn-danger btn-block" id="c_automatico" onClick="lista_creditos_c_aut()" ><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Consolidado</button></h3>
-   </div>
+  </div>
 
 
  <div class="col-sm-1"></div>

@@ -11,7 +11,7 @@ public function get_pacientes_consultas($sucursal_paciente){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql=" select p.id_paciente, p.codigo,p.fecha_reg,p.sucursal,e.nombre,p.telefono from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where sucursal=? order by id_paciente DESC";
+  $sql=" select p.id_paciente, p.codigo,p.fecha_reg,p.sucursal,p.nombres,e.nombre,p.telefono from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where sucursal=? order by id_paciente DESC";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal_paciente);
@@ -26,7 +26,7 @@ public function get_pacientes(){
   $sql="select*from pacientes";
 
   $sql=$conectar->prepare($sql);
-  $sql->bindValue(1,$sucursal_paciente);
+  //$sql->bindValue(1,$sucursal_paciente);
   $sql->execute();
 
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);

@@ -231,46 +231,6 @@ function guardaryeditar(e)
        
 }
 
-
-//EDITAR ESTADO DEL PRODUCTO
-//importante:id_categoria, est se envia por post via ajax
-
-
-function cambiarEstado(id_categoria, id_producto, est){
-
-
- bootbox.confirm("¿Está Seguro de cambiar de estado?", function(result){
-		if(result)
-		{
-
-   
-			$.ajax({
-				url:"../ajax/producto.php?op=activarydesactivar",
-				 method:"POST",
-				//data:dataString,
-				//toma el valor del id y del estado
-				data:{id_categoria:id_categoria,id_producto:id_producto, est:est},
-				//cache: false,
-				//dataType:"html",
-				success: function(data){
-                 
-                  $('#producto_data').DataTable().ajax.reload();
-			    
-			    }
-
-			});
-
-			 }
-
-		 });//bootbox
-
-
-
-   }
-
-
-
-   //Función Listar
 function listar_en_compras(){
 
 	tabla_en_compras=$('#lista_productos_data').dataTable(
@@ -1019,7 +979,7 @@ function agregarDetalleVenta(id_producto,id_ingreso){
 	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
 	//importe = detalles[i].importe = detalles[i].importe - (detalles[i].dscto);
     importe = detalles[i].importe = detalles[i].importe - (detalles[i].dscto/100);
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' max='20' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion[]' id='descripcion[]'>"+detalles[i].marca+" "+detalles[i].modelo+"<td><input type='number' name='descuento[]' id='descuento' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td><td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' max='20' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion[]' id='descripcion[]'>"+detalles[i].marca+" "+detalles[i].modelo+"<td><input type='number' name='descuento[]' id='descuento' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td><td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span><td><input type='text' id='ubicacion[]' value='"+detalles[i].categoriaub+"'></td> </td></tr>";
 	
     subtotal = subtotal + importe;
 
@@ -1266,7 +1226,7 @@ $(document).on('click', '.ventas_record', function(){
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 
-    if(tipo_pago != "Descuento en Planilla"){
+if(tipo_pago != "Descuento en Planilla"){
 
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
 
@@ -1341,7 +1301,8 @@ $(document).on('click', '.ventas_record', function(){
               //muestra un mensaje de exito
           //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
         //Se carga la modal de abono inicial  
-        setTimeout ("load_modal_orden_descuento();", 2000); 
+       // setTimeout ("load_modal_orden_descuento();", 2000); 
+       setTimeout ("comprueba_orden();", 1000); 
          	
 		}
 
@@ -1350,7 +1311,7 @@ $(document).on('click', '.ventas_record', function(){
 	
   }
 
-  } 
+  }
 
   //*****************************************************************************
    /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
@@ -1424,7 +1385,29 @@ var numero_venta = document.getElementById('numero_venta').value;
       }
     });
  }
- //ELIMINAR PRODUCTOS
+ /////////////////COMPROBAR SI EXISTE CREDITO EMPRESARIAL
+ function comprueba_orden(){
+
+ 	var id_paciente = $("#id_paciente").val();
+      
+		$.ajax({
+			url:"../ajax/empresarial.php?op=buscar_orden",
+			method:"POST",
+			data:{id_paciente:id_paciente},
+			dataType:"json",
+			success:function(data)
+			{
+				//console.log(data.numero_orden != null && data.numero != '');
+				//var hola = data.numero_orden;
+				if(data.paciente_id){						
+					alert("Este Paciente ya Tiene un credito");                     
+				}else{
+					load_modal_orden_descuento();
+				}
+			}
+		})
+	
+    }
 
 ///////////////////*****************funcion cargar desc planilla
 function load_modal_orden_descuento(){

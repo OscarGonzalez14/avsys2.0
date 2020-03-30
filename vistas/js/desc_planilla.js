@@ -34,11 +34,16 @@ var id_paciente=$("#id_paciente").val();
 var fin_orden = $("#hasta_ord").val();
 var id_aro = $("#codigo_de_aro").val();
 
+var dui = $("#dui_ord").val();
+var nit = $("#nit_ord").val();
+var correo = $("#correo_ord").val();
+
 if(numero_orden != "" ){
+	
     $.ajax({
     url:"../ajax/empresarial.php?op=guardar_orden_desc",
     method:"POST",
-    data:{numero_venta:numero_venta,numero_orden:numero_orden,fecha_creacion:fecha_creacion,aro:aro,photo:photo,arnti:arnti,lente:lente,referencia_uno:referencia_uno,tel_ref_uno:tel_ref_uno,referencia_dos:referencia_dos,tel_ref_dos:tel_ref_dos,id_usuario:id_usuario,id_paciente:id_paciente,fin_orden:fin_orden,id_aro:id_aro},
+    data:{numero_venta:numero_venta,numero_orden:numero_orden,fecha_creacion:fecha_creacion,aro:aro,photo:photo,arnti:arnti,lente:lente,referencia_uno:referencia_uno,tel_ref_uno:tel_ref_uno,referencia_dos:referencia_dos,tel_ref_dos:tel_ref_dos,id_usuario:id_usuario,id_paciente:id_paciente,fin_orden:fin_orden,id_aro:id_aro,dui:dui,nit:nit,correo:correo},
     cache: false,
     dataType:"html",
     error:function(x,y,z){

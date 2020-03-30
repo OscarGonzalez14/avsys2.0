@@ -65,10 +65,12 @@ $aood = $_POST["aood"];
 $aooi = $_POST["aooi"];
 $apod = $_POST["apod"];
 $opoi = $_POST["opoi"];
+$fecha_consulta = $_POST["fecha_consulta"];
 
 $conexion = new Conexion();
 $cnn = $conexion->getConexion();
-$sql = "INSERT INTO consulta (motivo,patologias,id_paciente,id_usuario,oiesfreasl,oicilindrosl,oiejesl,oiprismal,oiadicionl,odesferasl,odcilndrosl,odejesl,odprismal,odadicionl,oiesferasa,oicolindrosa,oiejesa,oiprismaa,oiadiciona,odesferasa,odcilindrosa,odejesa,dprismaa,oddiciona,sugeridos,diagnostico,medicamento,observaciones,oiesferasf,oicolindrosf,oiejesf,oiprismaf,oiadicionf,odesferasf,odcilindrosf,odejesf,dprismaf,oddicionf,odavsclejos,odavphlejos,odavcclejos,odavsccerca,odavcccerca,oiavesferasf,oiavcolindrosf,oiavejesf,oiavprismaf,oiavadicionf,prisoicorrige,addodcorrige,prisodcorrige,addoicorrige,ishihara,amsler,anexos,dip,oddip,oidip,aood,aooi,apod,opoi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
+$sql = "INSERT INTO consulta (motivo,patologias,id_paciente,id_usuario,oiesfreasl,oicilindrosl,oiejesl,oiprismal,oiadicionl,odesferasl,odcilndrosl,odejesl,odprismal,odadicionl,oiesferasa,oicolindrosa,oiejesa,oiprismaa,oiadiciona,odesferasa,odcilindrosa,odejesa,dprismaa,oddiciona,sugeridos,diagnostico,medicamento,observaciones,oiesferasf,oicolindrosf,oiejesf,oiprismaf,oiadicionf,odesferasf,odcilindrosf,odejesf,dprismaf,oddicionf,odavsclejos,odavphlejos,odavcclejos,odavsccerca,odavcccerca,oiavesferasf,oiavcolindrosf,oiavejesf,oiavprismaf,oiavadicionf,prisoicorrige,addodcorrige,prisodcorrige,addoicorrige,ishihara,amsler,anexos,dip,oddip,oidip,aood,aooi,apod,opoi,fecha_consulta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 $statement = $cnn->prepare( $sql );
 	//Enlazar los parámetros de la consulta con los valores del formulario
@@ -138,6 +140,7 @@ $statement->bindParam(59,$aood,PDO::PARAM_STR );
 $statement->bindParam(60,$aooi,PDO::PARAM_STR );
 $statement->bindParam(61,$apod,PDO::PARAM_STR );
 $statement->bindParam(62,$opoi,PDO::PARAM_STR );
+$statement->bindParam(63,$fecha_consulta,PDO::PARAM_STR );
 
 
 

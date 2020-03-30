@@ -1,3 +1,18 @@
+
+$_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['id_aro'],$_POST['dui'],$_POST['nit'],$_POST['correo']
+
+select p.id_paciente,c.monto,v.tipo_pago,p.nombres from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente where p.id_paciente=51 and v.tipo_pago='Descuento en Planilla';
+
+
+
+select p.id_paciente,sum(c.monto),v.tipo_pago,p.nombres from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente where p.id_paciente=51 and v.tipo_pago='Descuento en Planilla';
+
+
+select p.id_paciente,c.monto,v.tipo_pago,p.nombres from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente where p.id_paciente=? order by p.id_paciente desc limit 1;
+****************************************************
+************************ 0 *************************
+****************************************************
+0
 select p.id_paciente,p.nombres,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/3 from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente where p.id_paciente=73;
 
 
@@ -53,3 +68,80 @@ $numero_venta,$numero_orden,$fecha_creacion,$aro,photo,$arnti,$lente,$referencia
 
 select p.nombres,e.nombre,o.aro,c.numero_venta,c.monto from pacientes as p inner join desc_planilla as o on p.id_paciente=o.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente;
 
+
+| id_consulta    | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| motivo         | text         | YES  |     | NULL              |                             |
+| patologias     | text         | YES  |     | NULL              |                             |
+| id_paciente    | int(11)      | NO   | MUL | NULL              |                             |
+| id_usuario     | int(11)      | YES  | MUL | NULL              |                             |
+| fecha_reg      | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| oiesfreasl     | varchar(10)  | YES  |     | NULL              |                             |
+| oicilindrosl   | varchar(10)  | YES  |     | NULL              |                             |
+| oiejesl        | varchar(10)  | YES  |     | NULL              |                             |
+| oiprismal      | varchar(10)  | YES  |     | NULL              |                             |
+| oiadicionl     | varchar(10)  | YES  |     | NULL              |                             |
+| odesferasl     | varchar(10)  | YES  |     | NULL              |                             |
+| odcilndrosl    | varchar(10)  | YES  |     | NULL              |                             |
+| odejesl        | varchar(10)  | YES  |     | NULL              |                             |
+| odprismal      | varchar(10)  | YES  |     | NULL              |                             |
+| odadicionl     | varchar(10)  | YES  |     | NULL              |                             |
+| oiesferasa     | varchar(10)  | YES  |     | NULL              |                             |
+| oicolindrosa   | varchar(10)  | YES  |     | NULL              |                             |
+| oiejesa        | varchar(10)  | YES  |     | NULL              |                             |
+| oiprismaa      | varchar(10)  | YES  |     | NULL              |                             |
+| oiadiciona     | varchar(10)  | YES  |     | NULL              |                             |
+| odesferasa     | varchar(10)  | YES  |     | NULL              |                             |
+| odcilindrosa   | varchar(10)  | YES  |     | NULL              |                             |
+| odejesa        | varchar(10)  | YES  |     | NULL              |                             |
+| dprismaa       | varchar(10)  | YES  |     | NULL              |                             |
+| oddiciona      | varchar(10)  | YES  |     | NULL              |                             |
+| sugeridos      | varchar(200) | YES  |     | NULL              |                             |
+| diagnostico    | text         | YES  |     | NULL              |                             |
+| medicamento    | varchar(100) | YES  |     | NULL              |                             |
+| observaciones  | text         | YES  |     | NULL              |                             |
+| oiesferasf     | varchar(10)  | YES  |     | NULL              |                             |
+| oicolindrosf   | varchar(10)  | YES  |     | NULL              |                             |
+| oiejesf        | varchar(10)  | YES  |     | NULL              |                             |
+| oiprismaf      | varchar(10)  | YES  |     | NULL              |                             |
+| oiadicionf     | varchar(10)  | YES  |     | NULL              |                             |
+| odesferasf     | varchar(10)  | YES  |     | NULL              |                             |
+| odcilindrosf   | varchar(10)  | YES  |     | NULL              |                             |
+| odejesf        | varchar(10)  | YES  |     | NULL              |                             |
+| dprismaf       | varchar(10)  | YES  |     | NULL              |                             |
+| oddicionf      | varchar(10)  | YES  |     | NULL              |                             |
+
+
+
+odavsclejos,odavphlejos,odavcclejos,odavsccerca,odavcccerca,
+oiavesferasf,oiavcolindrosf,oiavejesf,oiavprismaf,oiavadicionf,
+
+odavsclejos_e
+odavphlejos_e
+odavcclejos_e
+odavsccerca_e
+odavcccerca_e
+
+oiavesferasf
+oiavcolindrosf
+oiavejesf
+oiavprismaf
+oiavadicionf
+
+
+prisoicorrige 
+addodcorrige  
+prisodcorrige 
+addoicorrige  
+
+| ishihara       | varchar(200) | YES  |     | NULL              |                             |
+| amsler         | varchar(200) | YES  |     | NULL              |                             |
+| anexos         | varchar(200) | YES  |     | NULL              |                             |
+| dip            | varchar(20)  | YES  |     | NULL              |                             |
+| oddip          | varchar(20)  | YES  |     | NULL              |                             |
+| oidip          | varchar(20)  | YES  |     | NULL              |                             |
+| aood           | varchar(20)  | YES  |     | NULL              |                             |
+| aooi           | varchar(20)  | YES  |     | NULL              |                             |
+| apod           | varchar(20)  | YES  |     | NULL              |                             |
+| opoi           | varchar(20)  | YES  |     | NULL              |                             |
+| fecha_consulta | varchar(25)  | YES  |     | NULL              |                             |
++----------------+--------------+------+-----+-------------------+-----------------------------+

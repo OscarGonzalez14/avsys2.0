@@ -322,7 +322,7 @@
 
 <div class="col-xs-2">
         <label for="ex2">No.Orden:</label>
-        <input class="form-control" id="num_order_descuento" type="text" name="num_ord" required onkeypress="return false;">
+        <input class="form-control" id="num_order_descuento" type="text" name="num_ord">
       </div>
     <div class="col-xs-2">
        <label>No.Venta</label>
@@ -397,6 +397,7 @@
         <label for="ex3">1° Referencia*</label>
         <input class="form-control num_ord_correlativo" id="ref_uno" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
     </div>
+    
     <div class="col-xs-4">
       <label for="ex3">Teléfono 1° Referencia*</label>
       <input class="form-control" id="tel_ref_uno" type="text" name="tel_ref_uno" placeholder="TELEFONO REF. 1" required>

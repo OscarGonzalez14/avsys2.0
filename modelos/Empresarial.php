@@ -69,11 +69,11 @@ public function get_recibo_num_order(){
 
 }
 
-public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creacion,$aro,$photo,$arnti,$lente,$referencia_uno,$tel_ref_uno,$referencia_dos,$tel_ref_dos,$id_usuario,$id_paciente,$fin_orden,$id_aro){
+public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creacion,$aro,$photo,$arnti,$lente,$referencia_uno,$tel_ref_uno,$referencia_dos,$tel_ref_dos,$id_usuario,$id_paciente,$fin_orden,$id_aro,$dui,$nit,$correo){
 
       $conectar= parent::conexion();
       parent::set_names();
-      $sql="insert into desc_planilla values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      $sql="insert into desc_planilla values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
           
         $sql=$conectar->prepare($sql);
 
@@ -92,6 +92,9 @@ public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creac
         $sql->bindValue(13, $_POST["id_paciente"]);
         $sql->bindValue(14, $_POST["fin_orden"]);
         $sql->bindValue(15, $_POST["id_aro"]);
+        $sql->bindValue(16, $_POST["dui"]);
+        $sql->bindValue(17, $_POST["nit"]);
+        $sql->bindValue(18, $_POST["correo"]);
         $sql->execute();
       
 }
@@ -101,7 +104,7 @@ public function get_datos_ordenes_print($num_de_orden,$id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select p.id_paciente,p.nombres,e.nombre,o.aro,o.numero_orden,o.fin_orden,c.numero_venta,c.monto,c.plazo,c.monto/c.plazo as cuotas from pacientes as p inner join desc_planilla as o on p.id_paciente=o.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente where o.numero_orden=? and p.id_paciente=? group by o.numero_orden;";
+  $sql="select p.id_paciente,p.nombres,e.nombre,p.ocupacion,o.aro,o.numero_orden,o.fin_orden,c.numero_venta,c.monto,c.plazo,c.monto/c.plazo as cuotas from pacientes as p inner join desc_planilla as o on p.id_paciente=o.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente where o.numero_orden=? and p.id_paciente=? group by o.numero_orden;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$num_de_orden);
   $sql->bindValue(2,$id_paciente);
@@ -109,6 +112,8 @@ public function get_datos_ordenes_print($num_de_orden,$id_paciente){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+///////////////FUNCION PARA LISTAR ORDENES DE DESCUENTO
 public function get_descuentos_planilla(){
    	$conectar=parent::conexion();
    	parent::set_names();
@@ -119,5 +124,28 @@ public function get_descuentos_planilla(){
    	return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function buscar_orden($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select numero_orden,id_paciente from desc_planilla where id_paciente=?;";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+public function pacientes_orden($id_paciente){
+
+    $conectar= parent::conexion();         
+    $sql= "select *from pacientes where id_paciente=?;";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
 }
 ?>
