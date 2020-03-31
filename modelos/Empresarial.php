@@ -147,5 +147,18 @@ public function pacientes_orden($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
+public function pacientes_ultima_orden($id_paciente){
+
+    $conectar= parent::conexion();         
+    $sql= "select max(o.numero_orden)as num_order,sum(v.subtotal) from desc_planilla as o inner join ventas as v on o.id_paciente=v.id_paciente where v.tipo_pago='Descuento en Planilla' and  o.id_paciente=?;";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 }
 ?>

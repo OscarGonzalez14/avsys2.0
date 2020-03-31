@@ -70,7 +70,8 @@
     <?php require_once("modal/lista_ar_ventas_modal.php");?>
     <?php require_once("modal/lista_photo_ventas_modal.php");?>
     <?php require_once("modal/detalle_abonos_pac.php");?>
-    <?php require_once("modal/abono_inicial.php");?> 
+    <?php require_once("modal/abono_inicial.php");?>
+    <?php require_once("modal/modal_sumar_orden.php");?>  
   <div>
       <nav class="navbar navbar-inverse">
 

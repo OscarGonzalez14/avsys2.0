@@ -1400,7 +1400,7 @@ var numero_venta = document.getElementById('numero_venta').value;
 				//console.log(data.numero_orden != null && data.numero != '');
 				//var hola = data.numero_orden;
 				if(data.paciente_id){						
-					alert("Este Paciente ya Tiene un credito");                     
+					get_datos_ultima_orden_paciente();                     
 				}else{
 					load_modal_orden_descuento();
 				}
@@ -1408,6 +1408,21 @@ var numero_venta = document.getElementById('numero_venta').value;
 		})
 	
     }
+///////////////////////-------------------------------*********
+function get_datos_ultima_orden_paciente(){
+	var id_paciente = $("#id_paciente").val();
+    $("#modal_sumar_orden").modal("show");  
+		$.ajax({
+			url:"../ajax/empresarial.php?op=buscar_ultima_orden_pacientes",
+			method:"POST",
+			data:{id_paciente:id_paciente},
+			dataType:"json",
+			success:function(data)
+			{
+				$("#orden_anterior").val(data.num_order);
+			}
+		})
+}
 
 ///////////////////*****************funcion cargar desc planilla
 function load_modal_orden_descuento(){

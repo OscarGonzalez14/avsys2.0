@@ -139,5 +139,18 @@ case "buscar_orden":
 		echo json_encode($output);
 
      break;
+
+    case "buscar_ultima_orden_pacientes":
+
+    $datos= $empresarial->pacientes_ultima_orden($_POST["id_paciente"]);
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["num_order"] = $row["num_order"];								
+		}
+		      
+	echo json_encode($output);
+		}
+break;
 }
 ?>
