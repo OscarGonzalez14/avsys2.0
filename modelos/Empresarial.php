@@ -96,6 +96,8 @@ public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creac
         $sql->bindValue(17, $_POST["nit"]);
         $sql->bindValue(18, $_POST["correo"]);
         $sql->execute();
+
+        
       
 }
 

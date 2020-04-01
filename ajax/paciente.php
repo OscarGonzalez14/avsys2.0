@@ -166,62 +166,9 @@ case "listar":
 
      case "eliminar_paciente":
 
-            $datos= $pacientes->get_paciente_por_id($_POST["id_paciente"]);
-
-
-		       if(is_array($datos)==true and count($datos)>0){
-
+ 
 		            $pacientes->eliminar_paciente($_POST["id_paciente"]);
 
-		            $messages[]="El paciente se eliminó exitosamente";
-
-		       
-		       }
-		      
-   	 // }
-
-
-
-
-	//prueba mensaje de success
-
-     if (isset($messages)){
-				
-				?>
-				<div class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>¡Bien hecho!</strong>
-						<?php
-							foreach ($messages as $message) {
-									echo $message;
-								}
-							?>
-				</div>
-				<?php
-			}
-
-
-	//fin mensaje success
-
-
-	   //inicio de mensaje de error
-
-				if (isset($errors)){
-			
-			?>
-			<div class="alert alert-danger" role="alert">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Error!</strong> 
-					<?php
-						foreach ($errors as $error) {
-								echo $error;
-							}
-						?>
-			</div>
-			<?php
-			}
-
-	   //fin de mensaje de error
 
 
      break;

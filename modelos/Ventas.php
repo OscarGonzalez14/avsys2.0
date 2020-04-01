@@ -268,6 +268,8 @@ $conectar=parent::conexion();
     $id_usuario = $_POST["id_usuario"];
     $id_paciente = $_POST["id_paciente"];
     $plazo = $_POST["plazo"];
+    $abonos = "0";
+    $numero_orden = "0";
 
     $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
     $sql=$conectar->prepare($sql);
@@ -356,18 +358,20 @@ $conectar=parent::conexion();
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now());";
+           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now(),?,?);";
 
            $sql7=$conectar->prepare($sql7);
 
-           $sql7->bindValue(1,$subtotal);
-           $sql7->bindValue(2,$tipo_pago);
+           $sql7->bindValue(1,$tipo_pago);
+           $sql7->bindValue(2,$subtotal);
            $sql7->bindValue(3,$plazo);
            $sql7->bindValue(4,$subtotal);
            $sql7->bindValue(5,$tipo_pago);
            $sql7->bindValue(6,$numero_venta);
            $sql7->bindValue(7,$id_paciente);
            $sql7->bindValue(8,$id_usuario);
+           $sql7->bindValue(9,$numero_orden);
+           $sql7->bindValue(10,$abonos);
            $sql7->execute();
 
           

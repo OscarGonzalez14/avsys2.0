@@ -418,10 +418,7 @@ function listar_en_ventas(){
      //ELIMINAR paciente
 
 function eliminarp(id_paciente){
-	  
-	 bootbox.confirm("¿Está Seguro de eliminar el paciente?", function(result){
-		if(result)
-		{
+
 
 				$.ajax({
 					url:"../ajax/paciente.php?op=eliminar_paciente",
@@ -436,9 +433,6 @@ function eliminarp(id_paciente){
 					}
 				});
 
-		      }
-
-		 });//bootbox
 
 
    }

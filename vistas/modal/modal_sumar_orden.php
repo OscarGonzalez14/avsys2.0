@@ -70,7 +70,7 @@
   </div style="display:block">
       <div class="modal-footer">
         <button type="button" onClick="load_modal_orden_descuento()" class="btn btn-dark btn-md" id="btn_enviar_ord_desc"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  No</button>
-       <a  id="" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>  Si</button></a>
+       <button type="button" class="btn btn-blue btn-md reiniciar_ventas" onClick="modal_unir_ordenes()"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>  Si</button>
   
       </div>
   </div>

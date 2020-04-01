@@ -1402,7 +1402,8 @@ var numero_venta = document.getElementById('numero_venta').value;
 				if(data.paciente_id){						
 					get_datos_ultima_orden_paciente();                     
 				}else{
-					load_modal_orden_descuento();
+					//load_modal_orden_descuento();
+					setTimeout ("load_modal_orden_descuento();", 2000); 
 				}
 			}
 		})
@@ -1424,6 +1425,25 @@ function get_datos_ultima_orden_paciente(){
 		})
 }
 
+function modal_unir_ordenes(){
+	$("#modal_add_desc_planilla").modal("show");  
+	var id_paciente = $("#id_paciente").val();
+	var numero_orden = $("#orden_anterior").val();
+	document.getElementById("numero_orden_ad").value=numero_orden;
+    
+	/*	$.ajax({
+			url:"../ajax/empresarial.php?op=buscar_ultima_orden_pacientes",
+			method:"POST",
+			data:{id_paciente:id_paciente},
+			dataType:"json",
+			success:function(data)
+			{
+				$("#orden_anterior").val(data.num_order);
+			}
+		})*/
+}
+
+///////////////////*****************funcion cargar desc planilla
 ///////////////////*****************funcion cargar desc planilla
 function load_modal_orden_descuento(){
 
