@@ -2,6 +2,22 @@ var tabla;
 
 var tabla_en_ventas;
 
+$(document).ready(ocultar_btn_edicion);
+  function ocultar_btn_edicion(){
+
+  document.getElementById("edit_paciente").style.display = "none";
+}
+
+function hide_btn_save(){
+
+  document.getElementById("save_paciente").style.display = "none";
+  mostrar_btn_edicion()
+}
+
+function mostrar_btn_edicion(){
+
+  document.getElementById("edit_paciente").style.display = "block";
+}
 //Función que se ejecuta al inicio
 function init(){
 	
@@ -190,6 +206,9 @@ function guardarPaciente(){
 	var cod_empresa_pac=$("#cod_emp").val();
 	var id_usuario=$("#id_usuario").val();    
 	var sucursal = $("#sucursal").val();
+	var nit = $("#nit").val();
+	var tel_oficina = $("#tel_oficina").val();
+	var direccion_completa = $("#direccion_completa").val();
     
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
@@ -197,7 +216,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
     $.ajax({
     url:"../ajax/paciente.php?op=guardar_paciente",
     method:"POST",
-    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,id_usuario:id_usuario,cod_empresa_pac:cod_empresa_pac},
+    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,id_usuario:id_usuario,cod_empresa_pac:cod_empresa_pac,nit:nit,direccion_completa:direccion_completa},
     cache: false,
     dataType:"html",
     error:function(x,y,z){
@@ -207,7 +226,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
     },        
       
   success:function(data){
-  	cerrarModal_pac();
+  cerrarModal_pac();
   setTimeout ("bootbox.alert('Se ha registrado el Paciente con exito');", 100);
   //refresca la pagina, se llama a la funtion explode
   setTimeout ("explode();", 2000);          
@@ -221,6 +240,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
   
     
 }
+
 function cerrarModal_pac(){
     $('#pacienteModal').modal('hide');
 }
@@ -418,7 +438,10 @@ function listar_en_ventas(){
      //ELIMINAR paciente
 
 function eliminarp(id_paciente){
-
+	  
+	 bootbox.confirm("¿Está Seguro de eliminar el paciente?", function(result){
+		if(result)
+		{
 
 				$.ajax({
 					url:"../ajax/paciente.php?op=eliminar_paciente",
@@ -433,10 +456,73 @@ function eliminarp(id_paciente){
 					}
 				});
 
+		      }
+
+		 });//bootbox
 
 
    }
 
+$(document).on('click', '.edita_pacc', function(){
+	 	$('#pacienteModal').modal("show");
+	 	//$("#codigo_paciente").attr('hide');
+		var id_paciente = $(this).attr("id");
+		hide_btn_save();
+		$.ajax({
+			url:"../ajax/paciente.php?op=ver_pacientes_data",
+			method:"POST",
+			data:{id_paciente:id_paciente},
+			cache:false,
+			dataType:"json",
+			success:function(data)
+			{				
+				$("#nombres").val(data.nombres);
+				$("#telefono").val(data.telefono);
+				$("#edad").val(data.edad);
+				$("#dui").val(data.dui);
+				$("#ocupacion").val(data.ocupacion);
+				$("#correo").val(data.correo);
+				$("#empresa").val(data.nombre);
+				$("#id_paciente").val(data.id_paciente);
 
+				
+			}
+		})
+	});
+
+function editarPaciente(){
+
+	var nombres=$("#nombres").val();
+    var telefono=$("#telefono").val();
+    var edad=$("#edad").val();
+    var dui=$("#dui").val();
+    var ocupacion=$("#ocupacion").val();
+    var correo=$("#correo").val();
+    var empresa=$("#empresa").val();
+    var cod_emp=$("#cod_emp").val();
+    var id_paciente=$("#id_paciente").val();
+
+    $.ajax({
+    url:"../ajax/paciente.php?op=editar_paciente",
+    method:"POST",
+    data:{nombres:nombres,telefono:telefono,edad:edad,dui:dui,ocupacion:ocupacion,correo:correo,cod_emp:cod_emp,id_paciente:id_paciente},
+    cache: false,
+    dataType:"html",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },        
+      
+  success:function(data){
+  setTimeout ("bootbox.alert('Se ha Editado con exito');", 100);
+  //refresca la pagina, se llama a la funtion explode
+  setTimeout ("explode();", 2000);          
+}
+
+  }); 
+
+    
+}
 
 init();

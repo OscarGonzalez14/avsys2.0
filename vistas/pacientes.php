@@ -40,23 +40,27 @@
       <div class="box">
         <div class="box-header with-border">
   <h1 class="box-title"><button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#pacienteModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Paciente</button></h1>
-  
   <a href="#"><button class="btn btn-dark btn-lg"><i class="fa fa-list-alt" aria-hidden="true"></i>Expedientes</button></h1></a>
-  <div class="box-tools pull-right"></div></div>
+  <a href="consultas.php"><button class="btn btn-dark btn-lg"><i class="fa fa-list-alt" aria-hidden="true"></i>Consultas</button></h1></a>
+  
+  </div></div>
+  
+   
                     <!-- /.box-header -->
                     <!-- centro -->
     <div class="panel-body table-responsive">                          
         <table id="paciente_data" class="table table-bordered table-striped">
 
             <thead>                              
-                <tr>                                  
-                <th>Codigo</th>
+                <tr>
+                <th>ID</th>                                  
                 <th>Fecha</th>
                 <th>Nombres</th>
                 <th>Empresa</th>
                 <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Agregar</th>                                 
+                <th>Agregar</th>
+                <th>Editar</th> 
+                <th>Eliminar</th>                                 
                 </tr>
             </thead>
           <tbody></tbody>
@@ -93,8 +97,7 @@
 
       <div class="col-xs-9">
         <label for="ex1">Nombre</label>
-        <input class="form-control" id="nombres" name="nombres" type="text" placeholder="Escriba el Nombre del paciente"  required onkeyup="mayus(this);">
-      
+        <input class="form-control" id="nombres" name="nombres" type="text" placeholder="Escriba el Nombre del paciente"  required onkeyup="mayus(this);">      
       </div>
       <div class="col-xs-3">
         <label for="ex2">Telefono</label>
@@ -126,21 +129,35 @@
         <input class="form-control" id="empresa" type="text" name="empresa" placeholder="Empresa del paciente" required readonly>
       </div>
 
-      <div class="col-xs-1">
+    <div class="col-xs-1" style="position: relative">
       <label>Buscar</label>
-      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#empresasModal"><span class="glyphicon glyphicon-search"></button>       
-    </div>
+      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#empresasModal"><span class="glyphicon glyphicon-search"></span></button>       
+    </div><span style="color:white">..</span>
+    <h5 style="padding:5px; position:relative"><strong><u>***Campos para pacientes de Cargo Automatico y Descuento En Planilla</u></strong></h5>
 
-    </div>
-
+  <div class="col-xs-3">
+    <label>NIT*</label>
+       <input class="form-control" id="nit" type="text" name="nit" placeholder="" required>
+  </div>
+  <div class="col-xs-3">
+    <label>Telefono de Oficina</label>
+       <input class="form-control" id="tel_oficina" type="text" name="tel_oficina" placeholder="" required>
+  </div>
+    <div class="col-xs-6">
+    <label>Dirección Completa</label>
+       <input class="form-control" id="direccion_completa" type="text" name="direccion_completa" placeholder="" required>
+  </div>
+<br><br><br><p style="color:white">..</p>
 <input type="hidden" name="cod_emp" id="cod_emp"/>
 <input type="hidden" name="id_paciente" id="id_paciente"/>
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
-
+<div>
 <button class="btn btn-primary btn-block" onClick="guardarPaciente();" id="save_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>
-
+<button class="btn btn-edit btn-block" onClick="editarPaciente();" id="edit_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+Editar</button>
+</div>
 
   </div>
         <div class="modal-footer">
@@ -155,7 +172,7 @@ Guardar</button>
 
  <!--FIN FORMULARIO VENTANA MODAL-->
  <!-- Modal -->
-<div id="empresasModal" class="modal fade" data-modal-index="2">
+<div id="empresasModal" class="modal fade" data-modal-index="3">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -197,23 +214,28 @@ Guardar</button>
         
       </div>  
         <div class="modal-body">
+        <input class="form-control" id="codigop" name="codigop" type="hidden" readonly>
 
     <form class="form-horizontal" method="post" action="../ajax/registra_consulta.php">
     <div class="form-group row">
 
-  <div class="col-xs-3">
-        <label for="ex1">Cod.Paciente</label>
-        <input class="form-control" id="codigop" name="codigop" type="text" readonly>
-  </div>
-
-
-
-      <div class="col-xs-6">
-        <label for="ex3">Nombre</label>
+    <div class="col-xs-3">
+        <label for="ex3">Encargado de Cuenta</label>
         <input class="form-control" id="nombre_pac" type="text" name="nombre_pac" readonly>
       </div>
-
-<div class="col-xs-3">
+            <div class="col-xs-3">
+        <label for="ex3">Paciente evaluado</label>
+        <input class="form-control" id="encargado" type="text" name="encargado">
+      </div>
+     <div class="col-xs-2">
+        <label for="ex1">Parentesco</label>
+        <input class="form-control" id="parentesco_evaluado" name="parentesco_evaluado" type="text">
+      </div>
+      <div class="col-xs-2">
+        <label for="ex3">Telefono</label>
+        <input class="form-control" id="tel_evaluado" type="text" name="tel_evaluado" placeholder="Paciente Evaluado">
+      </div>
+<div class="col-xs-2">
         <label for="ex3">Fecha de Consulta</label>
         <input class="form-control" id="fecha_consulta" type="text" name="fecha_consulta" placeholder="dd/mm/YY">
       </div>
@@ -457,6 +479,7 @@ Guardar</button>
 
     <div class="col-xs-12">
       
+        <input class="form-control" id="id_consulta" name="id_consulta" type="hidden" value="codigos" readonly>
         <input class="form-control" id="codigos" name="codigos" type="hidden" value="codigos" readonly>
   </div>
  <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>

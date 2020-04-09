@@ -23,53 +23,56 @@
 
       <div class="col-xs-2">
         <label for="ex2">No.Orden Activa:</label>
-        <input class="form-control" id="orden_anterior" type="text">
+        <input class="form-control" id="orden_anteriores" type="text" data-toggle="modal" data-target="#beneficiarios_venta">
       </div>
     <div class="col-xs-4">
       <label>Paciente</label>
       <input type="text" class="form-control" id="paciente_ord_ant" name="paciente_ord" required onkeypress="return false;">
     </div>
-      <div class="col-xs-4">
+      <div class="col-xs-2">
         <label for="ex1">Empresa:</label>
         <input class="form-control" id="empresa_ord_ant" name="empresa_ord" type="text" required onkeypress="return false;">
       </div>
       <div class="col-xs-2">
-        <label for="ex2">Monto Aprobado:</label>
+        <label for="ex2">Monto actual:</label>
         <input class="form-control" id="monto_ord_ant" type="text" name="monto_ord" required onkeypress="return false;">
+      </div>
+      <div class="col-xs-2">
+        <label for="ex2">Plazo:</label>
+        <input class="form-control" id="plazo_ord_ant" type="text" name="monto_ord" required onkeypress="return false;">
       </div>
       
       <div class="col-xs-2">
+        <label for="ex3">Monto Abonado:</label>
+        <input class="form-control" id="monto_abonado" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+    <div class="col-xs-2">
+        <label for="ex3">Saldo:</label>
+        <input class="form-control" id="saldo_credito_ant" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-2">
+        <label for="ex3">Letras Abonadas:</label>
+        <input class="form-control" id="letras_abonadas" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-2">
         <label for="ex3">Letras Pendientes:</label>
-        <input class="form-control" id="cuotas_pendientes" type="text" name="cuotas_ord" required onkeypress="return false;">
+        <input class="form-control" id="letras_pendientes" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-3">
+        <label for="ex3">Finalizacion del Credito:</label>
+        <input class="form-control" id="finzaliza_credito" type="text" name="cuotas_ord" required onkeypress="return false;">
       </div>
  <br>
 
-<div>
-  <table  class="table table-striped table-bordered table-condensed table-hover">
-  <h5 align="center">SERVICIO QUE RECIBIÓ</h5>       
-    <thead style="background-color:#3e4444;color: white ">
-       <tr>
-      <th style="text-align:center;color:white">DETALLE ARO</th>
-      <th style="text-align:center;color:white">DISEÑO LENTE</th>
-      <th style="text-align:center;color:white">TIPO AR</th>
-      <th style="text-align:center;color:white">PHOTOSENSIBLE</th>
-      </tr>
-     </thead>
-
-     <tbody>
-      <td align='center'><input class='form-control' type='text' class='monto' name='detalle_aro_ord' id="detalle_aro_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='lente_ord' id="lente_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='ar_ord' id="ar_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: center;" readonly></td>
-    </tbody>
-  </table>
-  </div>
 <input class='form-control' type='hidden' class='monto' name='codigo_de aro' id="codigo_de_aro" style="text-align: center;" readonly>
 </div>
 <p align="right"><strong>Desea Sumar esta venta a una orden ya Existente!!</strong></p>
   </div style="display:block">
       <div class="modal-footer">
-        <button type="button" onClick="load_modal_orden_descuento()" class="btn btn-dark btn-md" id="btn_enviar_ord_desc"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  No</button>
+        <button type="button" onClick="load_modal_orden_descuento()" class="btn btn-dark btn-md complete_orden_ant" id="btn_enviar_ord_desc"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  No</button>
        <button type="button" class="btn btn-blue btn-md reiniciar_ventas" onClick="modal_unir_ordenes()"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>  Si</button>
   
       </div>

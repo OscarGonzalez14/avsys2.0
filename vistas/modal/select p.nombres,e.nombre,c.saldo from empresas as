@@ -1,0 +1,4 @@
+select p.nombres,e.nombre,c.saldo from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join creditos as c on c.id_paciente=p.id_paciente where c.numero_orden='7';
+
+
+select p.nombres,e.nombre,c.monto,c.saldo,c.monto-c.saldo as abonado,DATE(DATE_ADD(c.fecha_adquirido, INTERVAL  c.plazo MONTH)) as finzalizacion  from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join creditos as c on c.id_paciente=p.id_paciente where c.numero_orden='1';

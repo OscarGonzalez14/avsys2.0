@@ -1,14 +1,11 @@
-
  var tabla;
-
  var tabla_en_compras;
-
  var tabla_en_ventas;
  var tabla_lentes_ventas;
  var tabla_acc_ventas;
  var tabla_ar_ventas;
  var tabla_photo_ventas;
-  var tabla_existencias;
+ var tabla_existencias;
  //Función que se ejecuta al inicio
 function init(){
 	
@@ -1156,7 +1153,6 @@ subtotal = subtotal + (detalles[i].cantidad * detalles[i].precio_venta) - (detal
           totalFinal = detalles[i].moneda+" "+total;
 		
 	}
-
 	//subtotal
 	$('#subtotal').html(subtotalFinal);
 	$('#subtotal_venta').html(subtotalFinal);
@@ -1223,13 +1219,9 @@ $(document).on('click', '.ventas_record', function(){
     var descripcion = $("#descripcion").val();
     var importe = $("#importe").val();
 
-
-    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-
 if(tipo_pago != "Descuento en Planilla"){
 
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
-
     $("#descuento").attr('disabled', 'disabled');
      console.log('error!');
 
@@ -1271,48 +1263,10 @@ if(tipo_pago != "Descuento en Planilla"){
 	 	 return false;
 	 }
 	 }else{
-	 	//
-	if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
-
-    $("#descuento").attr('disabled', 'disabled');
-     console.log('error!');
-
-    $.ajax({
-		url:"../ajax/producto.php?op=registrar_venta",
-		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
-		cache: false,
-		dataType:"html",
-		error:function(x,y,z){
-			d_pacole.log(x);
-			console.log(y);
-			console.log(z);
-		},    
-      
-			
-		success:function(data){
-
-	    var nombre_pac = $("#nombre_pac").val("");
-
-            
-            detalles = [];
-            $('#listProdVentas').html('');
-            
-              //muestra un mensaje de exito
-          //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
-        //Se carga la modal de abono inicial  
-       // setTimeout ("load_modal_orden_descuento();", 2000); 
-       setTimeout ("comprueba_orden();", 1000); 
-         	
-		}
-
-	}); 
-	 } 	
-	
+		comprueba_orden();	
   }
 
   }
-
   //*****************************************************************************
    /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
        function explode(){
@@ -1363,7 +1317,7 @@ var sucursal = document.getElementById('sucursal').value;
 
       }
     });
-    get_datos_aros_recibo_inicial()
+    get_datos_aros_recibo_inicial();
  }
 
 
@@ -1390,7 +1344,7 @@ var numero_venta = document.getElementById('numero_venta').value;
 
  	var id_paciente = $("#id_paciente").val();
       
-		$.ajax({
+    $.ajax({
 			url:"../ajax/empresarial.php?op=buscar_orden",
 			method:"POST",
 			data:{id_paciente:id_paciente},
@@ -1402,6 +1356,62 @@ var numero_venta = document.getElementById('numero_venta').value;
 				if(data.paciente_id){						
 					get_datos_ultima_orden_paciente();                     
 				}else{
+					var numero_venta = $("#numero_venta").val();
+   					var cod_pac = $("#cod_pac").val();
+   					var nombre_pac = $("#nombre_pac").val();
+    				var tipo_pago = $("#tipo_pago").val();
+   				    var subtotal = $("#subtotal").html();
+    				var usuario = $("#usuario").val();
+    				var tipo_venta = $("#tipo_venta").val();
+    				var sucursal = $("#sucursal").val();
+    				var id_usuario = $("#id_user").val();
+    				var id_paciente = $("#id_paciente").val();
+    				var plazo = $("#plazo").val();
+    				var descripcion = $("#descripcion").val();
+    				var importe = $("#importe").val();
+    				///////////////////////////000000000000000000
+
+    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
+     	$("#descuento").attr('disabled', 'disabled');
+     	console.log('error!');
+
+    $.ajax({
+		url:"../ajax/producto.php?op=registrar_venta",
+		method:"POST",
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
+		cache: false,
+		dataType:"html",
+		error:function(x,y,z){
+			d_pacole.log(x);
+			console.log(y);
+			console.log(z);
+		},    
+      
+			
+		success:function(data){
+
+	    var nombre_pac = $("#nombre_pac").val("");
+
+            
+            detalles = [];
+            $('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
+        //Se carga la modal de abono inicial  
+        //setTimeout ("recibo_uno();", 2000); 
+         	
+		}
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del paciente
+
+	 } else{
+
+	 	 bootbox.alert("Debe llenar todos los campos");
+	 	 return false;
+	 }
 					//load_modal_orden_descuento();
 					setTimeout ("load_modal_orden_descuento();", 2000); 
 				}
@@ -1412,7 +1422,8 @@ var numero_venta = document.getElementById('numero_venta').value;
 ///////////////////////-------------------------------*********
 function get_datos_ultima_orden_paciente(){
 	var id_paciente = $("#id_paciente").val();
-    $("#modal_sumar_orden").modal("show");  
+    $("#modal_sumar_orden").modal("show");
+
 		$.ajax({
 			url:"../ajax/empresarial.php?op=buscar_ultima_orden_pacientes",
 			method:"POST",
@@ -1420,27 +1431,55 @@ function get_datos_ultima_orden_paciente(){
 			dataType:"json",
 			success:function(data)
 			{
-				$("#orden_anterior").val(data.num_order);
+				$("#orden_anteriores").val(data.num_order);
 			}
-		})
+		});
+        setTimeout ("complete_data_ultimo_credito();", 2000);
+		
+}
+function complete_data_ultimo_credito(){
+        var numero_orden= $("#orden_anteriores").val();
+			$.ajax({
+			url:"../ajax/empresarial.php?op=ultimo_credito_empresarial",
+			method:"POST",
+			data:{numero_orden:numero_orden},
+			dataType:"json",
+			success:function(data)
+			{
+				$("#paciente_ord_ant").val(data.nombres);
+				$("#empresa_ord_ant").val(data.nombre);
+				$("#monto_ord_ant").val(data.monto);
+				$("#plazo_ord_ant").val(data.plazo);
+				$("#monto_abonado").val(data.abonado);
+				$("#letras_abonadas").val(data.letras_abonadas);
+				$("#letras_pendientes").val(data.pendientes);
+				$("#finzaliza_credito").val(data.finalizacion);
+				$("#saldo_credito_ant").val(data.saldo);
+			}
+		});
 }
 
 function modal_unir_ordenes(){
 	$("#modal_add_desc_planilla").modal("show");  
 	var id_paciente = $("#id_paciente").val();
-	var numero_orden = $("#orden_anterior").val();
+
+	var numero_orden = $("#orden_anteriores").val();
 	document.getElementById("numero_orden_ad").value=numero_orden;
-    
-	/*	$.ajax({
-			url:"../ajax/empresarial.php?op=buscar_ultima_orden_pacientes",
-			method:"POST",
-			data:{id_paciente:id_paciente},
-			dataType:"json",
-			success:function(data)
-			{
-				$("#orden_anterior").val(data.num_order);
-			}
-		})*/
+
+	var monto_anterior = $("#monto_ord_ant").val();
+	document.getElementById("monto_anterior_add").value="$"+monto_anterior;
+
+	var saldo_anterior = $("#saldo_credito_ant").val();
+	document.getElementById("cuotas_anterior_add").value="$"+saldo_anterior;
+
+	var monto_actual = $("#subtotal").html();
+	var nuevo_saldo = parseInt(monto_actual)+parseInt(saldo_anterior);
+	document.getElementById("nuevo_saldo_ad").value=nuevo_saldo;    
+	
+	var paciente_ord_ant = $("#paciente_ord_ant").val();
+	document.getElementById("paciente_encargado_add").value=paciente_ord_ant;
+	var empresa_ord_ant = $("#empresa_ord_ant").val();
+	document.getElementById("empresa_ord_add").value=empresa_ord_ant;
 }
 
 ///////////////////*****************funcion cargar desc planilla
@@ -1470,6 +1509,9 @@ var venta_numero = document.getElementById('numero_venta').value;
         $("#venta_numero_ord").val(data.numero_venta);
         $("#cuotas_ord").val(data.cuotas);
         $("#correo_ord").val(data.correo);
+        $("#hasta_ord").val(data.finaliza_credito);
+        $("#dui_ord").val(data.dui);
+        $("#nit_ord").val(data.nit);
       }
     });
 
@@ -1525,8 +1567,6 @@ var venta_numero = document.getElementById('numero_venta').value;
         
       }
     });
-
-
 }
 /////////////////////////////fin get detalle_orden for load
 	 function eliminar(id_producto){

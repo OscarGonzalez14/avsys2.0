@@ -207,21 +207,25 @@ $conectar=parent::conexion();
     $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
       foreach($resultados as $b=>$row){
         $re["saldo_actual"] = $row["saldo"];
+        $re["abono_realizados"] = $row["abonos"];
 
     }
     //la cantidad total es la suma de la cantidad más la cantidad actual
-    $cantidad_totales = $row["saldo"] - $abono_act;             
+    $cantidad_totales = $row["saldo"] - $abono_act;
+    $abonos_pendientes = $row["abonos"]-1;             
     //si existe el producto entonces actualiza el stock en producto              
       if(is_array($resultados)==true and count($resultados)>0) {                     
                   //actualiza el stock en la tabla producto
         $sql12 = "update creditos set                       
-            saldo=?
+            saldo=?,
+            abonos=?
             where 
             numero_venta=?
         ";
         $sql12 = $conectar->prepare($sql12);
         $sql12->bindValue(1,$cantidad_totales);
-        $sql12->bindValue(2,$num_venta);
+        $sql12->bindValue(2,$abonos_pendientes);
+        $sql12->bindValue(3,$num_venta);
         //$sql12->bindValue(3,$sucursal);
         $sql12->execute();               
     }//Fin del if

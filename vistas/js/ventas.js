@@ -992,6 +992,247 @@ tabla_ventas_sucursal= $('#lista_productos_ventas_data').DataTable({
 
 	    });
 
+$(document).ready(ocultar_btn_encargado);
+  function ocultar_btn_encargado(){
+
+  document.getElementById("pac_eval").style.display = "none";
+}
+function show_btn_paciente_cons(){
+  document.getElementById("pac_eval").style.display = "block";
+}
+$(document).on('click', '#si_consulta', function(){	 	
+		show_btn_paciente_cons();
+});
+$(document).on('click', '#no_consulta', function(){	 	
+		ocultar_btn_encargado();
+});
+//LCARGAR PACIENTES EN VENTAS
+$(document).on("click",".paciente_venta", function(){
+	var consulta = $("#consulta_ex").val();
+
+	if(consulta=='Si'){
+	$('#modalPaciente').modal('show');
+        tabla_paciente_venta= $('#lista_pacientes_data_consulta').DataTable({
+	    
+	       "aProcessing": true,//Activamos el procesamiento del datatables
+	       "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	      buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+
+	         "ajax":{
+	            url:"../ajax/ventas.php?op=buscar_paciente_consultas",
+                type : "GET",
+				dataType : "json",
+				//data:{sucursal:sucursal},						
+				error: function(e){
+					console.log(e.responseText);
+
+				},
+
+	          
+	          },
+
+	            "bDestroy": true,
+				"responsive": true,
+				"bInfo":true,
+				"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+			    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+	          "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }, //cerrando language
+
+			    //"scrollX": true
+
+
+
+	      });
+    }else{
+
+    	$('#modalPaciente_no_consulta').modal('show');        
+        tabla_pacientes_sin_consulta = $('#lista_pacientes_sin_consulta').DataTable({
+	    
+	       "aProcessing": true,//Activamos el procesamiento del datatables
+	       "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	      buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+
+	         "ajax":{
+	            url:"../ajax/ventas.php?op=buscar_paciente_sin_consultas",
+                type : "GET",
+				dataType : "json",
+				//data:{sucursal:sucursal},						
+				error: function(e){
+					console.log(e.responseText);
+
+				},
+
+	          
+	          },
+
+	            "bDestroy": true,
+				"responsive": true,
+				"bInfo":true,
+				"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+			    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+	          "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }, //cerrando language
+
+			    //"scrollX": true
+
+
+
+	      });
+    }
+
+	    });
+
+//////////////////////AGREGA PACIENTE A LA VENTA
+
+	 	function agrega_paciente_venta(id_paciente,id_consulta){
+      
+		$.ajax({
+			url:"../ajax/ventas.php?op=buscar_pacientes_consultas_encargado",
+			method:"POST",
+			data:{id_paciente:id_paciente,id_consulta:id_consulta},
+			dataType:"json",
+			success:function(data)
+			{
+				if(data.encargado){	
+				$('#modalPaciente').modal('hide');
+				$('#pac_eval').show();
+				$('#nombre_pac').val(data.nombres);
+				$('#pac_evaluado').val(data.encargado);
+				$('#id_paciente').val(data.id_paciente);                     
+				}else{
+				$('#modalPaciente').modal('hide');
+				$('#pac_eval').hide();
+				$('#nombre_pac').val(data.nombres);
+				//$('#pac_evaluado').val(data.encargado);
+				$('#id_paciente').val(data.id_paciente);
+				}
+			}
+		})
+	
+    }
+
+	 	function agrega_paciente_venta_no_consulta(id_paciente){
+      
+		$.ajax({
+			url:"../ajax/ventas.php?op=buscar_pacientes_sin_consultas",
+			method:"POST",
+			data:{id_paciente:id_paciente},
+			dataType:"json",
+			success:function(data)
+			{
+				$('#modalPaciente_no_consulta').modal('hide');
+				$('#nombre_pac').val(data.nombres);
+				$('#id_paciente').val(data.id_paciente);                   
+           }
+		})
+	}
+        
+
 $(document).ready( function () {
 var currentDate = new Date()
 var day = currentDate.getDate()

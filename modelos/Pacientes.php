@@ -11,19 +11,19 @@ public function get_pacientes_consultas($sucursal_paciente){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql=" select p.id_paciente, p.codigo,p.fecha_reg,p.sucursal,p.nombres,e.nombre,p.telefono from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where sucursal=? order by id_paciente DESC";
+  $sql="select p.id_paciente, p.fecha_reg,p.sucursal,p.nombres,CONCAT(e.nombre,' ',e.direccion) AS nombre,p.telefono from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where sucursal=? order by id_paciente DESC;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal_paciente);
   $sql->execute();
 
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-       }
+}
 
 public function get_pacientes(){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select*from pacientes";
+  $sql="select p.nombres,c.encargado,c.id_consulta,p.id_paciente,p.sucursal from pacientes as p inner join consulta as c on p.id_paciente=c.id_paciente ORDER BY c.id_consulta DESC;";
 
   $sql=$conectar->prepare($sql);
   //$sql->bindValue(1,$sucursal_paciente);
@@ -31,7 +31,49 @@ public function get_pacientes(){
 
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
-}       
+} 
+
+public function mostar_pacientes(){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select*from pacientes;";
+
+  $sql=$conectar->prepare($sql);
+  //$sql->bindValue(1,$sucursal_paciente);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+public function mostar_pacientes_sin_consulta($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select*from pacientes where id_paciente=?;";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
+public function get_pacientes_encargado($id_paciente,$id_consulta){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.nombres,c.encargado,c.id_consulta,p.id_paciente,p.sucursal from pacientes as p inner join consulta as c on p.id_paciente=c.id_paciente where p.id_paciente=? and c.id_consulta=?;
+";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$id_consulta);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}      
 
 public function codigo_paciente(){
 
@@ -59,11 +101,11 @@ public function codigo_paciente(){
 }
 
   
-public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$id_usuario,$cod_empresa_pac){
+public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$id_usuario,$cod_empresa_pac,$nit,$tel_oficina,$direccion_completa){
 
       $conectar= parent::conexion();
       parent::set_names();
-      $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,null,?,?);";
+      $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,null,?,?,?,?,?);";
           
         $sql=$conectar->prepare($sql);
 
@@ -77,40 +119,43 @@ public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$oc
         $sql->bindValue(8, $_POST["correo"]);
         $sql->bindValue(9, $_POST["id_usuario"]);
         $sql->bindValue(10, $_POST["cod_empresa_pac"]);
+        $sql->bindValue(11, $_POST["nit"]);
+        $sql->bindValue(12, $_POST["tel_oficina"]);
+        $sql->bindValue(13, $_POST["direccion_completa"]);
+
         $sql->execute();
       
 }
 
 
-   public function editar_paciente($telefono,$edad,$ocupacion,$dui,$correo,$id_usuario,$id_paciente){
+  public function editar_paciente($nombres,$telefono,$edad,$dui,$ocupacion,$correo,$cod_emp,$id_paciente){
 
 
            $conectar= parent::conexion();
            parent::set_names();
 
            $sql="update pacientes set 
-
-                   telefono=?,
-                   edad=?,
-                   ocupacion=?,
-                   empresa=?,
-                   correo=?,
-                   id_usuario=?
-                   where 
-                   id_paciente=?
-
-                ";
+                nombres=?,
+                telefono=?,
+                edad=?,
+                dui=?,
+                ocupacion=?,
+                correo=?,
+                id_empresas=?                   
+                where 
+                id_paciente=?";
 
           
             $sql=$conectar->prepare($sql);
 
-            $sql->bindValue(1, $_POST["telefono"]);
-            $sql->bindValue(2, $_POST["edad"]);
-            $sql->bindValue(3, $_POST["ocupacion"]);
-            $sql->bindValue(4, $_POST["empresa"]);
-            $sql->bindValue(5, $_POST["correo"]);
-            $sql->bindValue(6, $_POST["id_usuario"]);
-            $sql->bindValue(7, $_POST["id_paciente"]);
+            $sql->bindValue(1, $_POST["nombres"]);
+            $sql->bindValue(2, $_POST["telefono"]);
+            $sql->bindValue(3, $_POST["edad"]);
+            $sql->bindValue(4, $_POST["dui"]);
+            $sql->bindValue(5, $_POST["ocupacion"]);
+            $sql->bindValue(6, $_POST["correo"]);
+            $sql->bindValue(7, $_POST["cod_emp"]);
+            $sql->bindValue(8, $_POST["id_paciente"]);
             $sql->execute();
       
          
@@ -150,7 +195,7 @@ public function eliminar_paciente($id_paciente)
 
     $conectar= parent::conexion();
     //$output = array();
-    $sql="select * from pacientes where id_paciente=?";
+    $sql="select p.id_paciente, p.codigo,p.fecha_reg,p.sucursal,p.nombres,e.nombre,p.telefono,p.correo,p.ocupacion,p.edad,p.dui from pacientes as p inner join empresas as e on e.id_empresas=p.id_empresas where id_paciente=?";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $id_paciente);
@@ -159,5 +204,10 @@ public function eliminar_paciente($id_paciente)
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
   }
+
+
 }
+
+
+
 

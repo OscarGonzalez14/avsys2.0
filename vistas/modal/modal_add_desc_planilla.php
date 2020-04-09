@@ -19,159 +19,104 @@
       </div>
       <div class="modal-body">
     
-    <div class="form-group row">
+    <div class="form-group row"> 
 
 <div class="col-xs-2">
         <label for="ex2">No.Orden:</label>
         <input class="form-control" id="numero_orden_ad" type="text" name="num_ord">
       </div>
-    <div class="col-xs-2">
-       <label>No.Venta</label>
-       <input type="text" class="form-control" id="venta_numero_ord" name="venta_numero_ord" required onkeypress="return false;">
-    </div>
 
-    <div class="col-xs-4">
+    <div class="col-xs-5">
       <label>Paciente encargado de la cuenta</label>
-      <input type="text" class="form-control" id="paciente_ord_ad" name="paciente_ord" required onkeypress="return false;">
+      <input type="text" class="form-control" id="paciente_encargado_add" name="paciente_encargado_add" required onkeypress="return false;">
     </div>
 
-      <div class="col-xs-4">
+      <div class="col-xs-5">
         <label for="ex1">Empresa:</label>
-        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+        <input class="form-control" id="empresa_ord_add" name="empresa_ord_add" type="text" required onkeypress="return false;">
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-xs-2">
         <label for="ex2">Monto Anterior:</label>
-        <input class="form-control" id="monto_ord" type="text" name="monto_ord" required onkeypress="return false;">
+        <input class="form-control" id="monto_anterior_add" type="text" name="monto_anterior_add" required onkeypress="return false;">
       </div>
       
-      <div class="col-xs-3">
-        <label for="ex3">Monto cuotas:</label>
-        <input class="form-control" id="cuotas_ord" type="text" name="cuotas_ord" required onkeypress="return false;">
-      </div>
-
-      <div class="col-xs-3">
-        <label for="ex3">A partir:</label>
-        <input class="form-control" id="desde_ord" type="text" name="desde_ord" onkeypress="return false;" value="<?php echo $fecha_hoy;?>">
-      </div>
-
-      <div class="col-xs-3">
-        <label for="ex3">Hasta</label>
-        <input class="form-control" id="hasta_ord" type="date" name="hasta_ord" placeholder="DUI" required onkeypress="return false;">
-      </div>
-
       <div class="col-xs-2">
-        <label for="ex3">Ocupación</label>
-        <input class="form-control" id="ocupacion_ord" type="text" name="ocupacion_ord" placeholder="ocupacion del paciente" required>
+        <label for="ex3">Saldo Actual:</label>
+        <input class="form-control" id="cuotas_anterior_add" type="text" name="cuotas_anterior_add" required onkeypress="return false;">
       </div>
-
-      <div class="col-xs-1">
-        <label for="ex3">Edad</label>
-        <input class="form-control" id="edad_ord" type="text" name="edad_ord" placeholder="correo del paciente" required>
-      </div>
-
       <div class="col-xs-2">
-        <label for="ex3">DUI*</label>
-        <input class="form-control num_ord_correlativo" id="dui_ord" type="text" name="dui_ord" placeholder="correo del paciente" required>
-      </div>
-
-      <div class="col-xs-2">
-        <label for="ex3">NIT</label>
-        <input class="form-control" id="nit_ord" type="text" name="nit_ord" placeholder="correo del paciente" required>
+        <label for="ex3">Nuevo Saldo:</label>
+        <input class="form-control" id="nuevo_saldo_ad" type="text" name="nuevo_saldo_ad">
       </div>
 
       <div class="col-xs-3">
-        <label for="ex3">Correo</label>
-        <input class="form-control" id="correo_ord" type="text" name="correo_ord" placeholder="correo del paciente" required>
+        <label for="ex3"> Nuevo Plazo</label>
+        <select class="form-control nuevo_monto_cuotas" name="hasta_ord_add" id="hasta_ord_add">
+          <option value='0'>Seleccione</option>
+          <option value='2' clas="nuevo_monto_cuotas"> 2 Meses</option>
+          <option value='3' clas="nuevo_monto_cuotas"> 3 Meses</option>
+          <option value='4' clas="nuevo_monto_cuotas"> 4 Meses</option>
+          <option value='5' clas="nuevo_monto_cuotas"> 5 Meses</option>
+          <option value='6' clas="nuevo_monto_cuotas"> 6 Meses</option>
+          <option value='7' clas="nuevo_monto_cuotas"> 7 Meses</option>
+          <option value='8' clas="nuevo_monto_cuotas"> 8 Meses</option>
+          <option value='9' clas="nuevo_monto_cuotas"> 9 Meses</option>
+          <option value='10' clas="nuevo_monto_cuotas"> 10 Meses</option>
+          <option value='11' clas="nuevo_monto_cuotas"> 11 Meses</option>
+          <option value='12' clas="nuevo_monto_cuotas"> 12 Meses</option>
+        </select>
       </div>
 
       <div class="col-xs-2">
-        <label for="ex3">Teléfono*</label>
-        <input class="form-control num_ord_correlativo" id="tel_ord" type="text" name="tel_ord" required onkeypress="return false;">
-      </div>
-
-      <div class="col-xs-2">
-        <label for="ex3">Teléfono Oficina</label>
-        <input class="form-control" id="tel_oficina_ord" type="text" name="tel_oficina_ord" placeholder="Empresa del paciente" required>
+        <label for="ex3">Monto Cuotas</label>
+        <input class="form-control" id="monto_cuotas_add" type="text" name="monto_cuotas_add"  required>
       </div>      
       <!--***************DATOS DEL BENEFICIARIO-->
       <div class="col-xs-4">
         <label for="ex1">Nombre del beneficiario:</label>
-        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+        <input class="form-control" id="benefiaciario_add" name="benefiaciario_add" type="text" required onkeypress="return false;">
       </div>
             <div class="col-xs-3">
         <label for="ex1">Parentesco:</label>
-        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+        <input class="form-control" id="parentesco_add" name="parentesco_add" type="text" required onkeypress="return false;">
       </div>
             <div class="col-xs-2">
         <label for="ex1">Telefono:</label>
-        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+        <input class="form-control" id="telefono_add" name="telefono_add" type="text" required onkeypress="return false;">
       </div>
             <div class="col-xs-3">
         <label for="ex1">Direccion:</label>
-        <input class="form-control" id="empresa_ord" name="empresa_ord" type="text" required onkeypress="return false;">
+        <input class="form-control" id="direccion_pac_add" name="direccion_pac_add" type="text" required onkeypress="return false;">
       </div>
       <!--***************FIN DATOS DEL BENEFICIARIO-->
     <div class="col-xs-6">
         <label for="ex3">1° Referencia*</label>
-        <input class="form-control num_ord_correlativo" id="ref_uno" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
+        <input class="form-control num_ord_correlativo" id="ref_uno_add" type="text" name="ref_uno" placeholder="ESCRIBA REFERENCIA 1" required>
     </div>
     
     <div class="col-xs-4">
       <label for="ex3">Teléfono 1° Referencia*</label>
-      <input class="form-control" id="tel_ref_uno" type="text" name="tel_ref_uno" placeholder="TELEFONO REF. 1" required>
+      <input class="form-control" id="tel_ref_uno_add" type="text" name="tel_ref_uno" placeholder="TELEFONO REF. 1" required>
      </div>
 
     <div class="col-xs-8">
         <label for="ex3">2° Referencia*</label>
-        <input class="form-control" id="ref_dos" type="text" name="ref_dos" placeholder="ESCRIBA REFERENCIA 2" required>
+        <input class="form-control" id="ref_dos_add" type="text" name="ref_dos" placeholder="ESCRIBA REFERENCIA 2" required>
     </div>
     <div class="col-xs-3">
       <label for="ex3">Teléfono 2° Referencia*</label>
-      <input class="form-control" id="tel_ref_dos" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
+      <input class="form-control" id="tel_ref_dos_add" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
     </div>
-    <!--***********DATOS JEFE INMEDIATO-->
-    <div class="col-xs-3">
-      <label for="ex3">Nombre jefe inmediato*</label>
-      <input class="form-control" id="tel_ref_dos" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
-    </div>
-
-    <div class="col-xs-3">
-      <label for="ex3">Teléfono Jefe Inmediato*</label>
-      <input class="form-control" id="tel_ref_dos" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
-    </div>
-
-    <div class="col-xs-3">
-      <label for="ex3">Cargo*</label>
-      <input class="form-control" id="tel_ref_dos" type="text" name="tel_ref_dos" placeholder="TELEFONO REF. 2" required>
-    </div>  
-    <!--***********FIN DATOS JEFE INMEDIATO-->     
+ 
 <br>
 
-<h5 align="center" style="display:block" SERVICIO QUE RECIBIÓ</h5>       
-  <table  class="table table-striped table-bordered table-condensed table-hover">
-    <thead style="background-color:#3e4444;color: white ">
-       <tr>
-      <th style="text-align:center;color:white">DETALLE ARO</th>
-      <th style="text-align:center;color:white">DISEÑO LENTE</th>
-      <th style="text-align:center;color:white">TIPO AR</th>
-      <th style="text-align:center;color:white">PHOTOSENSIBLE</th>
-      </tr>
-     </thead>
-
-     <tbody>
-      <td align='center'><input class='form-control' type='text' class='monto' name='detalle_aro_ord' id="detalle_aro_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='lente_ord' id="lente_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='ar_ord' id="ar_ord" style="text-align: center;" readonly></td>
-      <td align='center'><input class='form-control' type='text' class='monto' name='photo_ord' id="photo_ord" style="text-align: center;" readonly></td>
-    </tbody>
-  </table>
 <input class='form-control' type='hidden' class='monto' name='codigo_de aro' id="codigo_de_aro" style="text-align: center;" readonly>
 </div>
   </div style="display:block">
       <div class="modal-footer">
-        <button type="button" onClick="registra_orden_descuento()" class="btn btn-dark btn-md" id="btn_enviar_ord_desc"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Orden</button>
-       <a  id="n_orden_desc_current" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
+        <button type="button" onClick="update_descuento_planilla();" class="btn btn-dark btn-md"><i class="fa fa-save" aria-hidden="true"></i>  Registra Orden</button>
+       <a  id="" href="" style="margin-top:8px;" target="_blank"><button type="button" class="btn btn-blue btn-md reiniciar_ventas"><i class="fa fa-print" aria-hidden="true"></i>  Imprimir</button></a>
   
       </div>
   </div>

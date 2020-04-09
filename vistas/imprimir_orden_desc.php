@@ -12,7 +12,7 @@ $empresarial=new Empresarial();
 
 //$datos=$recibos->get_recibo_id($_GET["numero_venta"]);
 //$venta=$recibos->get_detalle_venta($_GET["numero_recibo_pac"])
-$datos_orden_descuento = $empresarial->get_datos_ordenes_print($get_num_orden =$_GET["numero_orden_pac"],$id_paciente =$_GET["numero_paciente"]);
+$datos_orden_descuento = $empresarial->get_datos_ordenes_print($_GET["numero_orden_pac"],$_GET["numero_paciente"]);
 $fecha_hoy=date("m-Y");
 
 
@@ -69,7 +69,7 @@ ob_start();
   
 </table><!--fin segunda tabla-->
 </td>
-<td width="10%" height="111">
+<td width="10%" height="111"></td>
 <table>
     
   <tr>
@@ -95,15 +95,43 @@ ob_start();
 ?>
 
 <tr style="font-size:10pt" class="even_row">
-  <td style="border: solid white 1px; text-align:left" colspan="100"><div align="left"><span class=""><span>Empresa: </span><?php echo $datos_orden_descuento[$i]["nombre"];?></span></div></td>    
+  <td style="text-align:left" colspan="100"><div align="left"><span class=""><span><strong>Empresa:&nbsp; <strong></span><?php echo $datos_orden_descuento[$i]["nombre"];?></span></div></td>    
 </tr>
 
-<tr><td style="border: solid white 1px;font-size:14px" colspan="100"><span>Por la presente y de conformidad con el artículo con el artículo No. 136 del código de trabajo,publicado en el Diario de Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de</span> <strong><u><span><?php echo "$".$datos_orden_descuento[$i]["monto"];?></span></u></strong><span>&nbsp; en cuotoas mensuales de:&nbsp;<strong><u><span><?php echo "$".number_format($datos_orden_descuento[$i]["cuotas"],2,".",",");?></span></u></strong> </span><span>las cuales deberán pagar por mi cuenta a partir del mes de&nbsp;<strong><span><?php echo $fecha_hoy;?></span> </strong> hasta el mes de: <strong><?php echo $datos_orden_descuento[$i]["fin_orden"];?></strong> hasta_________ </span>.<span>durante el tiempo a finalizar la deuda; por tanto autorizo; a que se realicen los pagos en conceptos de productos y servicios visuales.</span><br><br>Atentamente:<br><br>
-
-  <strong>Nombre Compreto: </strong><u><span><?php echo $datos_orden_descuento[$i]["nombres"];?></span></u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Función Laboral: </strong><u><span><?php echo $datos_orden_descuento[$i]["ocupacion"];?></span></u><br>
-  <strong>DUI: </strong><u></u> 
-</td>
+<tr><td style="font-size:14px" colspan="100"><span>Por la presente y de conformidad con el artículo con el artículo No. 136 del código de trabajo,publicado en el Diario de Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de</span> <strong><u><span><?php echo "$".$datos_orden_descuento[$i]["saldo"];?></span></u></strong><span>&nbsp; en cuotoas mensuales de:&nbsp;<strong><u><span><?php echo "$".number_format($datos_orden_descuento[$i]["monto_cuota"],2,".",",");?></span></u></strong> </span><span>las cuales deberán pagar por mi cuenta a partir del:&nbsp;<strong><span><?php echo $datos_orden_descuento[$i]["fecha_adquirido"];?></span> </strong> hasta : <strong><?php echo $datos_orden_descuento[$i]["finaliza_credito"];?></strong> hasta</span>.<span>durante el tiempo a finalizar la deuda; por tanto autorizo; a que se realicen los pagos en conceptos de productos y servicios visuales.</span><br><br><strong>Atentamente:</strong><br><br></td>
 </tr>
+<tr>
+  <td colspan="70" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Nombre Compreto: </strong><span><?php echo $datos_orden_descuento[$i]["nombres"];?></span></td>
+  <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Ocupación: </strong><span><?php echo $datos_orden_descuento[$i]["ocupacion"];?></span></td>
+</tr>
+<tr>
+  <td colspan="20" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Edad:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["edad"];?></span></td>
+  <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>DUI:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["dui"];?></span></td>
+  <td colspan="25" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>NIT:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["nit"];?></span></td>
+  <td colspan="25" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Celular:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["telefono"];?></span></td>
+</tr>
+<tr>
+  <td colspan="100" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Direccion completa:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["direccion"];?></span></td>
+</tr>
+<tr>
+  <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Telefono Oficina:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["telefono_oficina"];?></span></td>
+    <td colspan="70" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Correo:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["correo"];?></span></td> 
+</tr>
+
+<tr>
+  <td style="text-align:center;font-size:14px;background:#D8D8D8" colspan="100">REFERENCIAS PERSONALES</td>
+</tr>
+
+<tr>
+  <td colspan="60" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Referencia 1:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["referencia_uno"];?></span></td>
+  <td colspan="40" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Telefono Refereancia 1:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["tel_ref_uno"];?></span></td>
+</tr>
+
+<tr>
+  <td colspan="60" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Referencia 2:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["referencia_dos"];?></span></td>
+  <td colspan="40" style="border: solid black 1px;border-top: solid black 1px;font-size:14px"><strong>Telefono Refererencia 2:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["tel_ref_dos"];?></span></td>
+</tr>
+
 <?php
   }
 ?>

@@ -1,4 +1,4 @@
-
+  
   <?php
 
  require_once("../config/conexion.php");
@@ -184,8 +184,11 @@ $html.="<tr class='filas'>
                                     <th>
                                     <p>TOTAL</p>
                                     </th>
+
                                     <th>
+
                                     <p><strong>".$subtotal."</strong></p>
+
                                    </th> 
                                 </tfoot>";
       
@@ -268,10 +271,25 @@ $conectar=parent::conexion();
     $id_usuario = $_POST["id_usuario"];
     $id_paciente = $_POST["id_paciente"];
     $plazo = $_POST["plazo"];
-    $abonos = "0";
+    
+    //$abonos = $_POST["plazo"];
     $numero_orden = "0";
+    $monto_cuota = $subtotal/$plazo;
+    $referencia_uno = "0";
+    $tel_ref_uno = "0";
+    $referencia_dos = "0";
+    $tel_ref_dos = "0";
+    $jefe_inmediato = "0";
+    $tel_jefe = "0";
+    $cargo_jefe = "0";
+    $nu_ord="";
+    
+    $dentroDeUnMes = strtotime("+$plazo month");
+    $finalizacion = date("m-Y", $dentroDeUnMes);
+    
 
-    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
+
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?);";
     $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
@@ -284,6 +302,7 @@ $conectar=parent::conexion();
     $sql->bindValue(7,$importe);
     $sql->bindValue(8,$id_usuario);
     $sql->bindValue(9,$id_paciente);
+    $sql->bindValue(10,$nu_ord);
         
     $sql->execute();
          
@@ -358,7 +377,7 @@ $conectar=parent::conexion();
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now(),?,?);";
+           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?);";
 
            $sql7=$conectar->prepare($sql7);
 
@@ -371,11 +390,20 @@ $conectar=parent::conexion();
            $sql7->bindValue(7,$id_paciente);
            $sql7->bindValue(8,$id_usuario);
            $sql7->bindValue(9,$numero_orden);
-           $sql7->bindValue(10,$abonos);
-           $sql7->execute();
+           $sql7->bindValue(10,$plazo);
+           $sql7->bindValue(11,$monto_cuota);
+           $sql7->bindValue(12,$referencia_uno);
+           $sql7->bindValue(13,$tel_ref_uno);
+           $sql7->bindValue(14,$referencia_dos);
+           $sql7->bindValue(15,$tel_ref_dos);
+           $sql7->bindValue(16,$jefe_inmediato);
+           $sql7->bindValue(17,$tel_jefe);
+           $sql7->bindValue(18,$cargo_jefe);
+           $sql7->bindValue(19,$finalizacion);           
+           
 
-          
-      }
+           $sql7->execute();
+}
 //////////////////////REGISTRAR ABONOS
 
 public function agrega_detalle_abono(){
@@ -527,6 +555,7 @@ public function agrega_detalle_abono(){
 
 
       $sql_detalle= "update detalle_ventas set
+
           estado=?
           where 
           numero_venta=?
@@ -597,7 +626,9 @@ public function agrega_detalle_abono(){
                $sql6="update producto set 
                stock=?
                where
+
                id_producto=?
+
                ";
                
                $sql6=$conectar->prepare($sql6);   
@@ -644,6 +675,7 @@ public function agrega_detalle_abono(){
 
 
       $sql_detalle= "update detalle_ventas set
+
           estado=?
           where 
           numero_venta=?
@@ -714,7 +746,9 @@ public function agrega_detalle_abono(){
                $sql6="update producto set 
                stock=?
                where
+
                id_producto=?
+
                ";
                
                $sql6=$conectar->prepare($sql6);   
@@ -1257,4 +1291,4 @@ public function get_correlativo_venta(){
 
 }
 
-}
+   }

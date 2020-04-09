@@ -745,5 +745,137 @@ case "get_correlativo_venta":
 } 
 
 break;
+///////////////////////////LISTAR LOS PACIENTES EN LAS VENTAS
+case "buscar_paciente_consultas":
+    require_once("../modelos/Pacientes.php");
+    $pacientes = new Paciente();
+    $datos= $pacientes->get_pacientes();
+
+
+        //Vamos a declarar un array
+ 	    $data= Array();
+
+	      foreach($datos as $row)
+	      {
+		        $sub_array = array();
+
+		        $encargado = '';		        
+		         
+		        if($row["encargado"] != ""){
+		          $encargado=$row["encargado"];
+		        }
+		        else{
+		          $encargado=$row["nombres"];
+		           
+		          } 
+	                
+         $sub_array[] = $row["nombres"];
+         $sub_array[] = $encargado;
+         $sub_array[] = '<button type="button" class="btn btn-edit" onClick="agrega_paciente_venta('.$row["id_paciente"].','.$row["id_consulta"].');">Agregar</button>';
+                
+        $data[] = $sub_array;
+        
+        }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+////////////////////BUSCAR PACIENTES SIN CONSULTA
+
+     case "buscar_paciente_sin_consultas":
+    require_once("../modelos/Pacientes.php");
+    $pacientes = new Paciente();
+    $datos= $pacientes->mostar_pacientes();
+
+
+        //Vamos a declarar un array
+ 	    $data= Array();
+
+	      foreach($datos as $row)
+	      {
+		  $sub_array = array();
+	                
+         $sub_array[] = $row["nombres"];
+         $sub_array[] = '<button type="button" class="btn btn-edit" onClick="agrega_paciente_venta_no_consulta('.$row["id_paciente"].');">Agregar</button>';                
+        $data[] = $sub_array;
+        
+        }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
+case "buscar_pacientes_consultas_encargado":
+
+   require_once("../modelos/Pacientes.php");
+    $pacientes = new Paciente();
+    $datos= $pacientes->get_pacientes_encargado($_POST["id_paciente"],$_POST["id_consulta"]);
+
+	    if(is_array($datos)==true and count($datos)>0){
+
+
+
+				foreach($datos as $row)
+				{
+
+		       $encargado = '';		        
+		         
+		        if($row["encargado"] != ""){
+		          $encargado=$row["encargado"];
+		        }
+		        else{
+		          $encargado=$row["nombres"];
+		           
+		          }
+
+					$output["nombres"] = $row["nombres"];
+					$output["encargado"] = $row["encargado"];
+					$output["id_paciente"] = $row["id_paciente"];
+				
+				}			
+
+	        } else {                 
+                 //si no existe el registro entonces no recorre el array                
+                 $output["error"]="El paciente seleccionado está inactivo, intenta con otro";
+
+	        }
+
+	        echo json_encode($output);
+
+     break;
+
+case "buscar_pacientes_sin_consultas":
+   require_once("../modelos/Pacientes.php");
+   $pacientes = new Paciente();
+   $datos= $pacientes->mostar_pacientes_sin_consulta($_POST["id_paciente"]);
+
+	    if(is_array($datos)==true and count($datos)>0){
+	    	foreach($datos as $row){
+
+			$output["nombres"] = $row["nombres"];
+			$output["id_paciente"] = $row["id_paciente"];				
+			}
+
+	} else {
+           $output["error"]="El paciente seleccionado está inactivo, intenta con otro";
+
+	}
+	    echo json_encode($output);
+
+     break;
 
 }

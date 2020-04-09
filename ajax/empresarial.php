@@ -22,7 +22,10 @@
 					$output["subtotal"] = $row["subtotal"];
 					$output["cuotas"] = number_format($row["cuotas"],2,".",",");
 					$output["numero_venta"] = $row["numero_venta"];
-					$output["correo"] = $row["correo"]; 
+					$output["correo"] = $row["correo"];
+					$output["finaliza_credito"] = $row["finaliza_credito"];
+					$output["dui"] = $row["dui"];
+					$output["nit"] = $row["nit"];  
 		}
 		      
 	echo json_encode($output);
@@ -87,7 +90,7 @@ case "get_numero_mumero_order":
 break;
 
 case "guardar_orden_desc":
-$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['referencia_uno'],$_POST['tel_ref_uno'],$_POST['referencia_dos'],$_POST['tel_ref_dos'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['id_aro'],$_POST['dui'],$_POST['nit'],$_POST['correo']);
+$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['dui'],$_POST['nit'],$_POST['correo'],$_POST['jefe_inmediato'],$_POST['tel_jefe_inmediato'],$_POST['cargo_jefe_inmediato'],$_POST['pac_beneficiario'],$_POST['pac_parentesco'],$_POST['tel_ben'],$_POST['direccion_parentesco'],$_POST['ref_uno'],$_POST['tel_ref_uno'],$_POST['ref_dos'],$_POST['tel_ref_dos']);
 break;
 
  case "listar_ordenes_descuento":
@@ -152,5 +155,47 @@ case "buscar_orden":
 	echo json_encode($output);
 		}
 break;
+
+    case "ultimo_credito_empresarial":
+
+    $datos= $empresarial->ultimo_credito_empresarial($_POST["numero_orden"]);
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["nombres"] = $row["nombres"];
+			$output["nombre"] = $row["nombre"];
+			$output["monto"] = $row["monto"];
+			$output["saldo"] = $row["saldo"];
+			$output["abonado"] = number_format($row["abonado"],2,",",".");
+			$output["finalizacion"] = $row["finalizacion"];
+			$output["letras_abonadas"] = $row["letras_abonadas"];
+			$output["pendientes"] = $row["pendientes"];
+			$output["plazo"] = $row["plazo"];								
+		}
+		      
+	echo json_encode($output);
+		}
+break;
+
+case "update_descuento_planilla";
+require_once('../modelos/Empresarial.php');
+	$empresarial = new Empresarial();
+	$empresarial->update_descuento_planilla();
+break;
+
+ case "calculo_credito_ant":
+
+    $datos= $empresarial->calculo_credito_ant($_POST["numero_orden"]);
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["saldo"] = $row["saldo"];
+			$output["plazo"] = $row["plazo"];								
+		}
+		      
+	echo json_encode($output);
+		}
+
+
 }
 ?>

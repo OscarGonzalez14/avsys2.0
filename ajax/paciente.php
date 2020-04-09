@@ -13,7 +13,7 @@
     switch($_GET["op"]){
 
     case "guardar_paciente":
-		$pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["id_usuario"],$_POST["cod_empresa_pac"]);	  
+		$pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["id_usuario"],$_POST["cod_empresa_pac"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"]);	  
     break;
 
     case 'agregaConsulta':
@@ -84,13 +84,15 @@ case "listar":
 	{
 		$sub_array = array();			
 			
-	        $sub_array[] = $row["codigo"];
+	        $sub_array[] = $row["id_paciente"];
 	        $sub_array[] = date("d-m-Y",strtotime($row["fecha_reg"]));
 			$sub_array[] = $row["nombres"];
+			$sub_array[] = $row["nombre"];
 			$sub_array[] = $row["telefono"];
-			$sub_array[] = $row["empresa"];
-			$sub_array[] = $row["correo"];			            
+			            
             $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-infos btn-md"><i class="fa fa-hospital-o" aria-hidden="true"></i> Agregar Consulta</button>';
+            $sub_array[] = '<button type="button"  id="'.$row["id_paciente"].'" class="btn btn-edit btn-md edita_pacc"><i class="fa fa-edit" aria-hidden="true"></i> Editar</button>';
+            $sub_array[] = '<button type="button"  class="btn btn-danger btn-md" onClick="eliminarp('.$row["id_paciente"].')"><i class="fa fa-edit" aria-hidden="true"></i> Eliminar</button>';
             //$sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-edit btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Editar Consulta</button>';              
                                                 
 		$data[] = $sub_array;
@@ -165,19 +167,41 @@ case "listar":
      break;
 
      case "eliminar_paciente":
-
- 
 		            $pacientes->eliminar_paciente($_POST["id_paciente"]);
-
-
-
      break;
 
 
 	 	
-	 }
+
   
+case 'ver_pacientes_data':
+    
+	$datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
+
+    	foreach($datos as $row)
+    	{
+    		$output["id_paciente"] = $row["id_paciente"];
+			$output["nombres"] = $row["nombres"];
+			$output["codigo"] = $row["codigo"];
+			$output["telefono"] = $row["telefono"];
+			$output["edad"] = $row["edad"];
+			$output["ocupacion"] = $row["ocupacion"];
+			$output["dui"] = $row["dui"];
+			$output["correo"] = $row["correo"];
+			$output["nombre"] = $row["nombre"];
+
+    	}
+    echo json_encode($output);
 
 
+	 break;
+
+
+	 case "editar_paciente":
+$pacientes->editar_paciente($_POST['nombres'],$_POST['telefono'],$_POST['edad'],$_POST['dui'],$_POST['ocupacion'],$_POST['correo'],$_POST['cod_emp'],$_POST['id_paciente']);
+
+	break;
+	 }
    ?>
+   
    
