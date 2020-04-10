@@ -131,14 +131,27 @@ public function get_datos_ordenes_print($num_de_orden,$id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select p.id_paciente,p.nombres,e.nombre,p.ocupacion,c.saldo,c.monto_cuota,p.ocupacion,p.dui,p.nit,p.telefono,p.edad,p.telefono_oficina,p.correo,c.fecha_adquirido,c.finaliza_credito,c.numero_orden,p.direccion,c.referencia_uno,c.tel_ref_uno,c.referencia_dos,c.tel_ref_dos,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe from pacientes as p inner join creditos as c on c.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where  c.numero_orden=? and p.id_paciente=?;";
+  $sql="select p.id_paciente,p.nombres,e.nombre,p.ocupacion,c.saldo,c.monto_cuota,p.ocupacion,p.dui,p.nit,p.telefono,p.edad,p.telefono_oficina,p.correo,c.fecha_adquirido,c.finaliza_credito,c.numero_orden,p.direccion,c.referencia_uno,c.tel_ref_uno,c.referencia_dos,c.tel_ref_dos,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe from pacientes as p inner join creditos as c on c.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where  c.numero_orden=? and p.id_paciente=?;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$num_de_orden);
   $sql->bindValue(2,$id_paciente);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+     
 
+//////////////////////DATOS DE SERVICIO PRESTADO
+public function servicio_prestado(){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql=";";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$num_de_orden);
+  $sql->bindValue(2,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 ///////////////FUNCION PARA LISTAR ORDENES DE DESCUENTO
 public function get_descuentos_planilla(){
