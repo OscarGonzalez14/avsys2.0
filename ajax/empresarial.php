@@ -25,7 +25,8 @@
 					$output["correo"] = $row["correo"];
 					$output["finaliza_credito"] = $row["finaliza_credito"];
 					$output["dui"] = $row["dui"];
-					$output["nit"] = $row["nit"];  
+					$output["nit"] = $row["nit"];
+					$output["telefono_oficina"] = $row["telefono_oficina"];  
 		}
 		      
 	echo json_encode($output);
@@ -90,7 +91,7 @@ case "get_numero_mumero_order":
 break;
 
 case "guardar_orden_desc":
-$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['dui'],$_POST['nit'],$_POST['correo'],$_POST['jefe_inmediato'],$_POST['tel_jefe_inmediato'],$_POST['cargo_jefe_inmediato'],$_POST['pac_beneficiario'],$_POST['pac_parentesco'],$_POST['tel_ben'],$_POST['direccion_parentesco'],$_POST['ref_uno'],$_POST['tel_ref_uno'],$_POST['ref_dos'],$_POST['tel_ref_dos']);
+$empresarial->guardar_orden_descuento($_POST['numero_venta'],$_POST['numero_orden'],$_POST['fecha_creacion'],$_POST['aro'],$_POST['photo'],$_POST['arnti'],$_POST['lente'],$_POST['id_usuario'],$_POST['id_paciente'],$_POST['fin_orden'],$_POST['dui'],$_POST['nit'],$_POST['correo'],$_POST['jefe_inmediato'],$_POST['tel_jefe_inmediato'],$_POST['cargo_jefe_inmediato'],$_POST['pac_beneficiario'],$_POST['pac_parentesco'],$_POST['tel_ben'],$_POST['ref_uno'],$_POST['tel_ref_uno'],$_POST['ref_dos'],$_POST['tel_ref_dos'],$_POST['subtotal'],$_POST['plazo']);
 break;
 
  case "listar_ordenes_descuento":
@@ -166,11 +167,12 @@ break;
 			$output["nombre"] = $row["nombre"];
 			$output["monto"] = $row["monto"];
 			$output["saldo"] = $row["saldo"];
-			$output["abonado"] = number_format($row["abonado"],2,",",".");
-			$output["finalizacion"] = $row["finalizacion"];
+			$output["abonado"] = number_format($row["abonado"],2,".",",");
+			$output["finalizacion"] = date("d/m/Y", strtotime($row["finalizacion"]));
 			$output["letras_abonadas"] = $row["letras_abonadas"];
 			$output["pendientes"] = $row["pendientes"];
-			$output["plazo"] = $row["plazo"];								
+			$output["plazo"] = $row["plazo"]." meses";
+			$output["fecha_adquirido"] = date("d/m/Y", strtotime($row["fecha_adquirido"]));								
 		}
 		      
 	echo json_encode($output);
@@ -195,6 +197,49 @@ break;
 		      
 	echo json_encode($output);
 		}
+break;
+
+case "buscar_beneficiario":
+$datos=$empresarial->get_beneficiarios_venta($_POST["id_paciente"]);
+	
+$data= Array();
+
+    foreach($datos as $row)
+
+	{
+		$sub_array = array();			
+			
+	        $sub_array[] = $row["nombres"];
+			$sub_array[] = $row["encargado"];
+			$sub_array[] = '<button type="button" onClick="load_beneficiarios_ventas('.$row["id_paciente"].',\''.$row["encargado"].'\');" class="btn btn-success btn-md">Agregar</button>';              
+                                                
+		$data[] = $sub_array;
+	}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 	  echo json_encode($results);
+break;
+
+    case "complete_campos_beneficiario_venta":
+    $datos= $empresarial->load_beneficiarios_orden($_POST["id_paciente"],$_POST["encargado"]);	
+
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row)
+		{					
+			$output["encargado"] = $row["encargado"];
+			$output["parentesco_beneficiario"] = $row["parentesco_beneficiario"];
+			$output["telefono_beneficiario"] = $row["telefono_beneficiario"];
+											
+		}		
+		      
+        echo json_encode($output);
+} 
+
+break;
 
 
 }

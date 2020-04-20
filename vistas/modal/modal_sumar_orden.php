@@ -34,7 +34,7 @@
         <input class="form-control" id="empresa_ord_ant" name="empresa_ord" type="text" required onkeypress="return false;">
       </div>
       <div class="col-xs-2">
-        <label for="ex2">Monto actual:</label>
+        <label for="ex2">Monto Credito:</label>
         <input class="form-control" id="monto_ord_ant" type="text" name="monto_ord" required onkeypress="return false;">
       </div>
       <div class="col-xs-2">
@@ -61,8 +61,13 @@
         <input class="form-control" id="letras_pendientes" type="text" name="cuotas_ord" required onkeypress="return false;">
       </div>
 
-      <div class="col-xs-3">
-        <label for="ex3">Finalizacion del Credito:</label>
+      <div class="col-xs-2">
+        <label for="ex3">Adquirió Crdito:</label>
+        <input class="form-control" id="adquirio_credito" type="text" name="cuotas_ord" required onkeypress="return false;">
+      </div>
+
+      <div class="col-xs-2">
+        <label for="ex3">Finalizadel Credito:</label>
         <input class="form-control" id="finzaliza_credito" type="text" name="cuotas_ord" required onkeypress="return false;">
       </div>
  <br>

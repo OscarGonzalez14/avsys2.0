@@ -1,5 +1,5 @@
  <style>
-    #tamModal{
+    #tamModale{
       width: 75% !important;
     }
      #head{
@@ -9,7 +9,7 @@
 </style>
 
    <div class="modal fade" id="lista_productos_ventas_Modal">
-          <div class="modal-dialog" id="tamModal">
+          <div class="modal-dialog" id="tamModale">
 
             <div class="bg-info">
               <div class="modal-header" id="head">
@@ -22,13 +22,13 @@
                  <div class="container box">
         
         <!--column-12 -->
-        <div class="table-responsive">
+        <div class="table-responsives">
              <div class="box-body">
-             <table id="lista_productos_ventas_data" class="table table-bordered table-striped">
+             <table id="lista_productos_ventas_data" class="table table-bordered table-striped" style="width:100%">
                
                 <thead>
                   <tr>
-                      <th>Cod.</th>
+                    <th>Cod.</th>
                     <th>Modelo</th>
                     <th>Marca</th>
                     <th>Color</th>

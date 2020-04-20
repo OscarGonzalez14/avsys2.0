@@ -216,7 +216,7 @@ if(nombres != "" || telefono != "" || edad != "" || dui != "" || correo != "" ||
     $.ajax({
     url:"../ajax/paciente.php?op=guardar_paciente",
     method:"POST",
-    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,id_usuario:id_usuario,cod_empresa_pac:cod_empresa_pac,nit:nit,direccion_completa:direccion_completa},
+    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,id_usuario:id_usuario,cod_empresa_pac:cod_empresa_pac,nit:nit,direccion_completa:direccion_completa,tel_oficina:tel_oficina},
     cache: false,
     dataType:"html",
     error:function(x,y,z){

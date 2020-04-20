@@ -154,8 +154,6 @@ function mostrar(id_producto)
 		data = JSON.parse(data);
 
 
-
-
 		    	    $('#productoModal').modal('show');
 					$('#modelo').val(data.modelo);
 
@@ -164,13 +162,10 @@ function mostrar(id_producto)
 					$("#precio_venta").attr('disabled', false);
 
 
-					$('#marca').val(data.marca);
-
-					
+					$('#marca').val(data.marca);					
 					$('#medidas').val(data.medidas);
 
 				    $("#moneda").attr('disabled', false);
-
 	                
 					$('#precio_venta').val(data.precio_venta);
 					$('#stock').val(data.stock);
@@ -180,17 +175,10 @@ function mostrar(id_producto)
 					$('#id_producto').val(id_producto);
 					
 					$('#resultados_ajax').html(data);
-					$("#producto_data").DataTable().ajax.reload();
-
-
-
-		    
+					$("#producto_data").DataTable().ajax.reload();				
 				
 				
-				
-				
-		});
-        
+		});        
         
 	}
 
@@ -976,7 +964,7 @@ function agregarDetalleVenta(id_producto,id_ingreso){
 	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
 	//importe = detalles[i].importe = detalles[i].importe - (detalles[i].dscto);
     importe = detalles[i].importe = detalles[i].importe - (detalles[i].dscto/100);
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' max='20' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion[]' id='descripcion[]'>"+detalles[i].marca+" "+detalles[i].modelo+"<td><input type='number' name='descuento[]' id='descuento' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td><td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span><td><input type='text' id='ubicacion[]' value='"+detalles[i].categoriaub+"'></td> </td></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' max='20' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion[]' id='descripcion[]'>"+detalles[i].marca+" "+detalles[i].modelo+"<td><input type='number' name='descuento[]' id='descuento' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td><td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span><td><input type='hidden' id='ubicacion[]' value='"+detalles[i].categoriaub+"'></td> </td></tr>";
 	
     subtotal = subtotal + importe;
 
@@ -1218,6 +1206,7 @@ $(document).on('click', '.ventas_record', function(){
     var plazo = $("#plazo").val();
     var descripcion = $("#descripcion").val();
     var importe = $("#importe").val();
+    var pac_evaluado = $("#pac_evaluado").val();
 
 if(tipo_pago != "Descuento en Planilla"){
 
@@ -1228,7 +1217,7 @@ if(tipo_pago != "Descuento en Planilla"){
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1369,6 +1358,7 @@ var numero_venta = document.getElementById('numero_venta').value;
     				var plazo = $("#plazo").val();
     				var descripcion = $("#descripcion").val();
     				var importe = $("#importe").val();
+    				var pac_evaluado = $("#pac_evaluado").val();
     				///////////////////////////000000000000000000
 
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
@@ -1378,7 +1368,7 @@ var numero_venta = document.getElementById('numero_venta').value;
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1455,6 +1445,7 @@ function complete_data_ultimo_credito(){
 				$("#letras_pendientes").val(data.pendientes);
 				$("#finzaliza_credito").val(data.finalizacion);
 				$("#saldo_credito_ant").val(data.saldo);
+				$("#adquirio_credito").val(data.fecha_adquirido);
 			}
 		});
 }
@@ -1472,6 +1463,9 @@ function modal_unir_ordenes(){
 	var saldo_anterior = $("#saldo_credito_ant").val();
 	document.getElementById("cuotas_anterior_add").value="$"+saldo_anterior;
 
+	var pendientes = $("#letras_pendientes").val();
+	document.getElementById("pendientes_ad").value=pendientes;
+
 	var monto_actual = $("#subtotal").html();
 	var nuevo_saldo = parseInt(monto_actual)+parseInt(saldo_anterior);
 	document.getElementById("nuevo_saldo_ad").value=nuevo_saldo;    
@@ -1487,6 +1481,7 @@ function modal_unir_ordenes(){
 function load_modal_orden_descuento(){
 
 $('#orden_descuento_empresarial').modal("show");
+$('#orden_descuento_empresarial').modal({backdrop: 'static', keyboard: false})
 var id_paciente = document.getElementById('id_paciente').value;
 var venta_numero = document.getElementById('numero_venta').value;
 
@@ -1512,6 +1507,7 @@ var venta_numero = document.getElementById('numero_venta').value;
         $("#hasta_ord").val(data.finaliza_credito);
         $("#dui_ord").val(data.dui);
         $("#nit_ord").val(data.nit);
+        $("#tel_oficina_ord").val(data.telefono_oficina);
       }
     });
 

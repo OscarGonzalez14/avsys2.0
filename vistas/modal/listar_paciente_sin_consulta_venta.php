@@ -1,5 +1,5 @@
  <style>
-    #tamModal{
+    #tamModalsp{
       width: 50% !important;
     }
      #head{
@@ -9,7 +9,7 @@
 </style>
  <!-- Modal-->
   <div class="modal fade" id="modalPaciente_no_consulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="tamModal">
+    <div class="modal-dialog" id="tamModalsp">
       <div class="modal-content">
         <div class="modal-header" id="head">
           <button type="button" class="close" data-dismiss="modal">

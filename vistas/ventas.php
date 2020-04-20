@@ -253,7 +253,7 @@
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="text" name="id_paciente" id="id_paciente"/>                
+<input type="hidden" name="id_paciente" id="id_paciente"/>                
   </table>
  <div class="boton_registrar">
 <button type="button" class="btn btn-dark pull-right btn-block" id="btn_enviar" onClick="registrarVenta()"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
@@ -320,31 +320,83 @@ document.getElementById("hora").value = h;
 <script type="text/javascript" src="js/recibos.js"></script>
 <script type="text/javascript" src="js/desc_planilla.js"></script>
 <script>
-    $(function(){
-      $('.btn[data-toggle=modal]').on('click', function(){
-        var $btn = $(this);
-        var currentDialog = $btn.closest('.modal-dialog'),
-        targetDialog = $($btn.attr('data-target'));;
-        if (!currentDialog.length)
-          return;
-        targetDialog.data('previous-dialog', currentDialog);
-        currentDialog.addClass('aside');
-        var stackedDialogCount = $('.modal.in .modal-dialog.aside').length;
-        if (stackedDialogCount <= 10){
-          currentDialog.addClass('aside-' + stackedDialogCount);
-        }
-      });
+(function($, window) {
+    'use strict';
 
-      $('.modal').on('hide.bs.modal', function(){
-        var $dialog = $(this);  
-        var previousDialog = $dialog.data('previous-dialog');
-        if (previousDialog){
-          previousDialog.removeClass('aside');
-          $dialog.data('previous-dialog', undefined);
+    var MultiModal = function(element) {
+        this.$element = $(element);
+        this.modalCount = 0;
+    };
+
+    MultiModal.BASE_ZINDEX = 1040;
+
+    MultiModal.prototype.show = function(target) {
+        var that = this;
+        var $target = $(target);
+        var modalIndex = that.modalCount++;
+
+        $target.css('z-index', MultiModal.BASE_ZINDEX + (modalIndex * 20) + 10);
+
+        // Bootstrap triggers the show event at the beginning of the show function and before
+        // the modal backdrop element has been created. The timeout here allows the modal
+        // show function to complete, after which the modal backdrop will have been created
+        // and appended to the DOM.
+        window.setTimeout(function() {
+            // we only want one backdrop; hide any extras
+            if(modalIndex > 0)
+                $('.modal-backdrop').not(':first').addClass('hidden');
+
+            that.adjustBackdrop();
+        });
+    };
+
+    MultiModal.prototype.hidden = function(target) {
+        this.modalCount--;
+
+        if(this.modalCount) {
+           this.adjustBackdrop();
+
+            // bootstrap removes the modal-open class when a modal is closed; add it back
+            $('body').addClass('modal-open');
         }
-      });
-    })
+    };
+
+    MultiModal.prototype.adjustBackdrop = function() {
+        var modalIndex = this.modalCount - 1;
+        $('.modal-backdrop:first').css('z-index', MultiModal.BASE_ZINDEX + (modalIndex * 20));
+    };
+
+    function Plugin(method, target) {
+        return this.each(function() {
+            var $this = $(this);
+            var data = $this.data('multi-modal-plugin');
+
+            if(!data)
+                $this.data('multi-modal-plugin', (data = new MultiModal(this)));
+
+            if(method)
+                data[method](target);
+        });
+    }
+
+    $.fn.multiModal = Plugin;
+    $.fn.multiModal.Constructor = MultiModal;
+
+    $(document).on('show.bs.modal', function(e) {
+        $(document).multiModal('show', e.target);
+    });
+
+    $(document).on('hidden.bs.modal', function(e) {
+        $(document).multiModal('hidden', e.target);
+    });
+}(jQuery, window));
+
     
+  </script>
+  <script>
+    function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
   </script>
 <?php
    

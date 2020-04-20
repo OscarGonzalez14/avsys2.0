@@ -148,11 +148,8 @@ public function valida_num_recibo($num_recibo){
 
 public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono){
 
-
 $abono_act = $_POST["abono_act"];
-$conectar=parent::conexion();
-  
-  
+$conectar=parent::conexion();  
 
   $sql="insert into recibos values(null,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
   $sql=$conectar->prepare($sql);
@@ -212,7 +209,7 @@ $conectar=parent::conexion();
     }
     //la cantidad total es la suma de la cantidad más la cantidad actual
     $cantidad_totales = $row["saldo"] - $abono_act;
-    $abonos_pendientes = $row["abonos"]-1;             
+    $abonos_pendientes = $row["abonos"]+1;             
     //si existe el producto entonces actualiza el stock en producto              
       if(is_array($resultados)==true and count($resultados)>0) {                     
                   //actualiza el stock en la tabla producto

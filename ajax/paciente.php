@@ -13,7 +13,7 @@
     switch($_GET["op"]){
 
     case "guardar_paciente":
-		$pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["id_usuario"],$_POST["cod_empresa_pac"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"]);	  
+		$pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["id_usuario"],$_POST["cod_empresa_pac"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tel_oficina"]);	  
     break;
 
     case 'agregaConsulta':

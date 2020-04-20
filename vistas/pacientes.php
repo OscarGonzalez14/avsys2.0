@@ -145,7 +145,7 @@
   </div>
     <div class="col-xs-6">
     <label>Dirección Completa</label>
-       <input class="form-control" id="direccion_completa" type="text" name="direccion_completa" placeholder="" required>
+       <input class="form-control" id="direccion_completa" type="text" name="direccion_completa" placeholder="" required onkeyup="mayus(this);">
   </div>
 <br><br><br><p style="color:white">..</p>
 <input type="hidden" name="cod_emp" id="cod_emp"/>
@@ -225,11 +225,11 @@ Editar</button>
       </div>
             <div class="col-xs-3">
         <label for="ex3">Paciente evaluado</label>
-        <input class="form-control" id="encargado" type="text" name="encargado">
+        <input class="form-control" id="encargado" type="text" name="encargado" onkeyup="mayus(this);">
       </div>
      <div class="col-xs-2">
         <label for="ex1">Parentesco</label>
-        <input class="form-control" id="parentesco_evaluado" name="parentesco_evaluado" type="text">
+        <input class="form-control" id="parentesco_evaluado" name="parentesco_evaluado" type="text" onkeyup="mayus(this);">
       </div>
       <div class="col-xs-2">
         <label for="ex3">Telefono</label>
@@ -535,6 +535,24 @@ function mayus(e) {
 var medidas = new Cleave('#dui', {
     delimiter: '-',
     blocks: [8,1],
+    uppercase: true
+});
+
+var nit = new Cleave('#nit', {
+    delimiter: '-',
+    blocks: [4,6,3,1],
+    uppercase: true
+});
+
+var tel_oficina = new Cleave('#tel_oficina', {
+    delimiter: '-',
+    blocks: [4,4],
+    uppercase: true
+});
+
+var telefono = new Cleave('#telefono', {
+    delimiter: '-',
+    blocks: [4,4],
     uppercase: true
 });
 

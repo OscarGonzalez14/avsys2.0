@@ -16,12 +16,13 @@
         <!--column-12 -->
         <div class="table-responsive">
         
-             <table id="lista_pacientes_data" class="table table-bordered table-striped">
+             <table id="lista_pacientes_data_consulta" class="table table-bordered table-striped">
                
                 <thead>
                   <tr>
-                    <th >Codigo</th>          
-                    <th >Nombres</th>
+       
+                    <th >Encargado</th>
+                    <th >Beneficiario</th>
                     <th >Agregar
                   </tr>
                 </thead>

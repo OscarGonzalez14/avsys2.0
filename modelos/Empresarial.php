@@ -7,7 +7,7 @@ class Empresarial extends Conectar
 public function get_detalle_nueva_orden($id_paciente,$venta_numero){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select p.id_paciente,p.nombres,p.dui,p.nit,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/c.plazo as cuotas,c.plazo,c.finaliza_credito,v.numero_venta,p.correo from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente join creditos as c where c.id_paciente=v.id_paciente and p.id_paciente=? and v.numero_venta=?;";
+  $sql="select p.id_paciente,p.telefono_oficina,p.nombres,p.dui,p.nit,p.ocupacion,p.edad,p.telefono,e.nombre,v.subtotal,v.subtotal/c.plazo as cuotas,c.plazo,c.finaliza_credito,v.numero_venta,p.correo from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join ventas as v on v.id_paciente=p.id_paciente join creditos as c where c.id_paciente=v.id_paciente and p.id_paciente=? and v.numero_venta=?;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$id_paciente);
   $sql->bindValue(2,$venta_numero);
@@ -69,7 +69,7 @@ public function get_recibo_num_order(){
 
 }
 
-public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creacion,$aro,$photo,$arnti,$lente,$id_usuario,$id_paciente,$fin_orden,$dui,$nit,$correo,$jefe_inmediato,$tel_jefe_inmediato,$cargo_jefe_inmediato,$pac_beneficiario,$pac_parentesco,$tel_ben,$direccion_parentesco,$ref_uno,$tel_ref_uno,$ref_dos,$tel_ref_dos){
+public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creacion,$aro,$photo,$arnti,$lente,$id_usuario,$id_paciente,$fin_orden,$dui,$nit,$correo,$jefe_inmediato,$tel_jefe_inmediato,$cargo_jefe_inmediato,$pac_beneficiario,$pac_parentesco,$tel_ben,$ref_uno,$tel_ref_uno,$ref_dos,$tel_ref_dos,$subtotal,$plazo){
 
   $ref_uno=$_POST["ref_uno"];
   $numero_venta=$_POST["numero_venta"];
@@ -77,27 +77,22 @@ public function guardar_orden_descuento($numero_venta,$numero_orden,$fecha_creac
   
       $conectar= parent::conexion();
       parent::set_names();
-      $sql="insert into desc_planilla values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      $sql="insert into desc_planilla values(null,?,?,?,?,?,?,?,?,?,?,?);";
           
         $sql=$conectar->prepare($sql);
 
         $sql->bindValue(1, $_POST["numero_venta"]);
         $sql->bindValue(2, $_POST["numero_orden"]);
         $sql->bindValue(3, $_POST["fecha_creacion"]);
-        $sql->bindValue(4, $_POST["aro"]);
-        $sql->bindValue(5, $_POST["photo"]);
-        $sql->bindValue(6, $_POST["arnti"]);
-        $sql->bindValue(7, $_POST["lente"]);
-        $sql->bindValue(8, $_POST["id_usuario"]);
-        $sql->bindValue(9, $_POST["id_paciente"]);
-        $sql->bindValue(10, $_POST["fin_orden"]);
-        $sql->bindValue(11, $_POST["dui"]);
-        $sql->bindValue(12, $_POST["nit"]);
-        $sql->bindValue(13, $_POST["correo"]);
-        $sql->bindValue(14, $_POST["pac_beneficiario"]);
-        $sql->bindValue(15, $_POST["pac_parentesco"]);
-        $sql->bindValue(16, $_POST["tel_ben"]);
-        $sql->bindValue(17, $_POST["direccion_parentesco"]);
+        $sql->bindValue(4, $_POST["id_usuario"]);
+        $sql->bindValue(5, $_POST["id_paciente"]);
+        $sql->bindValue(6, $_POST["fin_orden"]);
+        $sql->bindValue(7, $_POST["pac_beneficiario"]);
+        $sql->bindValue(8, $_POST["pac_parentesco"]);
+        $sql->bindValue(9, $_POST["tel_ben"]);
+        $sql->bindValue(10, $_POST["subtotal"]);
+        $sql->bindValue(11, $_POST["plazo"]);
+        //$sql->bindValue(17, $_POST["direccion_parentesco"]);
         $sql->execute();
 
         $sql12 = "update creditos set referencia_uno=?,tel_ref_uno=?,tel_ref_dos=?,jefe_inmediato=?,tel_jefe=?,cargo_jefe=?,numero_orden=?,referencia_dos=? where numero_venta=? and id_paciente=?";
@@ -131,10 +126,23 @@ public function get_datos_ordenes_print($num_de_orden,$id_paciente){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select p.id_paciente,p.nombres,e.nombre,p.ocupacion,c.saldo,c.monto_cuota,p.ocupacion,p.dui,p.nit,p.telefono,p.edad,p.telefono_oficina,p.correo,c.fecha_adquirido,c.finaliza_credito,c.numero_orden,p.direccion,c.referencia_uno,c.tel_ref_uno,c.referencia_dos,c.tel_ref_dos,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe from pacientes as p inner join creditos as c on c.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where  c.numero_orden=? and p.id_paciente=?;";
+  $sql="select p.id_paciente,p.nombres,e.nombre,p.ocupacion,c.saldo,c.monto_cuota,p.ocupacion,p.dui,p.nit,p.telefono,p.edad,p.telefono_oficina,p.correo,c.fecha_adquirido,c.finaliza_credito,c.numero_orden,p.direccion,c.referencia_uno,c.tel_ref_uno,c.referencia_dos,c.tel_ref_dos,c.jefe_inmediato,c.tel_jefe,c.cargo_jefe from pacientes as p inner join creditos as c on c.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas where  c.numero_orden=? and p.id_paciente=?;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$num_de_orden);
   $sql->bindValue(2,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+////////////////////////IMPRIMIR ORDEN
+public function nota_abonos_print($numero_orden_pac,$numero_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select c.saldo,p.nombres,p.dui,p.edad,c.numero_orden,p.direccion from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente where c.numero_orden=? and p.id_paciente=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$numero_orden_pac);
+  $sql->bindValue(2,$numero_paciente);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -203,7 +211,7 @@ public function pacientes_ultima_orden($id_paciente){
 public function ultimo_credito_empresarial($numero_orden){
 
     $conectar= parent::conexion();         
-    $sql="select p.nombres,e.nombre,c.monto,c.saldo,c.monto-c.saldo as abonado,DATE(DATE_ADD(c.fecha_adquirido, INTERVAL  c.plazo MONTH)) as finalizacion,c.plazo-abonos as letras_abonadas,c.abonos as pendientes,c.plazo from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join creditos as c on c.id_paciente=p.id_paciente where c.numero_orden=?;";
+    $sql="select p.nombres,e.nombre,c.monto,c.saldo,c.monto-c.saldo as abonado,DATE(DATE_ADD(c.fecha_adquirido, INTERVAL  c.plazo MONTH)) as finalizacion,c.abonos as letras_abonadas,c.plazo-c.abonos as pendientes,c.plazo,c.fecha_adquirido from empresas as e inner join pacientes as p on p.id_empresas=e.id_empresas inner join creditos as c on c.id_paciente=p.id_paciente where c.numero_orden=?;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$numero_orden);
@@ -246,22 +254,21 @@ $conectar=parent::conexion();
 
     $cuotas_anterior_add = $_POST["cuotas_anterior_add"];
     $nuevo_saldo_ad = $_POST["nuevo_saldo_ad"];
-    $hasta_ord_add = $_POST["hasta_ord_add"];
+    $nuevo_plazo = $_POST["nuevo_plazo"];
     $monto_cuotas_add = $_POST["monto_cuotas_add"];
     $plazo = $_POST["plazo"];
-    $numero_orden_ad = $_POST["numero_orden_ad"];    
-    //$abonos = $_POST["plazo"];
-    //$numero_orden = $_POST["numero_orden"];
-    /*$monto_cuota = $subtotal/$plazo;
-    $referencia_uno = "0";
-    $tel_ref_uno = "0";
-    $referencia_dos = "0";
-    $tel_ref_dos = "0";
-    $jefe_inmediato = "0";
-    $tel_jefe = "0";
-    $cargo_jefe = "0";*/
+    $numero_orden_ad = $_POST["numero_orden_ad"];
 
-    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
+    $benefiaciario_add = $_POST["benefiaciario_add"];
+    $parentesco_add = $_POST["parentesco_add"];
+    $telefono_add = $_POST["telefono_add"];
+    $fecha = $_POST["fecha"];
+
+    $dentroDeUnMes = strtotime("+$nuevo_plazo month");
+    $finalizacion = date("m-Y", $dentroDeUnMes);
+
+
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?);";
     $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
@@ -274,6 +281,7 @@ $conectar=parent::conexion();
     $sql->bindValue(7,$importe);
     $sql->bindValue(8,$id_usuario);
     $sql->bindValue(9,$id_paciente);
+    $sql->bindValue(10,$numero_orden_ad);
         
     $sql->execute();
          
@@ -308,7 +316,7 @@ $conectar=parent::conexion();
 
 }//cierre del foreach
 
-$sql2="insert into ventas values(null,now(),?,?,?,?,?,?,?,?,?);";
+           $sql2="insert into ventas values(null,now(),?,?,?,?,?,?,?,?,?);";
            $sql2=$conectar->prepare($sql2);        
           
            $sql2->bindValue(1,$numero_venta);
@@ -322,14 +330,34 @@ $sql2="insert into ventas values(null,now(),?,?,?,?,?,?,?,?,?);";
            $sql2->bindValue(9,$sucursal);
            $sql2->execute();
                      
-          $sql14 = "update creditos set saldo=?,monto=?,monto_cuota=?,plazo=? where numero_orden=?";
+          $sql14 = "update creditos set saldo=?,monto=?,monto_cuota=?,plazo=?,finaliza_credito=? where numero_orden=?";
           $sql14 = $conectar->prepare($sql14);
           $sql14->bindValue(1,$nuevo_saldo_ad);
           $sql14->bindValue(2,$nuevo_saldo_ad);
           $sql14->bindValue(3,$monto_cuotas_add);
-          $sql14->bindValue(4,$hasta_ord_add);
-          $sql14->bindValue(5,$numero_orden_ad);
-          $sql14->execute();               
+          $sql14->bindValue(4,$nuevo_plazo);
+          $sql14->bindValue(5,$finalizacion);
+          $sql14->bindValue(6,$numero_orden_ad);
+          $sql14->execute();
+
+
+          $sql="insert into desc_planilla values(null,?,?,?,?,?,?,?,?,?,?,?);";
+          
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1, $numero_venta);
+        $sql->bindValue(2, $numero_orden_ad);
+        $sql->bindValue(3, $fecha);
+        $sql->bindValue(4, $id_usuario);
+        $sql->bindValue(5, $id_paciente);
+        $sql->bindValue(6, $finalizacion);
+        $sql->bindValue(7, $benefiaciario_add);
+        $sql->bindValue(8, $parentesco_add);
+        $sql->bindValue(9, $telefono_add);
+        $sql->bindValue(10, $subtotal);
+        $sql->bindValue(11, $plazo);
+        //$sql->bindValue(17, $direccion_parentesco"]);
+        $sql->execute();                   
   
 }
 
@@ -343,6 +371,27 @@ public function calculo_credito_ant($numero_orden){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
+    public function get_beneficiarios_venta($id_paciente){
+
+      $conectar=parent::conexion();
+      $sql="select p.nombres,p.id_paciente,c.encargado,c.parentesco_beneficiario from consulta as c inner join pacientes as p on p.id_paciente=c.id_paciente where p.id_paciente=?;";
+      $sql=$conectar->prepare($sql);
+      $sql->bindValue(1,$id_paciente);
+      $sql->execute();
+      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+  public function load_beneficiarios_orden($id_paciente,$encargado){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select p.nombres,p.id_paciente,c.encargado,c.parentesco_beneficiario,c.telefono_beneficiario from consulta as c inner join pacientes as p on p.id_paciente=c.id_paciente where p.id_paciente=? and encargado=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$encargado);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}  
 
 }
 ?>

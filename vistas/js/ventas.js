@@ -992,11 +992,7 @@ tabla_ventas_sucursal= $('#lista_productos_ventas_data').DataTable({
 
 	    });
 
-$(document).ready(ocultar_btn_encargado);
-  function ocultar_btn_encargado(){
 
-  document.getElementById("pac_eval").style.display = "none";
-}
 function show_btn_paciente_cons(){
   document.getElementById("pac_eval").style.display = "block";
 }

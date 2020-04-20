@@ -24,7 +24,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head"><div id="valida_rec"></div>
-        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
       </div>
       <div class="modal-body">

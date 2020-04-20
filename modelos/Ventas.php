@@ -283,13 +283,15 @@ $conectar=parent::conexion();
     $tel_jefe = "0";
     $cargo_jefe = "0";
     $nu_ord="";
+    $count_abonos="0";
+    $pac_evaluado = $_POST["pac_evaluado"];
     
     $dentroDeUnMes = strtotime("+$plazo month");
     $finalizacion = date("m-Y", $dentroDeUnMes);
     
 
 
-    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?);";
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?,?);";
     $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
@@ -303,6 +305,7 @@ $conectar=parent::conexion();
     $sql->bindValue(8,$id_usuario);
     $sql->bindValue(9,$id_paciente);
     $sql->bindValue(10,$nu_ord);
+    $sql->bindValue(11,$pac_evaluado);
         
     $sql->execute();
          
@@ -359,7 +362,7 @@ $conectar=parent::conexion();
    
 
            $sql2="insert into ventas 
-           values(null,now(),?,?,?,?,?,?,?,?,?);";
+           values(null,now(),?,?,?,?,?,?,?,?,?,?);";
 
 
            $sql2=$conectar->prepare($sql2);
@@ -374,6 +377,7 @@ $conectar=parent::conexion();
            $sql2->bindValue(7,$id_usuario);
            $sql2->bindValue(8,$id_paciente);
            $sql2->bindValue(9,$sucursal);
+           $sql2->bindValue(10,$pac_evaluado);
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
@@ -390,7 +394,7 @@ $conectar=parent::conexion();
            $sql7->bindValue(7,$id_paciente);
            $sql7->bindValue(8,$id_usuario);
            $sql7->bindValue(9,$numero_orden);
-           $sql7->bindValue(10,$plazo);
+           $sql7->bindValue(10,$count_abonos);
            $sql7->bindValue(11,$monto_cuota);
            $sql7->bindValue(12,$referencia_uno);
            $sql7->bindValue(13,$tel_ref_uno);

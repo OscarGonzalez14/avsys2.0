@@ -122,6 +122,7 @@ public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$oc
         $sql->bindValue(11, $_POST["nit"]);
         $sql->bindValue(12, $_POST["tel_oficina"]);
         $sql->bindValue(13, $_POST["direccion_completa"]);
+       // $sql->bindValue(14, $_POST["tel_oficina"]);
 
         $sql->execute();
       
