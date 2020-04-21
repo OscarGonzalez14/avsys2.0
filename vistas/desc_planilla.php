@@ -36,8 +36,6 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">
-                            <button class="btn btn-primary btn-lg" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#categoriaModal"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -49,12 +47,12 @@
 
                             <thead>
                               
-                                <tr>
-                                  
-                                <th width="8%"># Orden</th>
-                                <th width="5%">Paciente</th>
-                                <th width="5%">Empresa</th>
-                                <th width="5%">Eliminar</th>
+                                <tr>                                  
+                                <th>Paciente</th>
+                                <th>Empresa</th>
+                                <th>Monto</th>
+                                <th>Saldo</th>
+                                <th>Imprimir</th>
                                 </tr>
                             </thead>
 

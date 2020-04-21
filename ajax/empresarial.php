@@ -240,7 +240,37 @@ break;
 } 
 
 break;
+case "listar_descuentos_planilla_print":
 
+	$datos=$empresarial->get_all_ordenes_print();
+	$data= Array();
+
+    foreach($datos as $row)
+
+	{
+		$sub_array = array();			
+			
+	       // $sub_array[] = $row["nombres"];
+	        //$sub_array[] = date("d-m-Y",strtotime($row["fecha_reg"]));
+			$sub_array[] = $row["nombres"];
+			$sub_array[] = $row["nombre"];
+			$sub_array[] = "$ ".number_format($row["monto"],2,".",",");
+			$sub_array[] = "$ ".number_format($row["saldo"],2,".",",");
+			            
+            $sub_array[] = '<a href="imprimir_orden_desc.php?numero_orden_pac='.$row["numero_orden"].'&'.'numero_paciente='.$row["id_paciente"].'"><button type="button" class="btn btn-infos btn-md"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button></a>';
+           
+		$data[] = $sub_array;
+	}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
 
 }
 ?>

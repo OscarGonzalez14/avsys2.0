@@ -149,14 +149,14 @@
       <div class="col-xs-2">
         <label for="ex1">#Venta</label>
         <input class="form-control" id="numero_venta" name="numero_venta" type="text" readonly>
-      </div>   
+      </div>
 
       <div class="col-xs-4">
         <label for="ex3">Encargado de la Cuenta</label>
         <input class="form-control" id="nombre_pac" type="text" name="nombre_pac" readonly>
       </div>
      <div class="col-xs-4" id="pac_eval">
-        <label for="ex3">Paciente evaluado</label>
+        <label for="ex3">Paciente evaluado o Beneficiario</label>
         <input class="form-control" id="pac_evaluado" type="text" name="nombre_pac">
       </div>      
 

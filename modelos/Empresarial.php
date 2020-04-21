@@ -263,12 +263,13 @@ $conectar=parent::conexion();
     $parentesco_add = $_POST["parentesco_add"];
     $telefono_add = $_POST["telefono_add"];
     $fecha = $_POST["fecha"];
+    $pac_evaluado = $_POST["pac_evaluado"];
 
     $dentroDeUnMes = strtotime("+$nuevo_plazo month");
     $finalizacion = date("m-Y", $dentroDeUnMes);
 
 
-    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?);";
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?,?);";
     $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
@@ -282,6 +283,7 @@ $conectar=parent::conexion();
     $sql->bindValue(8,$id_usuario);
     $sql->bindValue(9,$id_paciente);
     $sql->bindValue(10,$numero_orden_ad);
+    $sql->bindValue(11,$pac_evaluado);
         
     $sql->execute();
          
@@ -316,7 +318,7 @@ $conectar=parent::conexion();
 
 }//cierre del foreach
 
-           $sql2="insert into ventas values(null,now(),?,?,?,?,?,?,?,?,?);";
+           $sql2="insert into ventas values(null,now(),?,?,?,?,?,?,?,?,?,?);";
            $sql2=$conectar->prepare($sql2);        
           
            $sql2->bindValue(1,$numero_venta);
@@ -328,6 +330,7 @@ $conectar=parent::conexion();
            $sql2->bindValue(7,$id_usuario);
            $sql2->bindValue(8,$id_paciente);
            $sql2->bindValue(9,$sucursal);
+           $sql2->bindValue(10,$pac_evaluado);
            $sql2->execute();
                      
           $sql14 = "update creditos set saldo=?,monto=?,monto_cuota=?,plazo=?,finaliza_credito=? where numero_orden=?";
@@ -392,6 +395,18 @@ public function calculo_credito_ant($numero_orden){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }  
+
+///////////////IMPRIMIR ORDENES DE DESCUENTO
+public function get_all_ordenes_print(){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $sql="select p.id_paciente, p.nombres,e.nombre,c.id_credito,c.monto,c.saldo,c.numero_orden from pacientes as p inner join empresas as e on p.id_empresas=e.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente order by c.id_credito;";
+  $sql=$conectar->prepare($sql);
+  //$sql->bindValue(1,$i);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }
 ?>

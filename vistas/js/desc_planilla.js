@@ -1,5 +1,7 @@
-function init(){
+var tabla_ordenes_empresarial;
 
+function init(){
+	listar_ordenes_descuento_empresarial();
 }
 $(document).on('click', '.num_ord_correlativo', function(){
 
@@ -274,6 +276,7 @@ function update_descuento_planilla(){
 	var parentesco_add = $("#parentesco_add").val();
 	var telefono_add = $("#telefono_add").val();
 	var fecha = $("#date").val();
+	var pac_evaluado = $("#pac_evaluado").val();
 
 //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
@@ -284,7 +287,7 @@ function update_descuento_planilla(){
     $.ajax({
 		url:"../ajax/empresarial.php?op=update_descuento_planilla",
 		method:"POST",
-		data:{'arrayUpdate_venta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'numero_orden_ad':numero_orden_ad,'cuotas_anterior_add':cuotas_anterior_add,'nuevo_saldo_ad':nuevo_saldo_ad,'monto_cuotas_add':monto_cuotas_add,nuevo_plazo:nuevo_plazo,'benefiaciario_add':benefiaciario_add,'parentesco_add':parentesco_add,'telefono_add':telefono_add,'fecha':fecha},
+		data:{'arrayUpdate_venta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'numero_orden_ad':numero_orden_ad,'cuotas_anterior_add':cuotas_anterior_add,'nuevo_saldo_ad':nuevo_saldo_ad,'monto_cuotas_add':monto_cuotas_add,nuevo_plazo:nuevo_plazo,'benefiaciario_add':benefiaciario_add,'parentesco_add':parentesco_add,'telefono_add':telefono_add,'fecha':fecha,'pac_evaluado':pac_evaluado},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -451,6 +454,89 @@ function load_beneficiarios_ventas(id_paciente,encargado){
 		});
 	
 }
+//////////////////////////////LISTAR ORDENES DE DESCUENTO
+function listar_ordenes_descuento_empresarial(){
+
+	tabla_ordenes_empresarial=$('#listar_ordenes_descuento_data').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/empresarial.php?op=listar_descuentos_planilla_print',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+}
+
+
+
+
 
 (function() {
   /**
