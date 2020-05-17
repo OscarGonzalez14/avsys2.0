@@ -24,6 +24,7 @@ require_once("../config/conexion.php");
 
 <ul class="breadcrumb">
   <li><a href="abonos.php">Regresar</a></li>
+  <li><a href="recibos_emp.php">Recibos Empresarial</a></li>
  </ul>
 <input type="hidden" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
   <h2 align="center">ABONOS EMPRESARIAL</h2>

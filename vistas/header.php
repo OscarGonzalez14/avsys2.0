@@ -325,6 +325,7 @@
             <li><a href="consultar_ventas.php"><i class="fa fa-circle-o"></i> Consultar Ventas</a></li>
             <li><a href="consultar_ventas_fecha.php"><i class="fa fa-circle-o"></i> Consultar Ventas Fecha</a></li>
             <li><a href="consultar_ventas_mes.php"><i class="fa fa-circle-o"></i> Consultar Ventas Mes</a></li>
+            <li><a href="comisiones.php"><i class="fa fa-circle-o"></i> Comisiones</a></li>
            
           </ul>
          

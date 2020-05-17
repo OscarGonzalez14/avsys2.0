@@ -1270,6 +1270,7 @@ function recibo_uno(){
 //document.getElementById('btn_enviar').style.display = 'none';
 $('#detalle_abonos').modal("show");
 var sucursal = document.getElementById('sucursal').value;
+var id_usuario = document.getElementById('id_user').value;
 
     $.ajax({
       url:"../ajax/recibos.php?op=get_numero_recibo",
@@ -1284,12 +1285,32 @@ var sucursal = document.getElementById('sucursal').value;
       }
     });
 
-    recibo_uno_datos_pac();
+//////////////////datos de Paciente recibo inicial
+    $.ajax({
+      url:"../ajax/recibos.php?op=get_datos_recibo_inicial",
+      method:"POST",
+      data:{sucursal:sucursal,id_usuario:id_usuario},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#num_venta_rec_ini").val(data.numero_venta);
+        $("#monto").val(data.subtotal);
+        $("#telefono").val(data.telefono);
+        $("#nombres_ini").val(data.nombres);
+        $("#id_paciente_ini").val(data.id_paciente);
+        $("#forma_de_venta").val(data.tipo_venta);
+
+
+      }
+    });
+get_datos_aros_recibo_inicial();
+    //recibo_uno_datos_pac();
  }
 
-function recibo_uno_datos_pac(){
+//function recibo_uno_datos_pac(){
 //$('#detalle_abonos').modal("show");
-var sucursal = document.getElementById('sucursal').value;
+/*var sucursal = document.getElementById('sucursal').value;
 
     $.ajax({
       url:"../ajax/recibos.php?op=get_datos_recibo_inicial",
@@ -1309,7 +1330,7 @@ var sucursal = document.getElementById('sucursal').value;
       }
     });
     get_datos_aros_recibo_inicial();
- }
+ }*/
 
 function get_datos_aros_recibo_inicial(){
 

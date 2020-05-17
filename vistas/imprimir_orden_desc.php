@@ -8,17 +8,12 @@ require_once("../config/conexion.php");
 require_once("../modelos/Empresarial.php");
 
 $empresarial=new Empresarial();
-
-
 //$datos=$recibos->get_recibo_id($_GET["numero_venta"]);
 //$venta=$recibos->get_detalle_venta($_GET["numero_recibo_pac"])
 $datos_orden_descuento=$empresarial->get_datos_ordenes_print($_GET["numero_orden_pac"],$_GET["numero_paciente"]);
 $fecha_hoy=date("m-Y");
 $orden_numero=$_GET["numero_orden_pac"];
-
-
 ob_start(); 
-
    
 ?>
 <!DOCTYPE html>
@@ -129,22 +124,10 @@ ob_start();
 <tr style="height:150px">
   <td colspan="100">
 </td>
-    <?php
-//$numero=$_GET["numero_venta"];
-$servername = "localhost";
-$username = "oscargz";
-$password = "oscar14";
-$dbname = "avplu2";
-
-$numero=$_GET["numero_orden_pac"];
-$id_pac=$_GET["numero_paciente"];
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+<?php
+require_once("../config/mysqliconn.php");
 ?>
+
 <?php
 
 //$venta = $_GET["numero_venta"];

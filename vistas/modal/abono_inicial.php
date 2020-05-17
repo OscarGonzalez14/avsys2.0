@@ -126,6 +126,8 @@
 <input id="id_credito" type="hidden" name="id_credito">
 <input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
 <input type="hidden" name="usuario" id="id_uusuario" value="<?php echo $_SESSION["usuario"];?>"/>
+<input type="text" name="forma_de_venta" id="forma_de_venta">
+
 
       </div>
       <div class="modal-footer">

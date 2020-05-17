@@ -103,7 +103,7 @@ public function get_recibo_sucursal($sucursal){
 public function get_recibo_num($sucursal_correlativo){
 
     $conectar= parent::conexion();         
-    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal=?";
+    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal=? and numero_recibo<>'0'";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal_correlativo);
@@ -115,14 +115,15 @@ public function get_recibo_num($sucursal_correlativo){
 
 //FUNCION PARA CARGAR DATOS EN RECIBO INICIAL
 
-public function get_datos_pac_rec_ini($sucursal){
+public function get_datos_pac_rec_ini($sucursal,$id_usuario){
 
     $conectar= parent::conexion();
 	       
-	  $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? order by id_ventas DESC limit 1;";
+	  $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente,v.tipo_pago from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? and v.id_usuario=? order by id_ventas DESC limit 1;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal);
+    $sql->bindValue(2, $id_usuario);
     $sql->execute();
 
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -146,7 +147,7 @@ public function valida_num_recibo($num_recibo){
 
 ////////FUNCION PARA REGISTAR ABONO INICIAL
 
-public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono,$id_empresa,$vendedor_com,$opto_com){
+public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono,$id_empresa,$vendedor_com,$opto_com,$user_cobros,$forma_pagos,$forma_venta){
 
 $abono_act = $_POST["abono_act"];
 $conectar=parent::conexion();  
@@ -180,40 +181,129 @@ $conectar=parent::conexion();
   $sql->bindValue(24,$prox_abono);
   $sql->execute();
 
-    /////////////////REGISTRAR COMISION
+/////////////////REGISTRAR COMISION
   $sql50="select p.id_paciente,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha_abono,a.monto_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_paciente=? limit 1;";
              
     $sql50=$conectar->prepare($sql50);
     $sql50->bindValue(1,$id_paciente);
     $sql50->execute();
     $comision=0;
+    $tipo_cliente='';
     $resultado_est = $sql50->fetchAll(PDO::FETCH_ASSOC);
       foreach($resultado_est as $b=>$row){
         $estado_credito = $estado_credito+$row["estado"];        
 
     }
   //print_r($estado_credito);exit();
-  if ($estado_credito>0) {
-    $comision=$abono_act*0.05;
-  }else{
-   $comision=0; 
-  }
-
-
+  if ($estado_credito<60) {
+    $comision=$abono_act*0.005;
+    $tipo_cliente='Constante';
+  }elseif($estado_credito>60 and $estado_credito<90){
+   $comision=$abono_act*0.0075;
+   $tipo_cliente='Poco Constante'; 
+  }elseif($estado_credito>90){
+   $comision=$abono_act*0.01;
+   $tipo_cliente='Irrecuperable';
+  }elseif($estado_credito === NULL){
+  $comision=$abono_act*0.005;
+  $tipo_cliente='Constante';
+}
+$comision_ase_opto=$abono_act*0.01;
   
-  $sql74="insert into comisiones values(null,now(),?,?,?,?,?,?,?);";
+  $sql74="insert into comisiones values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?);";
   $sql74=$conectar->prepare($sql74);
   $sql74->bindValue(1,$abono_act);
   $sql74->bindValue(2,$comision);
-  $sql74->bindValue(3,$vendedor_com);
-  $sql74->bindValue(4,$opto_com);
-  $sql74->bindValue(5,$num_recibo);
-  $sql74->bindValue(6,$num_venta);
-  $sql74->bindValue(7,$id_usuario);
+  $sql74->bindValue(3,$comision_ase_opto);
+  $sql74->bindValue(4,$comision_ase_opto);
+  $sql74->bindValue(5,$user_cobros);
+  $sql74->bindValue(6,$vendedor_com);
+  $sql74->bindValue(7,$opto_com);
+  $sql74->bindValue(8,$num_venta);
+  $sql74->bindValue(9,$saldo);
+  $sql74->bindValue(10,$forma_pagos);
+  $sql74->bindValue(11,$id_usuario);
+  $sql74->bindValue(12,$num_recibo);
+  $sql74->bindValue(13,$tipo_cliente);
   $sql74->execute();
 
   ////////////////FIN REGISTRAR COMISION
+
+  ///////////RECORD CORTE DIARIO
+
+  //*************Clasificar por numero de abonos si es venta o recuperado si el numeor de abonos es >0
+  $sql15="select count(numero_venta) as cuenta from abonos where numero_venta=?;";
+             
+    $sql15=$conectar->prepare($sql15);
+    $sql15->bindValue(1,$num_venta);
+    $sql15->execute();
+
+    $suma_res='0';
+    $resultado_num_ventas = $sql15->fetchAll(PDO::FETCH_ASSOC);
+      foreach($resultado_num_ventas as $b=>$row){
+        $suma_res = $suma_res+$row["cuenta"];        
+
+    }
+//****************Seleccionar abono Anterior
+  $sql16="select monto_abono from abonos where numero_venta=? order by id_abono DESC limit 1;";
+             
+    $sql16=$conectar->prepare($sql16);
+    $sql16->bindValue(1,$num_venta);
+    $sql16->execute();
+
+    $suma_abonos_ant='0';
+    $resultado_abonos = $sql16 ->fetchAll(PDO::FETCH_ASSOC);
+      foreach($resultado_abonos as $b=>$row){
+        $suma_abonos_ant = $suma_abonos_ant+$row["monto_abono"];        
+
+    }
+
+if(is_array($resultado_abonos)==true and count($resultado_abonos)>0) { 
+
+  $factura='0';           
   
+  $sql17="insert into corte_diario values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  $sql17=$conectar->prepare($sql17);
+  $sql17->bindValue(1,$num_recibo);
+  $sql17->bindValue(2,$num_venta);
+  $sql17->bindValue(3,$factura);
+  $sql17->bindValue(4,$paciente);
+  $sql17->bindValue(5,$vendedor_com);
+  $sql17->bindValue(6,$monto);
+  $sql17->bindValue(7,$forma_pago);
+  $sql17->bindValue(8,$abono_act);
+  $sql17->bindValue(9,$saldo);
+  $sql17->bindValue(10,$forma_venta);
+  $sql17->bindValue(11,$forma_pagos);
+  $sql17->bindValue(12,$id_usuario);
+  $sql17->bindValue(13,$suma_abonos_ant);
+  $sql17->bindValue(14,$suma_res);
+  $sql17->execute();
+
+}else{
+  $factura='0';
+  $suma_resultados='0';
+  $suma_abonos_ante='0';           
+  
+  $sql17="insert into corte_diario values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  $sql17=$conectar->prepare($sql17);
+  $sql17->bindValue(1,$num_recibo);
+  $sql17->bindValue(2,$num_venta);
+  $sql17->bindValue(3,$factura);
+  $sql17->bindValue(4,$paciente);
+  $sql17->bindValue(5,$vendedor_com);
+  $sql17->bindValue(6,$monto);
+  $sql17->bindValue(7,$forma_pago);
+  $sql17->bindValue(8,$abono_act);
+  $sql17->bindValue(9,$saldo);
+  $sql17->bindValue(10,$forma_venta);
+  $sql17->bindValue(11,$forma_pagos);
+  $sql17->bindValue(12,$id_usuario);
+  $sql17->bindValue(13,$suma_abonos_ante);
+  $sql17->bindValue(14,$suma_resultados);
+  $sql17->execute();
+}//Fin del if    
+//******************FIN RECORD CORTE DE CAJA
   //////REGISTRAR ABONOS
   
   $sql2="insert into abonos values(null,?,?,now(),?,?,?,?,?);";
@@ -227,8 +317,6 @@ $conectar=parent::conexion();
   $sql2->bindValue(6,$num_venta);
   $sql2->bindValue(7,$sucursal);
   $sql2->execute();
-
-
 
   $num_venta = $_POST["num_venta"];
   $sql11="select * from creditos where numero_venta=?;";
@@ -262,6 +350,10 @@ $conectar=parent::conexion();
         //$sql12->bindValue(3,$sucursal);
         $sql12->execute();               
     }//Fin del if
+
+////////////////////////////AGREGAR DETALLE A CORTE
+
+///////////////FIN DETALLE CORTE
 
 
     //////////UPDATE CANCELADAS
@@ -392,12 +484,18 @@ $sql37="select p.id_empresas,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha
       
 }//FIN FUNCTION REGISTRA ABONOS
 
-public function get_recibos_print(){
+public function get_recibos_print($mes_recibo,$ano_recibo,$empresa_recibo){
   $conectar=parent::conexion();
   parent::set_names();
 
-  $sql="select*from recibos order by id_recibo DESC limit 5;";
+  $mes=$_POST["mes_recibo"];
+  $ano=$_POST["ano_recibo"]; 
+  $fecha= ($ano."-".$mes."%");
+
+  $sql="select r.fecha,r.numero_recibo,r.numero_venta,r.abono_act,r.paciente,r.empresa,r.id_recibo,v.tipo_pago from ventas as v inner join recibos as r on v.numero_venta=r.numero_venta where fecha like ? and r.empresa=? AND v.tipo_pago='Descuento en Planilla';";
   $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$fecha);
+  $sql->bindValue(2,$empresa_recibo);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -491,7 +589,15 @@ public function get_detalle_venta($numero_venta){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function listar_empresas_recibo(){
+  $conectar=parent::conexion();
+  parent::set_names();
 
+  $sql="select distinct empresa from recibos";
+  $sql=$conectar->prepare($sql);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }
 

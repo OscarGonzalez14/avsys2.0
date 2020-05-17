@@ -77,7 +77,7 @@ ob_start();
     <td style="text-align:right; font-size:12px"><strong style="text-align:right; font-size:12px">RECIBO</strong></td>
   </tr>
   <tr>
-    <td style="text-align:right;font-size:16px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
+    <td style="text-align:right;font-size:15px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
   </tr>
   
 </table><!--fin segunda tabla-->
@@ -207,7 +207,7 @@ ob_start();
     <td style="text-align:right; font-size:12px"><strong style="text-align:right; font-size:12px">RECIBO</strong></td>
   </tr>
   <tr>
-    <td style="text-align:right;font-size:16px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
+    <td style="text-align:right;font-size:14px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
   </tr>
 </table><!--fin segunda tabla-->
 </td> <!--fin segunda columna--> 

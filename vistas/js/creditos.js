@@ -380,6 +380,8 @@ $(document).on('click', '.abonos_p', function(){
         $("#id_emps").val(data.id_empresas);
         $("#vendedor_com").val(data.vendedor);
         $("#opto_com").val(data.optometra);
+        $("#forma_pagos").val(data.tipo_pago);
+        $("#forma_venta").val(data.tipo_venta);
       
       }
     })

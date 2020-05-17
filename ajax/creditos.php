@@ -134,7 +134,7 @@ case 'pacientes_empresarial':
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data,
- 			'total' => number_format($total_order, 2),
+ 			//'total' => number_format($total_order, 2),
 
  		);
  		echo json_encode($results);
@@ -285,11 +285,10 @@ case 'get_pacientes_c_automatico':
 			        $output["id_empresas"] = $row["id_empresas"];
 			        $output["optometra"] = $row["optometra"];
 			        $output["vendedor"] = $row["vendedor"];
-
-
-								
-				}
-		
+			        $output["tipo_pago"] = $row["tipo_pago"];
+			        $output["tipo_venta"] = $row["tipo_venta"];
+			        							
+				}	
 		      
 		          echo json_encode($output);
 

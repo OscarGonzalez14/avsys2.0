@@ -1,21 +1,32 @@
 var tabla_recibos_print;
 
 function init(){
-	listar_recibos_print();
+	//listar_recibos_print();
 }
 
-function listar_recibos_print()
-{
-	tabla_recibos_print=$('#recibos_data').dataTable(
+
+ $(document).on("click","#btn_print_recibos_emp", function(){
+
+    var mes_recibo= $("#mes_recibo").val();
+    var ano_recibo= $("#ano_recibo").val();
+    var empresa_recibo=$("#empresa_recibo").val();
+    
+	tabla_recibos_print=$('#recibos_empresariales_data').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	   
+	   	    buttons: [		          
+		    { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
+        ],
 		"ajax":
 				{
 					url: '../ajax/recibos.php?op=listar_recibos_print',
-					type : "get",
-					dataType : "json",						
+					type : "post",
+					//dataType : "json",
+					data:{mes_recibo:mes_recibo,ano_recibo:ano_recibo,empresa_recibo:empresa_recibo},						
 					error: function(e){
 						console.log(e.responseText);	
 					}
@@ -23,14 +34,14 @@ function listar_recibos_print()
 		"bDestroy": true,
 		"responsive": true,
 		"bInfo":true,
-		"iDisplayLength": 15,//Por cada 10 registros hace una paginación
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
 	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 	    
 	    "language": {
  
 			    "sProcessing":     "Procesando...",
 			 
-			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			   // "sLengthMenu":     "Mostrar _MENU_ registros",
 			 
 			    "sZeroRecords":    "No se encontraron resultados",
 			 
@@ -75,7 +86,7 @@ function listar_recibos_print()
 			   }//cerrando language
 	       
 	}).DataTable();
-}
+  });
 
 
  
@@ -110,6 +121,9 @@ function registra_abono_inicial(){
 
     var vendedor_com = $("#vendedor_com").val();
     var opto_com = $("#opto_com").val();
+    var user_cobros = $("#user_cobros").val();
+    var forma_pagos = $("#forma_pagos").val();
+    var forma_venta = $("#forma_venta").val();
 
     
     
@@ -119,7 +133,7 @@ if(monto != "" || forma_pago=="0"){
     $.ajax({
     url:"../ajax/recibos.php?op=registrar_abono_inicial",
     method:"POST",
-    data:{num_recibo:num_recibo,num_venta:num_venta, monto:monto, sucursal: sucursal,id_paciente:id_paciente,id_usuario:id_usuario,hora:hora,telefono:telefono,paciente:paciente,empresa:empresa,cant_letras:cant_letras,abono_ant:abono_ant,abono_act:abono_act,saldo:saldo,forma_pago:forma_pago,marca_aro:marca_aro,modelo_aro:modelo_aro,color_aro:color_aro,lente:lente,tipo_ar:tipo_ar,photo:photo,observaciones:observaciones,asesor:asesor,prox_abono:prox_abono,id_empresa:id_empresa,vendedor_com:vendedor_com,opto_com:opto_com},
+    data:{num_recibo:num_recibo,num_venta:num_venta, monto:monto, sucursal: sucursal,id_paciente:id_paciente,id_usuario:id_usuario,hora:hora,telefono:telefono,paciente:paciente,empresa:empresa,cant_letras:cant_letras,abono_ant:abono_ant,abono_act:abono_act,saldo:saldo,forma_pago:forma_pago,marca_aro:marca_aro,modelo_aro:modelo_aro,color_aro:color_aro,lente:lente,tipo_ar:tipo_ar,photo:photo,observaciones:observaciones,asesor:asesor,prox_abono:prox_abono,id_empresa:id_empresa,vendedor_com:vendedor_com,opto_com:opto_com,user_cobros:user_cobros,forma_pagos:forma_pagos,forma_venta:forma_venta},
     cache: false,
     dataType:"html",
     error:function(x,y,z){

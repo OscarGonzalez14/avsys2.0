@@ -436,6 +436,52 @@ $conectar=parent::conexion();
     }//Fin del if
 
     ////////////FIN UPDATE CANCELADAS
+
+///////////////iNSERT INTO CORTE DIARIO
+
+  $abono_act='0';
+  $forma_pago='0';
+  $num_recibo='0';
+
+
+  $sql2="insert into abonos values(null,?,?,now(),?,?,?,?,?);";
+  $sql2=$conectar->prepare($sql2);
+  $sql2->bindValue(1,$abono_act);
+  $sql2->bindValue(2,$forma_pago);
+  //$sql2->bindValue(3,$prox_abono);
+  $sql2->bindValue(3,$id_paciente);
+  $sql2->bindValue(4,$id_usuario);
+  $sql2->bindValue(5,$num_recibo);
+  $sql2->bindValue(6,$numero_venta);
+  $sql2->bindValue(7,$sucursal);
+  $sql2->execute();
+
+  $factura='0';
+  $suma_resultados='0';
+  $suma_abonos_ante='0';
+  $abono_act='0';
+
+  $sql17="insert into corte_diario values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  $sql17=$conectar->prepare($sql17);
+  $sql17->bindValue(1,$num_recibo);
+  $sql17->bindValue(2,$numero_venta);
+  $sql17->bindValue(3,$factura);
+  $sql17->bindValue(4,$nombre_pac);
+  $sql17->bindValue(5,$usuario_venta);
+  $sql17->bindValue(6,$subtotal);
+  $sql17->bindValue(7,$tipo_pago);
+  $sql17->bindValue(8,$abono_act);
+  $sql17->bindValue(9,$subtotal);
+  $sql17->bindValue(10,$tipo_venta);
+  $sql17->bindValue(11,$tipo_pago);
+  $sql17->bindValue(12,$id_usuario);
+  $sql17->bindValue(13,$suma_abonos_ante);
+  $sql17->bindValue(14,$suma_resultados);
+  $sql17->execute();
+
+
+///////////////FIN INSERT INTO CORTE DIARIO
+
 }
 //////////////////////REGISTRAR ABONOS
 
@@ -1323,5 +1369,5 @@ public function get_correlativo_venta(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
-
+///////////////////LISTAR COMISIONES
    }

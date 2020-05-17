@@ -72,7 +72,7 @@ public function get_detalle_paciente_abonos($id_paciente){
 public function get_detalle_paciente($numero_venta){
 	$conectar=parent::conexion();
 	parent::set_names();
-	$sql="select p.id_paciente, p.nombres, p.telefono,p.id_empresas,e.nombre,c.monto,c.plazo,c.numero_venta,c.monto,c.saldo,v.vendedor,v.optometra from empresas as e inner join pacientes as p on e.id_empresas=p.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente inner join ventas as v on v.numero_venta=c.numero_venta where c.numero_venta=?;";
+	$sql="select p.id_paciente, p.nombres, p.telefono,p.id_empresas,e.nombre,c.monto,c.plazo,c.numero_venta,c.monto,c.saldo,v.vendedor,v.optometra,v.tipo_pago,v.tipo_venta from empresas as e inner join pacientes as p on e.id_empresas=p.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente inner join ventas as v on v.numero_venta=c.numero_venta where c.numero_venta=?;";
 	$sql=$conectar->prepare($sql);
 	$sql->bindValue(1,$numero_venta);
 	$sql->execute();

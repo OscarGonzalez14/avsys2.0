@@ -9,7 +9,7 @@ class Empresa extends Conectar
         parent::set_names();
 
 
-        $sql="insert into empresas values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        $sql="insert into empresas values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         $sql=$conectar->prepare($sql);
 
@@ -27,6 +27,7 @@ class Empresa extends Conectar
         $sql->bindValue(12,"0");
         $sql->bindValue(13,"0");
         $sql->bindValue(14,"0");
+        $sql->bindValue(15,"0");
         $sql->execute();
       
 
