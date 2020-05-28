@@ -72,7 +72,7 @@ public function get_detalle_paciente_abonos($id_paciente){
 public function get_detalle_paciente($numero_venta){
 	$conectar=parent::conexion();
 	parent::set_names();
-	$sql="select p.id_paciente, p.nombres, p.telefono, e.nombre,c.monto,c.plazo,c.numero_venta,c.monto,c.saldo from empresas as e inner join pacientes as p on e.id_empresas=p.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente where c.numero_venta=?;";
+	$sql="select p.id_paciente, p.nombres, p.telefono,p.id_empresas,e.nombre,c.monto,c.plazo,c.numero_venta,c.monto,c.saldo,v.vendedor,v.optometra from empresas as e inner join pacientes as p on e.id_empresas=p.id_empresas inner join creditos as c on p.id_paciente=c.id_paciente inner join ventas as v on v.numero_venta=c.numero_venta where c.numero_venta=?;";
 	$sql=$conectar->prepare($sql);
 	$sql->bindValue(1,$numero_venta);
 	$sql->execute();
@@ -205,7 +205,7 @@ $html.="<tr class='filas'>
 <td colspan='2'>".$row['nombre']."</td>
 <td colspan='2'>".$row['usuario']."</td>
 <td colspan='2'>".$row['sucursal']."</td>
-<td colspan='2' style='text-align: center; font-size: 18px'>".$row['n_recibo']."</td>
+<td colspan='2' style='text-align: center; font-size: 12px'>".$row['n_recibo']."</td>
 <td style='text-align: rigth'>".'<span style="text-align: rigth">'.'$ '.number_format($row['monto_abono'], 2,".",",").'<span>'."</td>";
  
   $abonos_p= $abonos_p+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
@@ -214,12 +214,12 @@ $html.="<tr class='filas'>
 $saldo = $row["subtotal"]-$abonos_p;
   $html .= "<tfoot>
     <th></th>
-    <th><p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>MONTO DEL CREDITO:&nbsp;$".$row["subtotal"]."&nbsp;</p></th>
+    <th><p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px;font-size:12px>MONTO DEL CREDITO:&nbsp;$".$row["subtotal"]."&nbsp;</p></th>
     <th>
-    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>TOTAL ABONADO:&nbsp;<strong>".'$ '.number_format($abonos_p, 2,".",",")."&nbsp;</strong></p>
+    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px;font-size:12px>TOTAL ABONADO:&nbsp;<strong>".'$ '.number_format($abonos_p, 2,".",",")."&nbsp;</strong></p>
     </th>
     <th>
-    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px>SALDO ACTUAL:&nbsp;<strong>".'$ '.number_format($saldo, 2,".",",")."&nbsp;</strong></p>
+    <p style='text-align:center;padding:1px;border: solid 1px black';border-radius:3px;font-size:12px>SALDO ACTUAL:&nbsp;<strong>".'$ '.number_format($saldo, 2,".",",")."&nbsp;</strong></p>
     </th>
   <th>
   </th> 
@@ -353,8 +353,7 @@ public function cobros_pacientes(){
 
   $conectar= parent::conexion();
 
-  $sql="select*from abonos where n_recibo=?;
-";
+  $sql="select*from abonos where n_recibo=?;";
 
   $sql=$conectar->prepare($sql);
 

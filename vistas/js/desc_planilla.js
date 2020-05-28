@@ -585,4 +585,86 @@ function listar_ordenes_descuento_empresarial(){
     };
   }
 })();
+
+function orden_individual(){
+
+var numero_venta = $("#numero_venta").val();
+    var cod_pac = $("#cod_pac").val();
+    var nombre_pac = $("#nombre_pac").val();
+    var tipo_pago = $("#tipo_pago").val();
+    var subtotal = $("#subtotal").html();
+    var usuario = $("#usuario").val();
+    var tipo_venta = $("#tipo_venta").val();
+    var sucursal = $("#sucursal").val();
+    var id_usuario = $("#id_user").val();
+    var id_paciente = $("#id_paciente").val();
+    var plazo = $("#plazo").val();
+    var descripcion = $("#descripcion").val();
+    var importe = $("#importe").val();
+    var pac_evaluado = $("#pac_evaluado").val();
+
+    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
+    $("#descuento").attr('disabled', 'disabled');
+     console.log('error!');
+
+    $.ajax({
+		url:"../ajax/producto.php?op=registrar_venta",
+		method:"POST",
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado},
+		cache: false,
+		dataType:"html",
+		error:function(x,y,z){
+			d_pacole.log(x);
+			console.log(y);
+			console.log(z);
+		},    
+      
+			
+		success:function(data){
+
+	    var nombre_pac = $("#nombre_pac").val("");
+
+            
+            detalles = [];
+            $('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
+        //Se carga la modal de abono inicial  
+        setTimeout ("load_modal_orden_descuento();", 2000); 
+         	
+		}
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del paciente
+
+	 } else{
+
+	 	 bootbox.alert("Debe llenar todos los campos");
+	 	 return false;
+	 }
+
+}
+
+	 function descartar_orden(){
+
+   
+	    bootbox.confirm("¿Aun no ha guardado la Orden. Desea cerrar la ventana?", function(result){
+		if(result)
+		{
+
+			explode();
+		}
+
+		 });//bootbox
+
+
+   }
+
+function explode(){
+
+	    location.reload();
+}
+
 init();

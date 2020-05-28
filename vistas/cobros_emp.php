@@ -42,18 +42,7 @@ require_once("../config/conexion.php");
         <button type="button" class="btn btn-dark suma_creditos" id="suma_abonos" style="margin-top:25px;border-radius:5px;" onClick="lista_creditos_empresarial();" onMouseOver="this.style.color='white'" onMouseOut="this.style.color='white'"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
         </div>
 
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
-          <label for="sucursal">Total Creditos</label>
-          <input type="text" name="tot_creditos" id="tot_creditos" class="form-control" style="border: solid gray 1px;border-radius: 5px;color:black;text-align:right;font-size:18px" readonly>
-        </div>
-
-        <div class="col-sm-2">
-          <label for="sucursal">Recuperado del Mes</label>
-          <input type="text" name="tot_recuperado" id="tot_recuperado" class="form-control" style="border: solid gray 1px;border-radius: 5px;color:black;text-align:right;font-size:18px" readonly>
-        </div>
-
-    </div>
+   </div>
 <div class="row">
   <div class="col-sm-12" style="margin-left:35px;">
   <h4 align="center" id="titulo"></h4>
@@ -66,6 +55,7 @@ require_once("../config/conexion.php");
         <th style='text-align: left;'>Monto Creditos</th>
         <th style='text-align: left;'>Saldo</th>
         <th style='text-align: left;'>Cuota</th>
+        <!--<th style='text-align: left;'>Abonado</th>-->
         <th style='text-align: left;'>Historial</th>                
         <th style='text-align: center;'>Abonar</th>      
         <th style='text-align: center;'>Imprimir Factura</th>
@@ -73,6 +63,20 @@ require_once("../config/conexion.php");
      </thead>
      <tbody>
      </tbody>
+     <tfoot>
+      <tr>
+       <th></th>
+        <th></th>
+        <th></th>        
+        <th id="monto_creditos"></th>
+        <th id="monto_saldo"></th>
+        <th id="monto_cuota"></th>
+        <!--<th id="monto_abonado"></th>-->
+        <th></th>                
+        <th></th>      
+        <th></th>
+      </tr>
+     </tfoot>
    </table> 
   </div>
 
@@ -143,6 +147,8 @@ document.getElementById("fecha").innerHTML = d + "/" + m + "/" + y;
 <script type="text/javascript" src="js/creditos.js"></script>
 <script type="text/javascript" src="js/recibos.js"></script>
 <script type="text/javascript" src="js/empresa.js"></script>
+<script type="text/javascript" src="js/sum.js"></script>
+
 
 
 

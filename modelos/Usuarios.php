@@ -43,7 +43,8 @@ public function login(){
         $_SESSION["correo"] = $resultado["correo"];     
         $_SESSION["usuario"] = $resultado["usuario"];
         $_SESSION["sucursal"] = $sucursal_login;
-        $_SESSION["nombre"] = $resultado["nombres"];                  
+        $_SESSION["nombre"] = $resultado["nombres"];
+        $_SESSION["apellidos"] = $resultado["apellidos"];                  
 //PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS**************************
 
   require_once("Usuarios.php");

@@ -121,7 +121,7 @@ case "get_datos_recibo_lente":
 break;
 
 case "registrar_abono_inicial";
-	$recibo->agrega_detalle_abono($_POST['num_recibo'],$_POST['num_venta'],$_POST['monto'],$_POST['sucursal'],$_POST['id_paciente'],$_POST['id_usuario'],$_POST['hora'],$_POST['telefono'],$_POST['paciente'],$_POST['empresa'],$_POST['cant_letras'],$_POST['abono_ant'],$_POST['abono_act'],$_POST['saldo'],$_POST['forma_pago'],$_POST['marca_aro'],$_POST['modelo_aro'],$_POST['color_aro'],$_POST['lente'],$_POST['tipo_ar'],$_POST['photo'],$_POST['observaciones'],$_POST['asesor'],$_POST['prox_abono']);
+	$recibo->agrega_detalle_abono($_POST['num_recibo'],$_POST['num_venta'],$_POST['monto'],$_POST['sucursal'],$_POST['id_paciente'],$_POST['id_usuario'],$_POST['hora'],$_POST['telefono'],$_POST['paciente'],$_POST['empresa'],$_POST['cant_letras'],$_POST['abono_ant'],$_POST['abono_act'],$_POST['saldo'],$_POST['forma_pago'],$_POST['marca_aro'],$_POST['modelo_aro'],$_POST['color_aro'],$_POST['lente'],$_POST['tipo_ar'],$_POST['photo'],$_POST['observaciones'],$_POST['asesor'],$_POST['prox_abono'],$_POST['id_empresa'],$_POST['vendedor_com'],$_POST['opto_com']);
 break;
     
 

@@ -63,8 +63,8 @@ public function mostar_pacientes_sin_consulta($id_paciente){
 public function get_pacientes_encargado($id_paciente,$id_consulta){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select p.nombres,c.encargado,c.id_consulta,p.id_paciente,p.sucursal from pacientes as p inner join consulta as c on p.id_paciente=c.id_paciente where p.id_paciente=? and c.id_consulta=?;
-";
+  $sql="select p.nombres,c.encargado,c.id_consulta,u.apellidos as optom,p.id_paciente,p.sucursal,p.id_empresas from pacientes as p inner join consulta as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario where p.id_paciente=? and c.id_consulta=?;
+;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$id_paciente);

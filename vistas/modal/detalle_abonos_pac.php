@@ -126,17 +126,17 @@
   
   
 </div>
-
-
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input id="id_credito" type="hidden" name="id_credito">
-<input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
+<input id="id_paciente_ini" type="text" name="id_paciente_ini">
 <input type="hidden" name="usuario" id="id_usuario" value="<?php echo $_SESSION["usuario"];?>"/>
 <input type="hidden" name="date" id="date" value="<?php echo $hoy;?>">
 <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>">
 <input type="hidden" name="hora" id="hora" value="4:00 pm">
-
+<input type="text" name="id_emps" id="id_emps" >
+<input type="text" name="vandedor_com" id="vendedor_com" >
+<input type="text" name="opto_com" id="opto_com">
 
   </div style="display:block">
       <div class="modal-footer">

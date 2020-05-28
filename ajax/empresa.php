@@ -62,17 +62,20 @@ case 'listar_detalle_empresas':
 
      foreach($datos as $row){					
 		$sub_array = array();
-
-	    $sub_array[] = $row["id"];
-	    $sub_array[] = $row["nombre"];
-	    $sub_array[] = $row["direccion"];
-	    $sub_array[] = $row["telefono"];
-	    $sub_array[] = $row["correo"];
-	    //$sub_array[] = $row["nombres"];
-	    $sub_array[] = $row["pacientes"];
-	     $sub_array[] = $row["responsable"];
-	    $sub_array[] = number_format($row["saldo"],2,".",",");
-	    $sub_array[] = number_format($row["recuperado"],2,".",",");	   
+	    $sub_array[] = '<span style="font-size:12px">'.$row["nombre"].'</span>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Detalles</button>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["c_canceladas"],2,".",",").'</span>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["constantes"],2,".",",").'</span>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["poco_constantes"],2,".",",").'</span>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["irrecuperables"],2,".",",").'</span>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["abonos_realizados"],2,".",",").'</span>';
+        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["creditos_generales"],2,".",",").'</span>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md cat_a" id="'.$row["id_empresas"].'"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
+        /*;
+        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-edit" aria-hidden="true"></i> Pacientes</button>';
+        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-plus" aria-hidden="true"></i> Sucursal</button>';*/
 		
         $data[] = $sub_array;
 	}
@@ -84,6 +87,34 @@ case 'listar_detalle_empresas':
  		"aaData"=>$data);
  	echo json_encode($results);
     break;
+
+case 'listar_pacientes_cat_a':
+             
+    $datos=$empresa->listar_pacientes_cat_a($_POST["id_empresas"]);
+    $data= Array();
+
+     foreach($datos as $row){                   
+        $sub_array = array();
+        $sub_array[] = '<span style="font-size:12px">'.$row["nombres"].'</span>';
+        $sub_array[] = '<span style="font-size:12px">'.$row["ultimo_abono"].'</span>';
+        $sub_array[] = '<span style="font-size:12px">'.$row["estado"]." dias".'</span>';
+        $sub_array[] = '<span style="font-size:12px">'."$".number_format($row["saldo"],2,".",",").'</span>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Detalles</button>';
+        /*;
+        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-edit" aria-hidden="true"></i> Pacientes</button>';
+        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-plus" aria-hidden="true"></i> Sucursal</button>';*/
+        
+        $data[] = $sub_array;
+    }
+
+    $results = array(
+        "sEcho"=>1, //Información para el datatables
+        "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+        "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+        "aaData"=>$data);
+    echo json_encode($results);
+    break;
+
 
 }//cierre switch
   

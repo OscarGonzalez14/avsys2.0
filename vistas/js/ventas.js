@@ -18,9 +18,7 @@ function init(){
 
 //VALDAR TIPO DE PAGO
 $(document).ready(function(){
-	$("#tipo_venta").change(function () {
-
-					
+	$("#tipo_venta").change(function () {					
 		$("#tipo_venta option:selected").each(function () {
 			id_tipo = $(this).val();
 			$.post('../ajax/ventas.php?op=tipo_pago', { id_tipo: id_tipo }, function(data){
@@ -1199,20 +1197,23 @@ $(document).on("click",".paciente_venta", function(){
 				$('#pac_eval').show();
 				$('#nombre_pac').val(data.nombres);
 				$('#pac_evaluado').val(data.encargado);
-				$('#id_paciente').val(data.id_paciente);                     
+				$('#id_paciente').val(data.id_paciente);
+				$('#id_empresas_pac').val(data.id_empresas);
+				$('#optom').val(data.optom);                   
 				}else{
 				$('#modalPaciente').modal('hide');
 				$('#pac_eval').hide();
 				$('#nombre_pac').val(data.nombres);
-				//$('#pac_evaluado').val(data.encargado);
 				$('#id_paciente').val(data.id_paciente);
+				$('#id_empresas_pac').val(data.id_empresas);
+				$('#optom').val(data.optom); 
 				}
 			}
 		})
 	
     }
 
-	 	function agrega_paciente_venta_no_consulta(id_paciente){
+	function agrega_paciente_venta_no_consulta(id_paciente){
       
 		$.ajax({
 			url:"../ajax/ventas.php?op=buscar_pacientes_sin_consultas",
@@ -1223,7 +1224,8 @@ $(document).on("click",".paciente_venta", function(){
 			{
 				$('#modalPaciente_no_consulta').modal('hide');
 				$('#nombre_pac').val(data.nombres);
-				$('#id_paciente').val(data.id_paciente);                   
+				$('#id_paciente').val(data.id_paciente);
+				$('#id_empresas_pac').val(data.id_empresas);                   
            }
 		})
 	}

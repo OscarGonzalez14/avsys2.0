@@ -271,6 +271,8 @@ $conectar=parent::conexion();
     $id_usuario = $_POST["id_usuario"];
     $id_paciente = $_POST["id_paciente"];
     $plazo = $_POST["plazo"];
+    $id_empresa = $_POST["id_empresas_pac"];
+    $optom = $_POST["optom"];
     
     //$abonos = $_POST["plazo"];
     $numero_orden = "0";
@@ -288,6 +290,8 @@ $conectar=parent::conexion();
     
     $dentroDeUnMes = strtotime("+$plazo month");
     $finalizacion = date("m-Y", $dentroDeUnMes);
+
+    $usuario_venta = $_POST["usuario_venta"];
     
 
 
@@ -362,7 +366,7 @@ $conectar=parent::conexion();
    
 
            $sql2="insert into ventas 
-           values(null,now(),?,?,?,?,?,?,?,?,?,?);";
+           values(null,now(),?,?,?,?,?,?,?,?,?,?,?);";
 
 
            $sql2=$conectar->prepare($sql2);
@@ -370,7 +374,7 @@ $conectar=parent::conexion();
           
            $sql2->bindValue(1,$numero_venta);
            $sql2->bindValue(2,$nombre_pac);
-           $sql2->bindValue(3,$usuario);       
+           $sql2->bindValue(3,$usuario_venta);       
            $sql2->bindValue(4,$subtotal);
            $sql2->bindValue(5,$tipo_pago);
            $sql2->bindValue(6,$tipo_venta);          
@@ -378,6 +382,7 @@ $conectar=parent::conexion();
            $sql2->bindValue(8,$id_paciente);
            $sql2->bindValue(9,$sucursal);
            $sql2->bindValue(10,$pac_evaluado);
+           $sql2->bindValue(11,$optom);
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
@@ -403,10 +408,34 @@ $conectar=parent::conexion();
            $sql7->bindValue(16,$jefe_inmediato);
            $sql7->bindValue(17,$tel_jefe);
            $sql7->bindValue(18,$cargo_jefe);
-           $sql7->bindValue(19,$finalizacion);           
-           
-
+           $sql7->bindValue(19,$finalizacion);
            $sql7->execute();
+
+
+///**********ACTUALIZA CREDITOS GENERALES POR EMPRESA
+    $sql34="select p.id_empresas,p.nombres,c.monto from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where p.id_empresas=? and c.tipo_credito='Descuento en Planilla' order by p.id_empresas;";
+             
+    $sql34=$conectar->prepare($sql34);
+    $sql34->bindValue(1,$id_empresa);
+    $sql34->execute();
+
+    $resultados5 = $sql34->fetchAll(PDO::FETCH_ASSOC);
+
+      $creditos_generales=0;    
+      foreach($resultados5 as $b=>$row){
+        $creditos_generales= $creditos_generales+$row["monto"];
+
+    }                 
+      if(is_array($resultados5)==true and count($resultados5)>0) {                     
+                  //actualiza el stock en la tabla producto
+        $sql31 = "update empresas set creditos_generales=? where id_empresas=?";
+        $sql31 = $conectar->prepare($sql31);
+        $sql31->bindValue(1,$creditos_generales);
+        $sql31->bindValue(2,$id_empresa);
+        $sql31->execute();               
+    }//Fin del if
+
+    ////////////FIN UPDATE CANCELADAS
 }
 //////////////////////REGISTRAR ABONOS
 

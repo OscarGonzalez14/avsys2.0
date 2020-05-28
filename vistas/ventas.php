@@ -252,8 +252,10 @@
 
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
-<input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="hidden" name="id_paciente" id="id_paciente"/>                
+<input type="text" name="usuario_venta" id="usuario_venta" value="<?php echo $_SESSION["apellidos"];?>"/>
+<input type="hidden" name="id_paciente" id="id_paciente"/> 
+<input type="hidden" name="id_empresas_pac" id="id_empresas_pac"/>
+<input type="text" name="optom" id="optom"/>                
   </table>
  <div class="boton_registrar">
 <button type="button" class="btn btn-dark pull-right btn-block" id="btn_enviar" onClick="registrarVenta()"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>

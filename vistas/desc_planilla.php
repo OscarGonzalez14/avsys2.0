@@ -2,13 +2,9 @@
 
    require_once("../config/conexion.php");
 
-    if(isset($_SESSION["id_usuario"])){
-       
+    if(isset($_SESSION["id_usuario"])){      
        
 ?>
-
-
-
 <?php
  
   require_once("header.php");
@@ -45,8 +41,7 @@
                           
                           <table id="listar_ordenes_descuento_data" class="table table-bordered table-striped">
 
-                            <thead>
-                              
+                            <thead>                              
                                 <tr>                                  
                                 <th>Paciente</th>
                                 <th>Empresa</th>

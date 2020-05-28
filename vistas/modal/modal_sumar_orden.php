@@ -77,7 +77,7 @@
 <p align="right"><strong>Desea Sumar esta venta a una orden ya Existente!!</strong></p>
   </div style="display:block">
       <div class="modal-footer">
-        <button type="button" onClick="load_modal_orden_descuento()" class="btn btn-dark btn-md complete_orden_ant" id="btn_enviar_ord_desc"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  No</button>
+        <button type="button" onClick="orden_individual()" class="btn btn-dark btn-md"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  No</button>
        <button type="button" class="btn btn-blue btn-md reiniciar_ventas" onClick="modal_unir_ordenes()"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>  Si</button>
   
       </div>

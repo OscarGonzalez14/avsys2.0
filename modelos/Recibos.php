@@ -146,7 +146,7 @@ public function valida_num_recibo($num_recibo){
 
 ////////FUNCION PARA REGISTAR ABONO INICIAL
 
-public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono){
+public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono,$id_empresa,$vendedor_com,$opto_com){
 
 $abono_act = $_POST["abono_act"];
 $conectar=parent::conexion();  
@@ -179,6 +179,40 @@ $conectar=parent::conexion();
   $sql->bindValue(23,$asesor);
   $sql->bindValue(24,$prox_abono);
   $sql->execute();
+
+    /////////////////REGISTRAR COMISION
+  $sql50="select p.id_paciente,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha_abono,a.monto_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_paciente=? limit 1;";
+             
+    $sql50=$conectar->prepare($sql50);
+    $sql50->bindValue(1,$id_paciente);
+    $sql50->execute();
+    $comision=0;
+    $resultado_est = $sql50->fetchAll(PDO::FETCH_ASSOC);
+      foreach($resultado_est as $b=>$row){
+        $estado_credito = $estado_credito+$row["estado"];        
+
+    }
+  //print_r($estado_credito);exit();
+  if ($estado_credito>0) {
+    $comision=$abono_act*0.05;
+  }else{
+   $comision=0; 
+  }
+
+
+  
+  $sql74="insert into comisiones values(null,now(),?,?,?,?,?,?,?);";
+  $sql74=$conectar->prepare($sql74);
+  $sql74->bindValue(1,$abono_act);
+  $sql74->bindValue(2,$comision);
+  $sql74->bindValue(3,$vendedor_com);
+  $sql74->bindValue(4,$opto_com);
+  $sql74->bindValue(5,$num_recibo);
+  $sql74->bindValue(6,$num_venta);
+  $sql74->bindValue(7,$id_usuario);
+  $sql74->execute();
+
+  ////////////////FIN REGISTRAR COMISION
   
   //////REGISTRAR ABONOS
   
@@ -193,6 +227,8 @@ $conectar=parent::conexion();
   $sql2->bindValue(6,$num_venta);
   $sql2->bindValue(7,$sucursal);
   $sql2->execute();
+
+
 
   $num_venta = $_POST["num_venta"];
   $sql11="select * from creditos where numero_venta=?;";
@@ -226,8 +262,135 @@ $conectar=parent::conexion();
         //$sql12->bindValue(3,$sucursal);
         $sql12->execute();               
     }//Fin del if
+
+
+    //////////UPDATE CANCELADAS
+    $sql33="select c.monto,c.saldo,p.id_empresas from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente where p.id_empresas=? and c.saldo=0 and c.tipo_credito='Descuento en Planilla';";
+             
+    $sql33=$conectar->prepare($sql33);
+    $sql33->bindValue(1,$id_empresa);
+    $sql33->execute();
+
+    $resultados5 = $sql33->fetchAll(PDO::FETCH_ASSOC);
+
+      $sum_canceladas=0;    
+      foreach($resultados5 as $b=>$row){
+        $sum_canceladas= $sum_canceladas+$row["monto"];
+
+    }
+                 
+      if(is_array($resultados5)==true and count($resultados5)>0) {                     
+                  //actualiza el stock en la tabla producto
+        $sql31 = "update empresas set c_canceladas=? where id_empresas=?";
+        $sql31 = $conectar->prepare($sql31);
+        $sql31->bindValue(1,$sum_canceladas);
+        $sql31->bindValue(2,$id_empresa);
+        $sql31->execute();               
+    }//Fin del if
+
+    ////////////FIN UPDATE CANCELADAS
+
+    //////////////UPDATE CONSTANTES
+$sql34="select p.id_empresas,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha_abono,a.monto_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_empresas=? and c.tipo_credito='Descuento en Planilla' group by p.id_paciente having estado<=60;";
+             
+    $sql34=$conectar->prepare($sql34);
+    $sql34->bindValue(1,$id_empresa);
+    $sql34->execute();
+
+    $resultados6 = $sql34->fetchAll(PDO::FETCH_ASSOC);
+
+      $sum_constantes=0;    
+      foreach($resultados6 as $b=>$row){
+        $sum_constantes = $sum_constantes +$row["saldo"];
+
+    }
+                 
+      if(is_array($resultados6)==true and count($resultados6)>0) {                     
+                  //actualiza el stock en la tabla producto
+        $sql31 = "update empresas set constantes=? where id_empresas=?";
+        $sql31 = $conectar->prepare($sql31);
+        $sql31->bindValue(1,$sum_constantes);
+        $sql31->bindValue(2,$id_empresa);
+        $sql31->execute();               
+    }//Fin del if
+    //////////FIN UPDATE CONSTANTES
+
+    //////////////UPDATE POCOnCONSTANTES
+$sql35="select p.id_empresas,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha_abono,a.monto_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_empresas=? and c.tipo_credito='Descuento en Planilla' group by p.id_paciente having estado>60 AND estado<90;";
+             
+    $sql35=$conectar->prepare($sql35);
+    $sql35->bindValue(1,$id_empresa);
+    $sql35->execute();
+
+    $resultados7 = $sql35->fetchAll(PDO::FETCH_ASSOC);
+
+      $poco_constantes=0;    
+      foreach($resultados7 as $b=>$row){
+        $poco_constantes = $poco_constantes +$row["saldo"];
+
+    }
+                 
+      if(is_array($resultados7)==true and count($resultados7)>0) {                     
+                  //actualiza el stock en la tabla producto
+        $sql36 = "update empresas set poco_constantes=? where id_empresas=?";
+        $sql36 = $conectar->prepare($sql36);
+        $sql36->bindValue(1,$poco_constantes);
+        $sql36->bindValue(2,$id_empresa);
+        $sql36->execute();               
+    }//Fin del if
+    //////////FIN UPDATE CONSTANTES
+
+    //////////////UPDATE IRRECUPERABLES
+$sql37="select p.id_empresas,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha_abono,a.monto_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_empresas=? and c.tipo_credito='Descuento en Planilla' group by p.id_paciente having estado>90;";
+             
+    $sql37=$conectar->prepare($sql37);
+    $sql37->bindValue(1,$id_empresa);
+    $sql37->execute();
+
+    $resultados8 = $sql37->fetchAll(PDO::FETCH_ASSOC);
+
+      $irrecuperables=0;    
+      foreach($resultados8 as $b=>$row){
+        $irrecuperables= $irrecuperables +$row["saldo"];
+
+    }
+                 
+      if(is_array($resultados8)==true and count($resultados8)>0) {                     
+        //actualiza el stock en la tabla producto
+        $sql38 = "update empresas set irrecuperables=? where id_empresas=?";
+        $sql38 = $conectar->prepare($sql38);
+        $sql38->bindValue(1,$irrecuperables);
+        $sql38->bindValue(2,$id_empresa);
+        $sql38->execute();               
+    }//Fin del if
+    //////////FIN UPDATE CONSTANTES
+
+ ////////////ABONOS REALIZADOS
+ $sql39="select a.monto_abono,p.id_empresas,c.saldo from abonos as a inner join pacientes as  p on a.id_paciente=p.id_paciente inner join creditos as c on c.numero_venta=a.numero_venta where c.saldo>0 and p.id_empresas=?;";
+             
+    $sql39=$conectar->prepare($sql39);
+    $sql39->bindValue(1,$id_empresa);
+    $sql39->execute();
+
+    $resultados9 = $sql39->fetchAll(PDO::FETCH_ASSOC);
+
+      $abono_realizados=0;    
+      foreach($resultados9 as $b=>$row){
+        $abono_realizados= $abono_realizados + $row["monto_abono"];
+
+    }
+                 
+      if(is_array($resultados9) == true and count($resultados9)>0) {                     
+        //actualiza el stock en la tabla producto
+        $sql40 = "update empresas set abonos_realizados=? where id_empresas=?";
+        $sql40 = $conectar->prepare($sql40);
+        $sql40->bindValue(1,$abono_realizados);
+        $sql40->bindValue(2,$id_empresa);
+        $sql40->execute();               
+    }//Fin del if
+ /////////FIN ABONOS REALIZADOS   
       
-}//fin de la funcion
+}//FIN FUNCTION REGISTRA ABONOS
 
 public function get_recibos_print(){
   $conectar=parent::conexion();

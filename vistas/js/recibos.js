@@ -106,6 +106,11 @@ function registra_abono_inicial(){
     var observaciones =$("#observaciones").val();
     var asesor =$("#usuario").val();
     var prox_abono =$("#datepicker").val();
+    var id_empresa=$("#id_emps").val();
+
+    var vendedor_com = $("#vendedor_com").val();
+    var opto_com = $("#opto_com").val();
+
     
     
 
@@ -114,7 +119,7 @@ if(monto != "" || forma_pago=="0"){
     $.ajax({
     url:"../ajax/recibos.php?op=registrar_abono_inicial",
     method:"POST",
-    data:{num_recibo:num_recibo,num_venta:num_venta, monto:monto, sucursal: sucursal,id_paciente:id_paciente,id_usuario:id_usuario,hora:hora,telefono:telefono,paciente:paciente,empresa:empresa,cant_letras:cant_letras,abono_ant:abono_ant,abono_act:abono_act,saldo:saldo,forma_pago:forma_pago,marca_aro:marca_aro,modelo_aro:modelo_aro,color_aro:color_aro,lente:lente,tipo_ar:tipo_ar,photo:photo,observaciones:observaciones,asesor:asesor,prox_abono:prox_abono},
+    data:{num_recibo:num_recibo,num_venta:num_venta, monto:monto, sucursal: sucursal,id_paciente:id_paciente,id_usuario:id_usuario,hora:hora,telefono:telefono,paciente:paciente,empresa:empresa,cant_letras:cant_letras,abono_ant:abono_ant,abono_act:abono_act,saldo:saldo,forma_pago:forma_pago,marca_aro:marca_aro,modelo_aro:modelo_aro,color_aro:color_aro,lente:lente,tipo_ar:tipo_ar,photo:photo,observaciones:observaciones,asesor:asesor,prox_abono:prox_abono,id_empresa:id_empresa,vendedor_com:vendedor_com,opto_com:opto_com},
     cache: false,
     dataType:"html",
     error:function(x,y,z){

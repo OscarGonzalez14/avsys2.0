@@ -83,7 +83,7 @@ ob_start();
   <td style="text-align:left" colspan="100"><div align="left"><span class=""><span><strong>Empresa:&nbsp; <strong></span><?php echo $datos_orden_descuento[$i]["nombre"];?></span></div></td>    
 </tr>
 
-<tr><td style="font-size:13px" colspan="100"><span>Por la presente y de conformidad con el artículo No. 136 del código de trabajo,publicado en el Diario Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de:&nbsp;</span> <strong><u><span><?php echo "$".$datos_orden_descuento[$i]["saldo"];?></span></u></strong><span>&nbsp; en cuotas mensuales de:&nbsp;<strong><u><span><?php echo "$".number_format($datos_orden_descuento[$i]["monto_cuota"],2,".",",");?></span></u></strong> </span><span>las cuales deberán pagar por mi cuenta a partir del:&nbsp;<strong><span><?php echo $datos_orden_descuento[$i]["fecha_adquirido"];?></span> </strong> hasta : <strong><?php echo $datos_orden_descuento[$i]["finaliza_credito"];?></strong> hasta</span>.<span>durante el tiempo a finalizar la deuda; por tanto autorizo; a que se realicen los pagos en conceptos de productos y servicios visuales.</span><br><br><br></td>
+<tr><td style="font-size:13px" colspan="100"><span>Por la presente y de conformidad con el artículo No. 136 del código de trabajo,publicado en el Diario Oficial del 31 de julio de 1972, autorizo a Ud. A descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de:&nbsp;</span> <strong><u><span><?php echo "$&nbsp;".$datos_orden_descuento[$i]["saldo"];?></span></u></strong><span>&nbsp; en cuotas mensuales de:&nbsp;<strong><u><span><?php echo "$&nbsp;".number_format($datos_orden_descuento[$i]["monto_cuota"],2,".",",");?></span></u></strong> </span><span>las cuales deberán pagar por mi cuenta a partir del:&nbsp;<strong><span><?php echo $datos_orden_descuento[$i]["fecha_adquirido"];?></span> </strong> hasta : <strong><?php echo $datos_orden_descuento[$i]["finaliza_credito"];?></strong> hasta</span>.<span>durante el tiempo a finalizar la deuda; por tanto autorizo; a que se realicen los pagos en conceptos de productos y servicios visuales.</span><br><br><br></td>
 </tr>
 <tr>
   <td colspan="50" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Encargado de cuenta: </strong><span><?php echo $datos_orden_descuento[$i]["nombres"];?></span></td>
@@ -95,7 +95,7 @@ ob_start();
   <td colspan="20" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>NIT:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["nit"];?></span></td>
   <td colspan="20" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Celular:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["telefono"];?></span></td>
   <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Telefono Oficina:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["telefono_oficina"];?></span></td>
-      <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Correo:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["correo"];?></span></td>
+      <td colspan="30" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Correo:&nbsp;</strong><span style="font-size:14px"><?php echo $datos_orden_descuento[$i]["correo"];?></span></td>
   </tr>
 <tr>
   <td colspan="100" style="border: solid black 1px;border-top: solid black 1px;font-size:12px"><strong>Direccion completa:&nbsp;</strong><span><?php echo $datos_orden_descuento[$i]["direccion"];?></span></td>
@@ -123,15 +123,16 @@ ob_start();
   }
 ?>
 <tr>
-  <td colspan="100" style="text-align:center;background:#D8D8D8""><strong>DETALLE BENEFICIARIOS Y VENTAS</strong></td>
+  <td colspan="100" style="text-align:center;background:#D8D8D8"><strong>DETALLE BENEFICIARIOS Y VENTAS</strong></td>
 </tr>
 
 <tr style="height:150px">
   <td colspan="100">
+</td>
     <?php
 //$numero=$_GET["numero_venta"];
 $servername = "localhost";
-$username = "root";
+$username = "oscargz";
 $password = "oscar14";
 $dbname = "avplu2";
 
@@ -148,20 +149,20 @@ if ($conn->connect_error) {
 
 //$venta = $_GET["numero_venta"];
 
-//$sql2 = "select RTRIM(producto) as productos, numero_venta,cantidad_venta,precio_venta from detalle_ventas where numero_orden='$numero' order by numero_venta;";
-$sql2="select p.id_paciente,DATE_FORMAT(d.fecha_venta,'%d-%m-%Y')as fecha,p.nombres,d.producto,d.precio_venta,d.cantidad_venta,d.beneficiario,d.numero_venta from pacientes as p inner join detalle_ventas as d on p.id_paciente=d.id_paciente where p.id_paciente='$id_pac' order by d.numero_venta asc";
+$sql3 = "select numero_orden,sum(precio_venta) as total,count(producto) as count from detalle_ventas where numero_orden='$numero';";
+$resultados = $conn->query($sql3);
+$sql2="select p.id_paciente,DATE_FORMAT(d.fecha_venta,'%d-%m-%Y')as fecha,p.nombres,d.producto,d.precio_venta,d.cantidad_venta,d.beneficiario,d.numero_venta from pacientes as p inner join detalle_ventas as d on p.id_paciente=d.id_paciente where p.id_paciente='$id_pac' and numero_orden='$numero' order by d.numero_venta asc";
 $results = $conn->query($sql2);
  ?>
-<div style="height:250px"><!--DETALLE VENTAS Y BENEFICIARIOS-->
+<div style="height:210px"><!--DETALLE VENTAS Y BENEFICIARIOS-->
 <table style="width:100%;border:solid white 1px;border-collapse: collapse;border-radius: 30px;">
   <tr>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="10">Fecha Venta</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="25">Encargado</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="25">Descripcion</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">Precio</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">Cantidad</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="25">Beneficiario</th>
-    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">No.Venta</th>    
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="15">FECHA VENTA</th>
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="35">DESCRIPCION</th>
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">PRECIO</th>
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">CANTIDAD</th>
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="35">BENEFICIARIO</th>
+    <th style='background: #034f84;color: white;border-right:white solid 1px;font-size: 10px' colspan="5">No. VENTA</th>    
   </tr>   
   </tr>
 
@@ -169,14 +170,28 @@ $results = $conn->query($sql2);
 <?php 
 if ($results->num_rows > 0) {
   while($row = $results->fetch_assoc()) {     
-  echo "<tr>"."<td style='text-align: center;border-right: 1px solid white;font-size:8' colspan='10'>". $row["fecha"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:8' colspan='25'>". $row["nombres"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:8' colspan='25'>". $row["producto"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:8' colspan='5'>"."$". number_format($row["precio_venta"],2,".",",")."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='5'>".$row["cantidad_venta"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='25'>".$row["beneficiario"]."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='5'>".$row["numero_venta"]. "</td>". "</td>"."</tr>";
+  echo "<tr>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='15'>". $row["fecha"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='35'>". $row["producto"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='5'>"."$". number_format($row["precio_venta"],2,".",",")."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='5'>".$row["cantidad_venta"]."</td>"."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='35'>".$row["beneficiario"]."<td style='text-align: center;border-right: 1px solid white;font-size:9' colspan='5'>".$row["numero_venta"]. "</td>". "</td>"."</tr>";
+ }//Fin while
+
+} else {
+    echo "0 results";
+}
+?>
+<tr>
+  <td>
+    <?php
+      if ($resultados->num_rows > 0) {
+  while($row = $resultados->fetch_assoc()) {     
+  echo "<tr>"."<td style='text-align: right;border-top: 1px solid black;font-size:9' colspan='100'>".'<strong>'.'Numero de Productos:&nbsp;'.$row["count"]."&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"."Total $".number_format($row["total"],2,".",",").'</strong>'."</td>"."</tr>";
  }//Fin while
 
 } else {
     echo "0 results";
 }
 $conn->close();
-?>
+    ?>
+  </td>
+</tr>
 </table>
 </div>
 </div>
@@ -186,11 +201,10 @@ $conn->close();
 </table>
 
 </div><!--FIN DATOS PERSONALES-->
+<span style="text-align:center;font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firma del Solicitante:&nbsp;&nbsp;&nbsp;________________________&nbsp;&nbsp;&nbsp;Firma y Sello Óptica Av Plus:_________________________________</span>
+<p style="text-align:center">***</p>
 <table>
-  <tr>
-    <td style="text-align:center" colspan="100">
-      <span style="text-align:center;font-size:12px">Firma del Solicitante:&nbsp;&nbsp;&nbsp;________________________&nbsp;&nbsp;&nbsp;Firma y Sello Óptica Av Plus:_________________________</span><br>
-    </td>
+ 
     <tr>
     <td style="text-align:center" colspan="100"><span style="font-size:13px"><strong>Area de RRHH y Departamento de Contabilidad</strong></span></td>
     </tr>
@@ -202,7 +216,7 @@ $conn->close();
   </tr>
 </table><br>
   
-<p align="center" style="text-align:center;font-size:10px">Metrocentro San Salvador 4ta Etapa, local No.7&nbsp;&nbsp;-&nbsp;&nbsp;<strong>Telefonos</strong>: 2260-1653&nbsp;&nbsp;&nbsp;<strong>E-mail:</strong> metrocentro@opticaavplussv.com<br>Santa Ana Plaza El Trebol&nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;<strong>Telefonos:</strong> 2445-3150&nbsp;&nbsp;&nbsp;<strong>E-mail:</strong> opticaavplussantana@gmail.com.com
+<p align="center" style="text-align:center;font-size:12px">Metrocentro San Salvador 4ta Etapa, local No.7&nbsp;&nbsp;-&nbsp;&nbsp;<strong>Telefonos</strong>: 2260-1653&nbsp;&nbsp;&nbsp;<strong>E-mail:</strong> metrocentro@opticaavplussv.com<br>Santa Ana Plaza El Trebol&nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;<strong>Telefonos:</strong> 2445-3150&nbsp;&nbsp;&nbsp;<strong>E-mail:</strong> opticaavplussantana@gmail.com.com
  </p>
 </body>
 </html>

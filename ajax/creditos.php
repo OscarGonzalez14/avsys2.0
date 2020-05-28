@@ -53,7 +53,7 @@ case 'pacientes_metrocentro':
 
 		$sub_array[] = '<button type="button" name="estado" id="'.$event.'" class="'.$atrib.'" data-toggle="modal" data-target="'.$modal.'">'.$icon." ".$est.'</button>';
 
-
+		
 		$data[]= $sub_array;
 
 	}
@@ -62,6 +62,7 @@ case 'pacientes_metrocentro':
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
+      
  		echo json_encode($results);
 	break;
 
@@ -77,6 +78,7 @@ case 'pacientes_empresarial':
 		$cuota_mensual= $monto_credito/$plazo_credito;
 
 		$sub_array= array();
+			$total_order =0;
 			$event='';
 			$evento='';
 			$est = '';
@@ -114,21 +116,27 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["id_paciente"];
 		$sub_array[] = $row["nombres"];
 		$sub_array[] = $row["nombre"];
-		$sub_array[] = "$ ".$row["monto"];
-		$sub_array[] = "$ ".$row["saldo"];       
-		$sub_array[] = "$ ".round($cuota_mensual,2);
+		$sub_array[] = "$ ".number_format($row["monto"],2,".",",");
+		$sub_array[] = "$ ".number_format($row["saldo"],2,".",",");		     
+		$sub_array[] = "$ ".number_format($cuota_mensual,2,".",",");
+		//$sub_array[] = "$ ".number_format($row["abonos"],2,".",","); 
 
 		$sub_array[] = '<button class="btn btn-'.$color.' '.$class.' btn-block" id="'.$row["numero_venta"].'" data-toggle="modal" data-target="#detalle_abonos" data-backdrop="static" data-keyboard="false"><i class="fa fa-usd"></i>' .$txt.'</i></button>';
 		$sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
 
 		$sub_array[] = '<a href="'.$href.'" method="POST" target="_blank"><button type="button"  class="btn '.$atrib.' btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
+
+		$total_order = $total_order + floatval($row["saldo"]);
 		$data[]= $sub_array;
 	}
       $results = array(
  			"sEcho"=>1, //Información para el datatables
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
- 			"aaData"=>$data);
+ 			"aaData"=>$data,
+ 			'total' => number_format($total_order, 2),
+
+ 		);
  		echo json_encode($results);
 	break;
 
@@ -274,6 +282,11 @@ case 'get_pacientes_c_automatico':
 					$output["monto"] =$row["monto"];
 					$output["saldo"] =number_format($row["saldo"],2,".",",");
 					$output["id_paciente"] = $row["id_paciente"];
+			        $output["id_empresas"] = $row["id_empresas"];
+			        $output["optometra"] = $row["optometra"];
+			        $output["vendedor"] = $row["vendedor"];
+
+
 								
 				}
 		

@@ -845,6 +845,8 @@ case "buscar_pacientes_consultas_encargado":
 					$output["nombres"] = $row["nombres"];
 					$output["encargado"] = $row["encargado"];
 					$output["id_paciente"] = $row["id_paciente"];
+					$output["id_empresas"] = $row["id_empresas"];
+					$output["optom"] = $row["optom"];
 				
 				}			
 
@@ -867,7 +869,8 @@ case "buscar_pacientes_sin_consultas":
 	    	foreach($datos as $row){
 
 			$output["nombres"] = $row["nombres"];
-			$output["id_paciente"] = $row["id_paciente"];				
+			$output["id_paciente"] = $row["id_paciente"];
+			$output["id_empresas"] = $row["id_empresas"];				
 			}
 
 	} else {

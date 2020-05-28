@@ -1,6 +1,4 @@
-
-
- <style>
+<style>
     #tamModal{
       width: 75% !important;
     }
@@ -51,7 +49,6 @@
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead style="background-color: #034f84 ;color: white ">
           <tr>
-
           <th><p align="center">Valor de la Venta</p></th>
           <th><p align="center">Abono Anterior</p></th>
           <th><p align="center">Abono Actual</p></th>
@@ -68,7 +65,7 @@
           <td align='center'><input class='form-control' type='text' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;" required></td>
           <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;" readonly></td>
           <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
-          <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
+          <td><input type='date' class='form-control' id='datepicker' name='pr_abono'></td>
 
         </tbody>
 

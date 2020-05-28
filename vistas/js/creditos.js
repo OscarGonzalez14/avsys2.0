@@ -95,31 +95,42 @@ function lista_creditos_empresarial()
 {
 
 var id_empresas= $("#cod_emp").val();
+//$('#total_order').html(total);
 tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [              
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdf'
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
             ],
     "ajax":
         {
           url: '../ajax/creditos.php?op=pacientes_empresarial',
           type : "post",
-          //dataType : "json",
+          dataType : "json",
           data:{id_empresas:id_empresas},           
           error: function(e){
             console.log(e.responseText);  
           }
         },
+        drawCallback: function () {
+        var creditos = $('#creditos_empresarial').DataTable().column(3).data().sum();
+        $('#monto_creditos').html('$'+creditos.toFixed(2));
+        var monto_saldo = $('#creditos_empresarial').DataTable().column(4).data().sum();
+        $('#monto_saldo').html('$'+monto_saldo.toFixed(2));
+        var monto_cuota = $('#creditos_empresarial').DataTable().column(5).data().sum();
+        $('#monto_cuota').html('$'+monto_cuota.toFixed(2));
+        /*var monto_abonado = $('#creditos_empresarial').DataTable().column(6).data().sum();
+        $('#monto_abonado').html('$'+monto_abonado.toFixed(2));*/
+      },
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
-    "iDisplayLength": 5,//Por cada 10 registros hace una paginación
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
       
       "language": {
@@ -167,7 +178,7 @@ tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
           }
 
          }//cerrando language
-         
+       
   }).DataTable();
 
 }
@@ -366,6 +377,9 @@ $(document).on('click', '.abonos_p', function(){
         $("#monto").val(data.monto);
         $("#saldo_act").val(data.saldo);
         $("#id_paciente_ini").val(data.id_paciente);
+        $("#id_emps").val(data.id_empresas);
+        $("#vendedor_com").val(data.vendedor);
+        $("#opto_com").val(data.optometra);
       
       }
     })

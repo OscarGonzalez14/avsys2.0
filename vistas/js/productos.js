@@ -968,7 +968,7 @@ function agregarDetalleVenta(id_producto,id_ingreso){
 	
     subtotal = subtotal + importe;
 
-    subtotalFinal = subtotal.toFixed(2 );
+    subtotalFinal = subtotal.toFixed(2);
 
 			var su = subtotal;
 			su=su.toFixed(2);
@@ -1187,11 +1187,10 @@ $(document).on('click', '.ventas_record', function(){
       }
     })
     //setTimeout("registrarVenta();", 1000); 
-  });
+});
 
 
- function registrarVenta(){
-    
+ function registrarVenta(){    
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
     var numero_venta = $("#numero_venta").val();
     var cod_pac = $("#cod_pac").val();
@@ -1207,6 +1206,10 @@ $(document).on('click', '.ventas_record', function(){
     var descripcion = $("#descripcion").val();
     var importe = $("#importe").val();
     var pac_evaluado = $("#pac_evaluado").val();
+    var id_empresas_pac = $("#id_empresas_pac").val();
+    var optom = $("#optom").val();
+    var usuario_venta = $("#usuario_venta").val();
+
 
 if(tipo_pago != "Descuento en Planilla"){
 
@@ -1217,7 +1220,7 @@ if(tipo_pago != "Descuento en Planilla"){
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1266,7 +1269,6 @@ function recibo_uno(){
 //document.getElementById('search_pac').style.display = 'none';
 //document.getElementById('btn_enviar').style.display = 'none';
 $('#detalle_abonos').modal("show");
-
 var sucursal = document.getElementById('sucursal').value;
 
     $.ajax({
@@ -1309,8 +1311,6 @@ var sucursal = document.getElementById('sucursal').value;
     get_datos_aros_recibo_inicial();
  }
 
-
-
 function get_datos_aros_recibo_inicial(){
 
 var numero_venta = document.getElementById('numero_venta').value;
@@ -1329,36 +1329,38 @@ var numero_venta = document.getElementById('numero_venta').value;
     });
  }
  /////////////////COMPROBAR SI EXISTE CREDITO EMPRESARIAL
- function comprueba_orden(){
-
+function comprueba_orden(){
  	var id_paciente = $("#id_paciente").val();
       
     $.ajax({
-			url:"../ajax/empresarial.php?op=buscar_orden",
-			method:"POST",
-			data:{id_paciente:id_paciente},
-			dataType:"json",
-			success:function(data)
-			{
-				//console.log(data.numero_orden != null && data.numero != '');
-				//var hola = data.numero_orden;
-				if(data.paciente_id){						
-					get_datos_ultima_orden_paciente();                     
-				}else{
-					var numero_venta = $("#numero_venta").val();
-   					var cod_pac = $("#cod_pac").val();
-   					var nombre_pac = $("#nombre_pac").val();
-    				var tipo_pago = $("#tipo_pago").val();
-   				    var subtotal = $("#subtotal").html();
-    				var usuario = $("#usuario").val();
-    				var tipo_venta = $("#tipo_venta").val();
-    				var sucursal = $("#sucursal").val();
-    				var id_usuario = $("#id_user").val();
-    				var id_paciente = $("#id_paciente").val();
-    				var plazo = $("#plazo").val();
-    				var descripcion = $("#descripcion").val();
-    				var importe = $("#importe").val();
-    				var pac_evaluado = $("#pac_evaluado").val();
+		url:"../ajax/empresarial.php?op=buscar_orden",
+		method:"POST",
+		data:{id_paciente:id_paciente},
+		dataType:"json",
+		success:function(data)
+		{
+			//console.log(data.numero_orden != null && data.numero != '');
+			//var hola = data.numero_orden;
+			if(data.paciente_id){						
+				get_datos_ultima_orden_paciente();                     
+			}else{
+				var numero_venta = $("#numero_venta").val();
+   				var cod_pac = $("#cod_pac").val();
+   				var nombre_pac = $("#nombre_pac").val();
+    			var tipo_pago = $("#tipo_pago").val();
+   				var subtotal = $("#subtotal").html();
+    			var usuario = $("#usuario").val();
+    			var tipo_venta = $("#tipo_venta").val();
+    			var sucursal = $("#sucursal").val();
+    			var id_usuario = $("#id_user").val();
+    			var id_paciente = $("#id_paciente").val();
+    			var plazo = $("#plazo").val();
+    			var descripcion = $("#descripcion").val();
+    			var importe = $("#importe").val();
+    			var pac_evaluado = $("#pac_evaluado").val();
+    			var id_empresas_pac = $("#id_empresas_pac").val();
+    			var optom = $("#optom").val();
+                var usuario_venta = $("#usuario_venta").val();
     				///////////////////////////000000000000000000
 
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
@@ -1368,7 +1370,7 @@ var numero_venta = document.getElementById('numero_venta').value;
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1450,6 +1452,7 @@ function complete_data_ultimo_credito(){
 		});
 }
 
+
 function modal_unir_ordenes(){
 	$("#modal_add_desc_planilla").modal("show");  
 	var id_paciente = $("#id_paciente").val();
@@ -1468,7 +1471,7 @@ function modal_unir_ordenes(){
 
 	var monto_actual = $("#subtotal").html();
 	var nuevo_saldo = parseInt(monto_actual)+parseInt(saldo_anterior);
-	document.getElementById("nuevo_saldo_ad").value=nuevo_saldo;    
+	document.getElementById("nuevo_saldo_ad").value=nuevo_saldo.toFixed(2);
 	
 	var paciente_ord_ant = $("#paciente_ord_ant").val();
 	document.getElementById("paciente_encargado_add").value=paciente_ord_ant;

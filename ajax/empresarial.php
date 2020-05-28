@@ -257,7 +257,7 @@ case "listar_descuentos_planilla_print":
 			$sub_array[] = "$ ".number_format($row["monto"],2,".",",");
 			$sub_array[] = "$ ".number_format($row["saldo"],2,".",",");
 			            
-            $sub_array[] = '<a href="imprimir_orden_desc.php?numero_orden_pac='.$row["numero_orden"].'&'.'numero_paciente='.$row["id_paciente"].'"><button type="button" class="btn btn-infos btn-md"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button></a>';
+            $sub_array[] = '<a href="imprimir_orden_desc.php?numero_orden_pac='.$row["numero_orden"].'&'.'numero_paciente='.$row["id_paciente"].'" target="_blank"><button type="button" class="btn btn-infos btn-md"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button></a>';
            
 		$data[] = $sub_array;
 	}

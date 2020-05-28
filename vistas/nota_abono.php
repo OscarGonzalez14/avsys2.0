@@ -86,12 +86,10 @@ ob_start();
 <p style="font-size:16px;text-align:justify">
   Por: <strong>$<span><?php echo number_format($datos_nota_abono[$i]["saldo"],2,".",",");?></span></strong>
 <br><br><br>
-
-Por este pagaré,  Yo:<strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["nombres"];?></span></strong>  de <strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["edad"];?></span></strong>   años de edad; del domicilio de:<strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["direccion"];?> </span></strong>   Departamento de: San Salvador  con Documento Único de Identidad número: <strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["dui"];?></span></strong>(en adelante, “el Deudor”), prometo pagar incondicionalmente a Optica AV Plus S. A. de C. V. de este  domicilio,  con número de Identificación Tributaria No. 0614 191018 101 1 (Adelante, el “Acreedor”), la suma de &nbsp;<strong>$<span><?php echo number_format($datos_nota_abono[$i]["saldo"],2,".",",");?></span></strong>&nbsp;Dolares de Estados Unidos de America, moneda de curso legal, en dinero en efectivo, en caso de retraso el día sesenta.  El Deudor cancelará la presente obligación mediante un solo pago. El pago lo hará el Deudor en cualquiera de las sucursales de Optica AV Plus.<br><br><br>
+Por este pagaré, Yo:<strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["nombres"];?></span></strong>  de <strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["edad"];?></span></strong>   años de edad; del domicilio de:<strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["direccion"];?> </span></strong>   Departamento de: San Salvador  con Documento Único de Identidad número: <strong><span>&nbsp;<?php echo $datos_nota_abono[$i]["dui"];?></span></strong>(en adelante, “el Deudor”), prometo pagar incondicionalmente a Optica AV Plus S. A. de C. V. de este  domicilio,  con número de Identificación Tributaria No. 0614 191018 101 1 (Adelante, el “Acreedor”), la suma de &nbsp;<strong>$<span><?php echo number_format($datos_nota_abono[$i]["saldo"],2,".",",");?></span></strong>&nbsp;Dolares de Estados Unidos de America, moneda de curso legal, en dinero en efectivo, en caso de retraso el día sesenta.  El Deudor cancelará la presente obligación mediante un solo pago. El pago lo hará el Deudor en cualquiera de las sucursales de Optica AV Plus.<br><br><br>
 
 <strong>La suma adeudada contenida en este pagaré, devengará los siguientes intereses:</strong><br>
-
-a)&nbsp;<u>De 01 a 60 días posteriores al plazo de pago, el cero por ciento de interés (0.0%).</u><br>
+a)&nbsp;<u>De 30 a 60 días posteriores al plazo de pago, el cero por ciento de interés (5%) sobre monto total.</u><br>
 b)&nbsp;<u>De 61 a 90 días posteriores al plazo de pago, el cinco por ciento de interés (5%) anual.</u><br>
 c)&nbsp;<u>De 91 en adelante al plazo de pago, un diez por ciento de interés (10.0%) anual.</u><br><br><br>
 

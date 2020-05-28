@@ -21,8 +21,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Consulta de Ventas por mes
-       
+       Consulta de Ventas por mes       
       </h1>
       
     </section>
@@ -115,17 +114,15 @@
             <div class="box-body">
              <table id="ventas_fecha_mes_data" class="table table-bordered table-striped">
                 <thead>
-                <tr style="background-color:#A9D0F5">
+                <tr>
                   <th>Ver Detalle</th>
                   <th>Fecha Venta</th>
                   <th>Número Venta</th>
                   <th>paciente</th>
-                  <th>Cédula paciente</th>
                   <th>Vendedor</th>
                   <th>Tipo Pago</th>
                   <th>Total</th>
-                  <th>Estado</th>
-                  
+                  <th>Estado</th>         
                  
                 </tr>
                 </thead>

@@ -10,7 +10,7 @@
 ?>
 
 <?php require_once("header.php"); ?>
-
+<?php require_once("modal/listar_cat_a.php");?>
 <?php if($_SESSION["pacientes"]==1)
      {
 
@@ -45,16 +45,17 @@
         <table id="get_detalle_empresas_data" class="table table-bordered table-striped">
           <thead>                              
               <tr>                                  
-                <th>Cod.</th>
-                <th>Nombre</th>
-                <th>Sucursal</th>
-                <th>Telefono</th>
-                <th>Correo</th>
-                <th>No.Pacientes</th>
-                <th>Responsable RRHH</th>
-                <th>Saldo</th>
-                <th>Rec. Mensual</th>                                
-                <!--<th width="10%">Editar</th> -->                               
+                <th style="font-size:12px">Empresa</th>
+                <th style="font-size:12px">Detalles</th>
+                <th style="font-size:12px">C.Canceladas</th>
+                <th style="font-size:12px">C.Constantes</th>
+                <th style="font-size:12px">C.Poco Constantes</th>
+                <th style="font-size:12px">Irrecuperables</th>
+                <th style="font-size:12px">Abonos Efectuados</th>
+                <th style="font-size:12px">Total Creditos</th>
+                <th style="font-size:12px">Categoría A</th>
+                <th style="font-size:12px">Categoría B</th> 
+                <th style="font-size:12px">Categoría C</th>                     
               </tr>
           </thead>
           <tbody>                     
