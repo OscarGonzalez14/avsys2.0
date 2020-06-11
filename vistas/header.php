@@ -169,7 +169,18 @@ font-size: 14px;
 
             }
 
-         ?>        
+         ?>
+
+    <?php if($_SESSION["ventas"]==1){          
+          echo '
+         <li class="">
+          <a href="ventas_contado.php"><i class="fa fa-usd" aria-hidden="true"></i>CUENTAS DE CONTADO          
+          </a>
+        </li>';
+         }
+       ?>
+
+
       <?php if($_SESSION["desc_planilla"]==1)
           {
             echo '
@@ -191,7 +202,7 @@ font-size: 14px;
 
              <li class="">
           <a href="pacientes.php">
-            <i class="fa fa-user" aria-hidden="true"></i> <span>Pacientes</span>            
+            <i class="fa fa-user" aria-hidden="true"></i> <span>PACIENTES</span>            
           </a>
          
         </li>';;

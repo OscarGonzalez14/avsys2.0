@@ -12,6 +12,7 @@
 <?php require_once("header.php"); ?>
 <?php require_once("modal/listar_cat_a.php");?>
 <?php require_once("modal/listar_cat_b.php");?>
+<?php require_once("modal/listar_cat_c.php");?>
 <?php require_once("modal/modal_consultas.php");?>
 <?php if($_SESSION["pacientes"]==1)
      {

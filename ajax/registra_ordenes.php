@@ -42,18 +42,17 @@ $sucursal = $_POST["sucursal"];
 $n_orden = $_POST["numero_orden"];
 $diseno_aro = $_POST["diseno_aro"];
 $materiales = $_POST["materiales"];
-//$sucursal = $_POST["sucursal"]; 
+$id_paciente = $_POST["codi_pac"];
+$numero_v_ord = $_POST["numero_v_ord"];  
 
    
 
 $conexion = new Conexion();
 $cnn = $conexion->getConexion();
-$sql = "INSERT INTO ordenes (optica,paciente,odesfera,odcilindro,odeje,oddicion,odprisma,oiesfera,oicilindros,oieje,oiadicion,oiprisma,policarbonato,antirreflejo,lentes,colorlente,base,odoblea,odpupilar,oddplejos,oddpcerca,oioblea,oipupilar,oidplejos,oidpcerca,aro,coloraro,observaciones,usuario,fecha,medidas_lente,medida_a,medida_b,medida_c,medida_d,estado,numero_orden,sucursal,diseno_aro,materiales) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$sql = "INSERT INTO ordenes (optica,paciente,odesfera,odcilindro,odeje,oddicion,odprisma,oiesfera,oicilindros,oieje,oiadicion,oiprisma,policarbonato,antirreflejo,lentes,colorlente,base,odoblea,odpupilar,oddplejos,oddpcerca,oioblea,oipupilar,oidplejos,oidpcerca,aro,coloraro,observaciones,usuario,fecha,medidas_lente,medida_a,medida_b,medida_c,medida_d,estado,numero_orden,sucursal,diseno_aro,materiales,num_venta,id_paciente) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 $statement = $cnn->prepare( $sql );
 	//Enlazar los parámetros de la consulta con los valores del formulario
-
- 
 $statement->bindParam(1,$optica, PDO::PARAM_STR );
 $statement->bindParam(2,$paciente, PDO::PARAM_STR);
 $statement->bindParam(3,$odesfreasl, PDO::PARAM_STR); 
@@ -94,13 +93,12 @@ $statement->bindParam(37,$n_orden,PDO::PARAM_STR );
 $statement->bindParam(38,$sucursal,PDO::PARAM_STR );
 $statement->bindParam(39,$diseno_aro,PDO::PARAM_STR );
 $statement->bindParam(40,$materiales,PDO::PARAM_STR );
+$statement->bindParam(41,$num_venta,PDO::PARAM_STR );
+$statement->bindParam(42,$id_paciente,PDO::PARAM_INT );
 
 //$statement->bindParam(36,$fecha,PDO::PARAM_STR );
 
-echo $statement->execute() ? header('Location: ../vistas/ordenes.php')
-:"Consulta Registrado Exitosamente"  ;
-
-
+echo $statement->execute() ? header('Location: ../vistas/ordenes.php'):"Consulta Registrado Exitosamente";
 	//vaciar memoria
 	$statement->closeCursor();
 	$conexion = null;

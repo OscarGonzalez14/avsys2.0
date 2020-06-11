@@ -23,38 +23,38 @@
 <table class="table table-bordered" id="categoria_b_data" width="100%">
   <thead style="background:black;color:white">
     <tr>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Fecha Credito</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px; display: block; overflow: hidden;min-width: 140px;text-align:center" width="30%">Vendedor</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Optometra</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Empresa</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;min-width: 140px;text-align:center" width="30%">PACIENTE</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Telefono</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Jefe Inmediato</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Jefe Inmediato</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Referencia 1</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Ref 1</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Referencia 2</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Re 2</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Diagnostico</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Aro</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Precio Aro</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Lente</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Precio Lente</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Monto Crédito</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Cuotas</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Plazo</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">A. Efectuados</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Pendientes</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Atrasadas</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Dias mora</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Mora</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Saldo Pagar</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Abonados</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Total</th>
-      <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Det. Abonos</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Fecha Credito</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px; display: block; overflow: hidden;min-width: 140px;text-align:center" width="30%">Vendedor</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Optometra</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Empresa</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;min-width: 140px;text-align:center" width="30%">PACIENTE</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Telefono</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Jefe Inmediato</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Jefe Inmediato</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Referencia 1</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Ref 1</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Referencia 2</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Tel. Re 2</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Diagnostico</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Aro</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Precio Aro</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Lente</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Precio Lente</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Monto Crédito</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Cuotas</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Plazo</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">A. Efectuados</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Pendientes</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Atrasadas</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Dias mora</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Mora</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Saldo Pagar</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Abonados</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Total</th>
+      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center"">Det. Abonos</th>
     </tr>
   </thead>
-  <tbody style="text-align:center">
+  <tbody style="text-align:center;font-size:11px !important">
     
   </tbody>
   <tfoot>

@@ -384,9 +384,7 @@ $(document).on('click', '.add_pac_orden', function(){
 				error: function(e){
 					console.log(e.responseText);
 
-				},
-
-	          
+				},	          
 	          },
 
 	            "bDestroy": true,
@@ -452,6 +450,7 @@ $(document).on('click', '.add_pac_orden', function(){
 $(document).on('click', '.add_pac_orden_aro', function(){
     //toma el valor del id
     var numero_venta = $(this).attr("id");
+    document.getElementById('numero_v_ord').value = numero_venta;
     $('#modal_ventas_orden').modal('hide');
     $.ajax({
       url:"../ajax/ordenes.php?op=complete_campos_orden_aro",

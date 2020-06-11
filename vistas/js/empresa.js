@@ -510,9 +510,8 @@ tabla_categoria_a= $('#categoria_b_data').DataTable({
 	});
 });
 
-
+///////////////////////////Categoria B
 $(document).on("click",".cat_b", function(){
-
 var id_empresas=$(this).attr("id");
 $('#listar_categoria_b').modal('show');
 tabla_categoria_a= $('#categoria_b_data').DataTable({
@@ -542,6 +541,107 @@ tabla_categoria_a= $('#categoria_b_data').DataTable({
 
     drawCallback: function () {
         var creditos = $('#categoria_a_data').DataTable().column(14).data().sum();
+        $('#total_aro').html('$'+creditos.toFixed(2));
+        //var monto_saldo = $('#creditos_empresarial').DataTable().column(4).data().sum();
+        //$('#monto_saldo').html('$'+monto_saldo.toFixed(2));
+       // var monto_cuota = $('#creditos_empresarial').DataTable().column(5).data().sum();
+        //$('#monto_cuota').html('$'+monto_cuota.toFixed(2));
+        /*var monto_abonado = $('#creditos_empresarial').DataTable().column(6).data().sum();
+        $('#monto_abonado').html('$'+monto_abonado.toFixed(2));*/
+      },
+	          
+
+
+	            "bDestroy": true,
+				"responsive": true,
+				"bInfo":true,
+				"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+			    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+			    "bAutoWidth": false,
+
+	          "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+	},
+
+	});
+});
+
+////////////////////CATEGORIA C
+$(document).on("click",".cat_c", function(){
+var id_empresas=$(this).attr("id");
+$('#listar_categoria_c').modal('show');
+tabla_categoria_a= $('#categoria_c_data').DataTable({
+
+	       "aProcessing": true,//Activamos el procesamiento del datatables
+	       "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	       "scrollX": true,
+	       //'fixedHeader': true,
+	      // colReorder: true,
+	      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	      buttons: [		          
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
+		  ],
+
+	         "ajax":{
+	            url:"../ajax/empresa.php?op=listar_pacientes_cat_c",
+                type : "post",
+				//dataType : "json",
+				data:{id_empresas:id_empresas},						
+				error: function(e){
+					console.log(e.responseText);
+				}
+			},
+
+    drawCallback: function () {
+        var creditos = $('#categoria_c_data').DataTable().column(14).data().sum();
         $('#total_aro').html('$'+creditos.toFixed(2));
         //var monto_saldo = $('#creditos_empresarial').DataTable().column(4).data().sum();
         //$('#monto_saldo').html('$'+monto_saldo.toFixed(2));

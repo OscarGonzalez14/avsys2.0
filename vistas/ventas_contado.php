@@ -16,15 +16,9 @@
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    
-   
-    <!-- Content Header (Page header) -->
+  <div class="content-wrapper">    
     <section class="content-header">
-      <h1>
-       Consulta de Ventas
-       
-      </h1>
+      <h3>Ventas de Contado</h3>
       
     </section>
 

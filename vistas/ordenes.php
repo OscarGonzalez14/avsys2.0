@@ -73,7 +73,7 @@ if(isset($_SESSION["id_usuario"])){
 
 
 <!-- Modal -->
-<div id="nueva_orden" class="modal fade" role="dialog" data-modal-index="1"> 
+<div id="nueva_orden" class="modal fade" role="dialog" data-modal-index="1" style="overflow-y: scroll;"> 
   <div class="modal-dialog" id="tamModal">
 
     <!-- Modal content-->
@@ -233,8 +233,8 @@ if(isset($_SESSION["id_usuario"])){
     <input id="fecha" type="text" name="fecha" class="form-control" readonly>
   </div>
 </div>
-
-<input id="codi_pac" type="text" name="codi_pac" class="form-control">
+<input id="codi_pac" type="hidden" name="codi_pac" class="form-control">
+<input id="numero_v_ord" type="hidden" name="numero_v_ord" class="form-control">
 </div> 
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["usuario"]; ?>"/>
 <input type="hidden" name="estado" id="estado" value="Enviado de Optica a Laboratorio"/>
