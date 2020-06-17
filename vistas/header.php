@@ -256,7 +256,7 @@ font-size: 14px;
 
          <li class="treeview">
           <a href="productos.php">
-            <i class="fa fa-tasks" aria-hidden="true"></i> <span>Inventario</span>
+            <i class="fa fa-tasks" aria-hidden="true"></i> <span>INVENTARIO</span>
             <span class="pull-right-container badge bg-blue"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
           <ul class="treeview-menu">

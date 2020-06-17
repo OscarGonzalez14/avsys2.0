@@ -22,10 +22,13 @@
 
 <table class="table table-bordered" id="categoria_a_data" width="100%">
   <thead>
+ <!--<tr>
+    <th colspan="3" style="text-align:center;background:black;color:white;padding:1px !important">Secion 1</th>
+  </tr>-->
     <tr>
-      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Fecha Credito</th>
-      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px; display: block; overflow: hidden;min-width: 140px;text-align:center" width="30%">Vendedor</th>
-      <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Optometra</th>
+      <th colspan='1' class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Fecha Credito</th>
+      <th colspan='1' class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px; display: block; overflow: hidden;min-width: 140px;text-align:center" width="30%">Vendedor</th>
+      <th colspan='1' class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Optometra</th>
       <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Empresa</th>
       <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;min-width: 140px;text-align:center" width="30%">PACIENTE</th>
       <th class="all" style="font-size:10px;white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Telefono</th>

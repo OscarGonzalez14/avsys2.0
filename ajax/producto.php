@@ -26,6 +26,9 @@
    $descripcion=isset($_POST["descripcion"]);
    $categoriacc=isset($_POST["categoriacc"]);
 
+   $mat_aro=isset($_POST["mat_aro"]);
+   $dis_aro=isset($_POST["dis_aro"]);
+
         
 
    switch($_GET["op"]){
@@ -36,11 +39,10 @@
 
 		if(is_array($datos)==true and count($datos)==0){
 
-			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria,$categoriau,$imagen,$descripcion);
-			       	   	  $messages[]="El producto se registró correctamente";
+			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria,$imagen,$descripcion,$mat_aro,$dis_aro);
+			$messages[]="El producto se registró correctamente";
 
 			}else {
-
 			   $errors[]="El producto ya existe";
 		}
 
@@ -173,7 +175,7 @@
 				$sub_array[] = '<span class="'.$atributo.'">'.$row["stock"].'
                   </span>';
 				$sub_array[] = $row["medidas"];
-				$sub_array[] = $row["categoriau"];
+				//$sub_array[] = $row["categoriau"];
 
 
 				$sub_array[] = '<button type="button" onClick="mostrar('.$row["id_producto"].');" id="'.$row["id_producto"].'" class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';

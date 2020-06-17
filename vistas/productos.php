@@ -82,7 +82,6 @@
                     <div class="panel-body table-responsive">
                           
                           <table id="producto_data" class="table table-bordered table-striped">
-
                             <thead>
                               
                                 <tr>
@@ -92,16 +91,10 @@
                                 <th width="10%">Color</th>
                                 <th width="5%">Precio de Venta</th>
                                 <th width="10%">Stock</th>
-                                <th width="10%">Medidas</th>
-                                
-                               
+                                <th width="10%">Medidas</th>      
                                 <th width="10%">Editar</th>
                                 <th width="10%">Eliminar</th>
-                                
-
-
-
-                                </tr>
+                              </tr>
                             </thead>
 
                             <tbody>
@@ -158,21 +151,32 @@
       </div>
 
       <div class="col-xs-4">
+        <label>Diseño</label>
+        <select class='form-control' id='dis_aro' name='dis_aro'>
+          <option value='Completo'>Completo</option>
+          <option value='Aereo'>Aereo</option>
+          <option value='Semi-Aereo'>Semi-Aereo</option>
+        </select>        
+      </div>
+
+      <div class="col-xs-4">
+      <label>Materiales</label>
+        <select class='form-control' id='mat_aro' name='mat_aro'>
+          <option value='Metal/Acetato'>Metal/Acetato</option>
+          <option value='Acetato'>Acetato</option>
+          <option value='Fibra de Carbono'>Fibra de Carbono</option>
+          <option value='Titanio'>Titanio</option>
+          <option value='Metalico'>Metálico</option>
+        </select>        
+      </div>
+
+      <div class="col-xs-2">
         <label for="ex3">Precio</label>
         <input class="form-control" id="precio_venta" type="text" name="precio_venta" placeholder="Precio">
       </div>
-      
-     <div class="col-xs-4">
-        <label>Categoría</label>
-    <select class="form-control" id="categoria-u" name="categoriau">
-    <option value="null">-- categoría --</option>
-    
-
-
-            </select>
       </div>
 
-<div class="col-xs-12">
+      <div class="col-xs-12">
         <label for="descripcion">Descripcion</label>
           <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Agregue una descripcion">
       </div>   
@@ -180,14 +184,14 @@
         <label for="ex3">Imagen</label>
           <input type="file" id="producto_imagen" name="producto_imagen"><span id="producto_uploaded_image"></span>
       </div>      
-
+<hr style='height: 5px;color: black;width: 50%'>
 </div>
     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
     <input type="hidden" name="id_producto" id="id_producto"/>
     <input type="hidden" name="categoria" id="categoria" value="aros"/>
     <input type="hidden" name="categoriaacc" id="categoriacc" value="null"/>
-
-    <button type="submit" id="agregar" name="agregar" class="btn btn-blue btn-block"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+<p style='color: white'>H</p>
+    <button type="submit" id="agregar" name="agregar" class="btn btn-blue btn-block" style='margin-top: 10px !important'><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>
   </form>
 

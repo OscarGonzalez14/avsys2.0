@@ -12,10 +12,19 @@ listar_en_ordenes_pac();
 get_ordenes_vencidas();
 }
 /////////////LISTAR PACIENTES EN ORDENES
+$(document).ready( function () {
+ // var table = $('#example').DataTable();    
+  $('#lista_pacientes_ordenes_data_filter input').focus();
+} );
+
 function listar_en_ordenes_pac(){
 
 	tabla_paciente_ordenes=$('#lista_pacientes_ordenes_data').dataTable(
+	//$('#lista_pacientes_ordenes_data input').focus();
 	{
+
+		//
+
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
@@ -91,6 +100,7 @@ function listar_en_ordenes_pac(){
 	       
 	}).DataTable();
 }
+
 //Función Listar
 function listar_ordenes()
 {

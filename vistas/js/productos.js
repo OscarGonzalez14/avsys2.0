@@ -189,7 +189,6 @@ function guardaryeditar(e)
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	var formData = new FormData($("#producto_form")[0]);
 
-
 		$.ajax({
 			url: "../ajax/producto.php?op=guardaryeditar",
 		    type: "POST",
@@ -197,8 +196,7 @@ function guardaryeditar(e)
 		    contentType: false,
 		    processData: false,
 
-		    success: function(datos)
-		    {                    
+		    success: function(datos)    {                    
 		
 		         console.log(datos);
 

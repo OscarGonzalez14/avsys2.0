@@ -130,7 +130,7 @@ public function get_accesorios(){
           }
 
 
-      public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria,$categoriau,$imagen,$descripcion){
+      public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria,$imagen,$descripcion,$mat_aro,$dis_aro){
 
 
             $conectar=parent::conexion();
@@ -149,7 +149,7 @@ public function get_accesorios(){
             }
            
             $sql="insert into producto
-            values(null,?,?,?,?,?,?,?,?,?,?,?);";
+            values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 
             $sql=$conectar->prepare($sql);
@@ -162,10 +162,11 @@ public function get_accesorios(){
             $sql->bindValue(6, $_POST["id_usuario"]);
             $sql->bindValue(7, $_POST["medidas"]);
             $sql->bindValue(8, $_POST["categoria"]);
-            $sql->bindValue(9, $_POST["categoriau"]);
-            $sql->bindValue(10, $image);
-            $sql->bindValue(11, $_POST["descripcion"]);
-            //$sql->bindValue(12, $_POST["categoriacc"]);
+            //$sql->bindValue(9, $_POST["categoriau"]);
+            $sql->bindValue(9, $image);
+            $sql->bindValue(10, $_POST["descripcion"]);
+            $sql->bindValue(11, $_POST["mat_aro"]);
+            $sql->bindValue(12, $_POST["dis_aro"]);
 
             $sql->execute();
 
