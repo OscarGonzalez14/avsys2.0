@@ -628,16 +628,50 @@ $sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" class
      
 
     case "registrar_venta";
-
         //se llama al modelo Ventas.php
 
         require_once('../modelos/Ventas.php');
 
 	    $venta = new Ventas();
 
+	    $comprobante = $venta->comprobar_venta($_POST["numero_venta"]);
+
+	    if($comprobante>0){
+	    	$errors[]="El numero de Venta ya Existe..!!";
+	    }else{
 	    $venta->agrega_detalle_venta();
+	    $messages[]="Venta Realizada";
+		}
 
+     if (isset($messages)){
+        
+        ?>
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>¡Bien hecho!</strong>
+            <?php
+              foreach ($messages as $message) {
+                  echo $message;
+                }
+              ?>
+        </div>
+        <?php
+      }
 
+if(isset($errors)){
+      
+      ?>
+      <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Error!</strong> 
+          <?php
+            foreach ($errors as $error) {
+                echo $error;
+              }
+            ?>
+      </div>
+      <?php
+      }
 
      break;
 

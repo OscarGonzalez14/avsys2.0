@@ -103,7 +103,7 @@ public function get_recibo_sucursal($sucursal){
 public function get_recibo_num($sucursal_correlativo){
 
     $conectar= parent::conexion();         
-    $sql= "select max(numero_recibo+1) as num_recibo from recibos where sucursal=? and numero_recibo<>'0'";
+    $sql= "select numero_recibo as num_recibo from recibos where sucursal=? order by id_recibo DESC limit 1;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal_correlativo);
@@ -119,7 +119,7 @@ public function get_datos_pac_rec_ini($sucursal,$id_usuario){
 
     $conectar= parent::conexion();
 	       
-	  $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente,v.tipo_pago from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? and v.id_usuario=? order by id_ventas DESC limit 1;";
+	  $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente,v.tipo_pago,v.vendedor from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? and v.id_usuario=? order by id_ventas DESC limit 1;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal);
@@ -131,7 +131,7 @@ public function get_datos_pac_rec_ini($sucursal,$id_usuario){
 }
 /////COMPROBAR NUMERO DE RECIBO
 
-public function valida_num_recibo($num_recibo){
+/*public function valida_num_recibo($num_recibo){
     $conectar=parent::conexion();
     parent::set_names();
 
@@ -142,10 +142,21 @@ public function valida_num_recibo($num_recibo){
     $sql->execute();
 
     return $resultado=$sql->fetchAll();
-}
+}*/
 
 
 ////////FUNCION PARA REGISTAR ABONO INICIAL
+public  function valida_recibos($num_recibo){
+    $conectar= parent::conexion();
+           
+    $sql="select numero_recibo from recibos where numero_recibo=?";             
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $num_recibo);
+    $sql->execute();
+    //$resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    return $sql->rowCount();
+}
 
 public function agrega_detalle_abono($num_recibo,$num_venta,$monto,$sucursal,$id_paciente,$id_usuario,$hora,$telefono,$paciente,$empresa,$cant_letras,$abono_ant,$abono_act,$saldo,$forma_pago,$marca_aro,$modelo_aro,$color_aro,$lente,$tipo_ar,$photo,$observaciones,$asesor,$prox_abono,$id_empresa,$vendedor_com,$opto_com,$user_cobros,$forma_pagos,$forma_venta){
 
@@ -179,6 +190,7 @@ $conectar=parent::conexion();
   $sql->bindValue(22,$observaciones);
   $sql->bindValue(23,$asesor);
   $sql->bindValue(24,$prox_abono);
+  
   $sql->execute();
 
 /////////////////REGISTRAR COMISION
@@ -484,6 +496,29 @@ $sql37="select p.id_empresas,date_format(max(a.fecha_abono),'%d-%m-%Y') as fecha
       
 }//FIN FUNCTION REGISTRA ABONOS
 
+////////////////////IMPRIMIR RECIBOS CONTADO
+public function get_recibos_contado($mes_recibo,$ano_recibo){
+  $conectar=parent::conexion();
+  parent::set_names();
+
+  $mes=$_POST["mes_recibo"];
+  $ano=$_POST["ano_recibo"]; 
+  $fecha= ($ano."-".$mes."%");
+
+  if($mes=='todos'){
+    $sql="select r.fecha,r.numero_recibo,r.numero_venta,r.abono_act,r.paciente,r.empresa,r.id_recibo,v.tipo_pago from ventas as v inner join recibos as r on v.numero_venta=r.numero_venta where v.tipo_venta='Contado';";
+    $sql=$conectar->prepare($sql);  
+    $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }else{
+    $sql="select r.fecha,r.numero_recibo,r.numero_venta,r.abono_act,r.paciente,r.empresa,r.id_recibo,v.tipo_pago from ventas as v inner join recibos as r on v.numero_venta=r.numero_venta where fecha like ? and  v.tipo_venta='Contado';";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$fecha);  
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+}
+//////////////////IMPRIMIR RECIBOS DE EMPRESARIAL
 public function get_recibos_print($mes_recibo,$ano_recibo,$empresa_recibo){
   $conectar=parent::conexion();
   parent::set_names();
@@ -499,6 +534,8 @@ public function get_recibos_print($mes_recibo,$ano_recibo,$empresa_recibo){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 public function get_recibo_id($numero_venta){
   $conectar=parent::conexion();
   parent::set_names();

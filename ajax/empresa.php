@@ -62,20 +62,17 @@ case 'listar_detalle_empresas':
 
      foreach($datos as $row){					
 		$sub_array = array();
-	    $sub_array[] = '<span style="font-size:12px">'.$row["nombre"].'</span>';
+	    $sub_array[] = $row["nombre"];
         $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Detalles</button>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["c_canceladas"],2,".",",").'</span>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["constantes"],2,".",",").'</span>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["poco_constantes"],2,".",",").'</span>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["irrecuperables"],2,".",",").'</span>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["abonos_realizados"],2,".",",").'</span>';
-        $sub_array[] = '<span style="font-size:12px;text-align:center">'."$ ".number_format($row["creditos_generales"],2,".",",").'</span>';
+        $sub_array[] = "$ ".number_format($row["creditos_generales"],2,".",",");
+        $sub_array[] = "$ ".number_format($row["c_canceladas"],2,".",",");
+        $sub_array[] = "$ ".number_format($row["constantes"],2,".",",");
+        $sub_array[] = "$ ".number_format($row["poco_constantes"],2,".",",");
+        $sub_array[] = "$ ".number_format($row["irrecuperables"],2,".",",");
+        $sub_array[] = "$ ".number_format($row["abonos_realizados"],2,".",",");  
         $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md cat_a" id="'.$row["id_empresas"].'"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
-        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
-        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
-        /*;
-        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-edit" aria-hidden="true"></i> Pacientes</button>';
-        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-plus" aria-hidden="true"></i> Sucursal</button>';*/
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md cat_b" id="'.$row["id_empresas"].'"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
+        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md"><i class="fa fa-eye" aria-hidden="true"></i>Pacientes</button>';
 		
         $data[] = $sub_array;
 	}
@@ -93,16 +90,141 @@ case 'listar_pacientes_cat_a':
     $datos=$empresa->listar_pacientes_cat_a($_POST["id_empresas"]);
     $data= Array();
 
-     foreach($datos as $row){                   
+     foreach($datos as $row){
+
+        $dias_mora=$row["estado"];
+        $atr=number_format(($row["estado"]/30),0,'.',',');
+        if ($dias_mora<30) {
+            $d_mora=0;
+        }else{
+            $d_mora=$dias_mora-30;
+        }
+
+        if ($d_mora>=30){
+            $mora=$row["subtotal"]*0.05;
+        }else{
+            $mora=0;
+        }
+
+        if ($atr>1) {
+            $c_atrasadas=$row["cuota"]*$atr;
+        }else{
+            $c_atrasadas=0;
+        }
+
+        $total=$row['subtotal']+$c_atrasadas;
+        $saldo_pagar=$c_atrasadas+$mora;
+
         $sub_array = array();
-        $sub_array[] = '<span style="font-size:12px">'.$row["nombres"].'</span>';
-        $sub_array[] = '<span style="font-size:12px">'.$row["ultimo_abono"].'</span>';
-        $sub_array[] = '<span style="font-size:12px">'.$row["estado"]." dias".'</span>';
-        $sub_array[] = '<span style="font-size:12px">'."$".number_format($row["saldo"],2,".",",").'</span>';
-        $sub_array[] = '<button style="font-size:12px" type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-eye" aria-hidden="true"></i>Detalles</button>';
-        /*;
-        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-edit" aria-hidden="true"></i> Pacientes</button>';
-        $sub_array[] = '<button type="button"  class="btn btn-dark btn-md" onClick="eliminarp('.$row["id_empresas"].')"><i class="fa fa-plus" aria-hidden="true"></i> Sucursal</button>';*/
+        
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["adquirido"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["vendedor"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["optometra"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombre"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombres"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["telefono"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["jefe_inmediato"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_jefe"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<button style="font-size:12px;text align:center" type="button"  class="btn btn-dark btn-md edit_consultas"><i class="fa fa-eye" aria-hidden="true"></i>Expediente</button>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["aro"].'</span>'.'</strong>';
+        $sub_array[] ='$'.number_format($row["precio_aro"],2,'.',',');
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["m_lentes"].'</span>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.'$'.number_format($row["p_lentes"],2,'.',',').'</span>'.'</strong>';
+
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["subtotal"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["cuota"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["plazo"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["abonos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["pendientes"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($c_atrasadas,2,".",',').'<strong>';
+        $sub_array[] = '<strong>'.$d_mora.'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($mora,2,'.',',').'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($saldo_pagar,2,'.',',').'<strong>';         
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["abonado"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($total,2,'.',',').'<strong>';
+        $sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" name="'.$row["numero_venta"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
+
+
+        
+        $data[] = $sub_array;
+    }
+
+    $results = array(
+        "sEcho"=>1, //Información para el datatables
+        "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+        "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+        "aaData"=>$data);
+    echo json_encode($results);
+    break;
+///////////////////////////////Pacientes Categoria B
+    case 'listar_pacientes_cat_b':
+             
+    $datos=$empresa->listar_pacientes_cat_b($_POST["id_empresas"]);
+    $data= Array();
+
+     foreach($datos as $row){
+
+        $dias_mora=$row["estado"];
+        $atr=number_format(($row["estado"]/30),0,'.',',');
+        if ($dias_mora<30) {
+            $d_mora=0;
+        }else{
+            $d_mora=$dias_mora;
+        }
+
+        if ($d_mora>=30){
+            $mora=$row["subtotal"]*0.05;
+        }else{
+            $mora=0;
+        }
+
+        if ($atr>1) {
+            $c_atrasadas=$row["cuota"]*$atr;
+        }else{
+            $c_atrasadas=0;
+        }
+
+        $total=$row['subtotal']+$c_atrasadas;
+        $saldo_pagar=$c_atrasadas+$mora;
+
+        $sub_array = array();
+        
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["adquirido"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["vendedor"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["optometra"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombre"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombres"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["telefono"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["jefe_inmediato"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_jefe"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<button style="font-size:12px;text align:center" type="button"  class="btn btn-dark btn-md edit_consultas"><i class="fa fa-eye" aria-hidden="true"></i>Expediente</button>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["aro"].'</span>'.'</strong>';
+        $sub_array[] ='$'.number_format($row["precio_aro"],2,'.',',');
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["m_lentes"].'</span>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.'$'.number_format($row["p_lentes"],2,'.',',').'</span>'.'</strong>';
+
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["subtotal"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["cuota"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["plazo"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["abonos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["pendientes"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($c_atrasadas,2,".",',').'<strong>';
+        $sub_array[] = '<strong>'.$d_mora.'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($mora,2,'.',',').'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($saldo_pagar,2,'.',',').'<strong>';         
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["abonado"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($total,2,'.',',').'<strong>';
+        $sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" name="'.$row["numero_venta"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
+
+
         
         $data[] = $sub_array;
     }
@@ -115,6 +237,82 @@ case 'listar_pacientes_cat_a':
     echo json_encode($results);
     break;
 
+///////////////////////////////Pacientes Categoria B
+    case 'listar_pacientes_cat_c':
+             
+    $datos=$empresa->listar_pacientes_cat_c($_POST["id_empresas"]);
+    $data= Array();
+
+     foreach($datos as $row){
+
+        $dias_mora=$row["estado"];
+        $atr=number_format(($row["estado"]/30),0,'.',',');
+        if ($dias_mora<30) {
+            $d_mora=0;
+        }else{
+            $d_mora=$dias_mora;
+        }
+
+        if ($d_mora>=30){
+            $mora=$row["subtotal"]*0.05;
+        }else{
+            $mora=0;
+        }
+
+        if ($atr>1) {
+            $c_atrasadas=$row["cuota"]*$atr;
+        }else{
+            $c_atrasadas=0;
+        }
+
+        $total=$row['subtotal']+$c_atrasadas;
+        $saldo_pagar=$c_atrasadas+$mora;
+
+        $sub_array = array();
+        
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["adquirido"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["vendedor"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["optometra"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombre"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["nombres"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["telefono"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["jefe_inmediato"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_jefe"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_uno"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["referencia_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["tel_ref_dos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<button style="font-size:12px;text align:center" type="button"  class="btn btn-dark btn-md edit_consultas"><i class="fa fa-eye" aria-hidden="true"></i>Expediente</button>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["aro"].'</span>'.'</strong>';
+        $sub_array[] ='$'.number_format($row["precio_aro"],2,'.',',');
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["m_lentes"].'</span>'.'</strong>';
+        $sub_array[] ='<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.'$'.number_format($row["p_lentes"],2,'.',',').'</span>'.'</strong>';
+
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["subtotal"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["cuota"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["plazo"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["abonos"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'.$row["pendientes"].'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($c_atrasadas,2,".",',').'<strong>';
+        $sub_array[] = '<strong>'.$d_mora.'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($mora,2,'.',',').'<strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($saldo_pagar,2,'.',',').'<strong>';         
+        $sub_array[] = '<strong>'.'<span style="font-size:12px;text-transform: uppercase;">'."$".number_format($row["abonado"],2,".",",").'</span>'.'</strong>';
+        $sub_array[] = '<strong>'.'$'.number_format($total,2,'.',',').'<strong>';
+        $sub_array[] = '<button type="button" id="'.$row["id_paciente"].'" name="'.$row["numero_venta"].'" class="btn btn-dark btn-block det_abonos"><i class="glyphicon glyphicon-user"></i> Historial Abonos</button>';
+
+
+        
+        $data[] = $sub_array;
+    }
+
+    $results = array(
+        "sEcho"=>1, //Información para el datatables
+        "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+        "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+        "aaData"=>$data);
+    echo json_encode($results);
+    break;
 
 }//cierre switch
   

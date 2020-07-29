@@ -2,41 +2,52 @@ var tabla_creditos;
 var tabla_creditos_empresarial;
 var tabla_creditos_c_aut;
 var tabla_creditos_c_pers;
-var tabla_creditos_metro;
+var tabla_creditos_sucursal;
 var tabla_cobros_pac;
 
 //Función que se ejecuta al inicio
 function init(){ 
-
+  lista_creditos_c_aut();
+  lista_creditos_sucursal();
 } 
 
-function lista_creditos_metro()
+function lista_creditos_sucursal()
 {
-  $('#titulo').html('Pacientes Metrocentro');
-  tabla_creditos_metro=$('#creditos_data').dataTable(
+ tabla_creditos_sucursal=$('#creditos_de_sucursal').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [              
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdf'
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
             ],
     "ajax":
         {
-          url: '../ajax/creditos.php?op=pacientes_metrocentro',
-          type : "get",
-          dataType : "json",            
+          url: '../ajax/creditos.php?op=get_pacientes_sucursal',
+          type : "post",
+          dataType : "json",
+         // data:{id_empresas:id_empresas},           
           error: function(e){
             console.log(e.responseText);  
           }
         },
+//drawCallback: function () {
+       // var creditos = $('#creditos_empresarial').DataTable().column(3).data().sum();
+       // $('#monto_creditos').html('$'+creditos.toFixed(2));
+       // var monto_saldo = $('#creditos_empresarial').DataTable().column(4).data().sum();
+       // $('#monto_saldo').html('$'+monto_saldo.toFixed(2));
+      //  var monto_cuota = $('#creditos_empresarial').DataTable().column(5).data().sum();
+      //  $('#monto_cuota').html('$'+monto_cuota.toFixed(2));
+      //  /*var monto_abonado = $('#creditos_empresarial').DataTable().column(6).data().sum();
+      //  $('#monto_abonado').html('$'+monto_abonado.toFixed(2));*/
+      //},
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
-    "iDisplayLength": 5,//Por cada 10 registros hace una paginación
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
       
       "language": {
@@ -55,10 +66,8 @@ function lista_creditos_metro()
        
           "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
        
-          "sInfoPostFix":    "",
-       
-          "sSearch":         "Buscar:",
-       
+          "sInfoPostFix":    "",      
+              
           "sUrl":            "",
        
           "sInfoThousands":  ",",
@@ -86,7 +95,7 @@ function lista_creditos_metro()
           }
 
          }//cerrando language
-         
+       
   }).DataTable();
 }
 
@@ -185,28 +194,37 @@ tabla_creditos_empresarial=$('#creditos_empresarial').dataTable(
 
 function lista_creditos_c_aut()
 {
-
-$('#titulo').html('Pacientes Cargo Automatico');
-  tabla_creditos_c_aut=$('#creditos_data').dataTable(
+tabla_creditos_c_aut=$('#creditos_cargo_auto').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [              
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdf'
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
             ],
     "ajax":
         {
           url: '../ajax/creditos.php?op=get_pacientes_c_automatico',
-          type : "get",
-          dataType : "json",            
+          type : "post",
+          dataType : "json",
+         // data:{id_empresas:id_empresas},           
           error: function(e){
             console.log(e.responseText);  
           }
         },
+//drawCallback: function () {
+       // var creditos = $('#creditos_empresarial').DataTable().column(3).data().sum();
+       // $('#monto_creditos').html('$'+creditos.toFixed(2));
+       // var monto_saldo = $('#creditos_empresarial').DataTable().column(4).data().sum();
+       // $('#monto_saldo').html('$'+monto_saldo.toFixed(2));
+      //  var monto_cuota = $('#creditos_empresarial').DataTable().column(5).data().sum();
+      //  $('#monto_cuota').html('$'+monto_cuota.toFixed(2));
+      //  /*var monto_abonado = $('#creditos_empresarial').DataTable().column(6).data().sum();
+      //  $('#monto_abonado').html('$'+monto_abonado.toFixed(2));*/
+      //},
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
@@ -229,10 +247,8 @@ $('#titulo').html('Pacientes Cargo Automatico');
        
           "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
        
-          "sInfoPostFix":    "",
-       
-          "sSearch":         "Buscar:",
-       
+          "sInfoPostFix":    "",      
+              
           "sUrl":            "",
        
           "sInfoThousands":  ",",
@@ -260,15 +276,13 @@ $('#titulo').html('Pacientes Cargo Automatico');
           }
 
          }//cerrando language
-         
+       
   }).DataTable();
 }
   
 
 function lista_creditos_personal()
 {
-
- 
   $('#titulo').html('Pacientes Crédito Personal');
   tabla_creditos_c_pers=$('#creditos_data').dataTable(
   {
@@ -354,7 +368,7 @@ function calcularc()
   saldo_act=document.f1.saldo_act.value;
   abono=document.f1.abono.value;
   saldo_n=parseFloat(saldo_act)-parseFloat(abono);
-  document.f1.n_saldo.value=saldo_n;
+  document.f1.n_saldo.value=saldo_n.toFixed(2);
 }
 
 //ESTE EVENO ONCLICK CARGA LOS DATOS GENERALES DEL PACIENTE Y MONTO DEL CREDITO  EN MODAL DE ABONOS
@@ -410,6 +424,8 @@ $(document).on('click', '.abonos_p', function(){
 //////////////////////LISTAR ABONO ANTERIOR
 $(document).on('click', '.abonos_p', function(){
   var numero_venta=$(this).attr("id");
+  var titulo_ventana_abono = document.getElementById("titulo_ventana_abono").innerHTML;
+  document.getElementById('tit_abono').innerHTML = titulo_ventana_abono;
 
  $.ajax({
       url:"../ajax/recibos.php?op=get_abono_anterior",
@@ -479,11 +495,12 @@ $(document).on('click', '.abonos_p', function(){
 $(document).on('click', '.det_abonos', function(){
     //toma el valor del id
     var id_paciente = $(this).attr("id");
+    var numero_v = $(this).attr("name");
     $('#detalle_abonos_modal').modal('show');
     $.ajax({
       url:"../ajax/creditos.php?op=ver_detalle_abonos",
       method:"POST",
-      data:{id_paciente:id_paciente},
+      data:{id_paciente:id_paciente,numero_v:numero_v},
       cache:false,
       //dataType:"json",
       success:function(data)

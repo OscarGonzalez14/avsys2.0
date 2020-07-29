@@ -1209,6 +1209,7 @@ $(document).on('click', '.ventas_record', function(){
     var id_empresas_pac = $("#id_empresas_pac").val();
     var optom = $("#optom").val();
     var usuario_venta = $("#usuario_venta").val();
+    var fecha_venta = $("#fecha_venta").val();
 
 
 if(tipo_pago != "Descuento en Planilla"){
@@ -1220,7 +1221,7 @@ if(tipo_pago != "Descuento en Planilla"){
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta,'fecha_venta':fecha_venta},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1231,7 +1232,7 @@ if(tipo_pago != "Descuento en Planilla"){
       
 			
 		success:function(data){
-
+		$("#comprueba_n_venta").html(data);
 	    var nombre_pac = $("#nombre_pac").val("");
 
             
@@ -1269,18 +1270,18 @@ function recibo_uno(){
 //document.getElementById('search_pac').style.display = 'none';
 //document.getElementById('btn_enviar').style.display = 'none';
 $('#detalle_abonos').modal("show");
-var sucursal = document.getElementById('sucursal').value;
+var sucursal_correlativo = document.getElementById('sucursal').value;
 var id_usuario = document.getElementById('id_user').value;
 
     $.ajax({
-      url:"../ajax/recibos.php?op=get_numero_recibo",
+      url:"../ajax/recibos.php?op=get_numero_recibo_abonos",
       method:"POST",
-      data:{sucursal:sucursal},
+      data:{sucursal_correlativo:sucursal_correlativo},
       cache:false,
       dataType:"json",
       success:function(data)
       {
-        $("#num_recibo").val(data.numero_rec);
+        $("#num_recibo").val(data.num_recibo);
 
       }
     });
@@ -1300,6 +1301,7 @@ var id_usuario = document.getElementById('id_user').value;
         $("#nombres_ini").val(data.nombres);
         $("#id_paciente_ini").val(data.id_paciente);
         $("#forma_de_venta").val(data.tipo_venta);
+        $("#vendedor_com").val(data.vendedor);
 
 
       }
@@ -1382,6 +1384,9 @@ function comprueba_orden(){
     			var id_empresas_pac = $("#id_empresas_pac").val();
     			var optom = $("#optom").val();
                 var usuario_venta = $("#usuario_venta").val();
+                var fecha_venta = $("#fecha_venta").val();
+
+
     				///////////////////////////000000000000000000
 
     if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && plazo !='0'){
@@ -1391,7 +1396,7 @@ function comprueba_orden(){
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'pac_evaluado':pac_evaluado,'id_empresas_pac':id_empresas_pac,'optom':optom,'usuario_venta':usuario_venta,'fecha_venta':fecha_venta},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){

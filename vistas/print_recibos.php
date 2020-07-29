@@ -50,7 +50,7 @@ ob_start();
 <tr>
 <td width="20%" height="111"><h1 style="text-align: left; margin-right:20px;"><img src="../public/images/logooficial.jpg" width="150" height="80"  /></h1></td>
 
-<td width="70%" height="111">
+<td width="65%" height="111">
 <table style="width:95%;">
 
  <tr>
@@ -70,14 +70,14 @@ ob_start();
   
 </table><!--fin segunda tabla-->
 </td>
-<td width="10%" height="111">
+<td width="15%" height="111">
 <table>
     
   <tr>
     <td style="text-align:right; font-size:12px"><strong style="text-align:right; font-size:12px">RECIBO</strong></td>
   </tr>
   <tr>
-    <td style="text-align:right;font-size:15px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
+    <td style="text-align:right;font-size:13px;color:red;"><strong >No.&nbsp;<span><?php echo $get_num_rec;?></strong></td>
   </tr>
   
 </table><!--fin segunda tabla-->
@@ -180,7 +180,7 @@ ob_start();
 <tr>
 <td width="20%" height="111"><h1 style="text-align: left; margin-right:20px;"><img src="../public/images/logooficial.jpg" width="150" height="80"  /></h1></td>
 
-<td width="70%" height="111">
+<td width="65%" height="111">
 <table style="width:95%;">
 
  <tr>
@@ -200,14 +200,14 @@ ob_start();
   
 </table><!--fin segunda tabla-->
 </td>
-<td width="10%" height="111">
+<td width="15%" height="111">
 <table>
     
   <tr>
     <td style="text-align:right; font-size:12px"><strong style="text-align:right; font-size:12px">RECIBO</strong></td>
   </tr>
   <tr>
-    <td style="text-align:right;font-size:14px;color:red;"><strong >No. <span><?php echo $get_num_rec;?></strong></td>
+    <td style="text-align:right;font-size:13px;color:red;"><strong >No.&nbsp;<span><?php echo $get_num_rec;?></strong></td>
   </tr>
 </table><!--fin segunda tabla-->
 </td> <!--fin segunda columna--> 

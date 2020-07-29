@@ -1,16 +1,16 @@
  <style>
-    #tam_cat_a{
+    #tam_cat_b{
       width: 85% !important;
     }
-     #head_cat_a{
+     #head_cat_b{
         background-color:#000040;
         color: white;
     }
 </style>
 <!-- Modal -->
 <?php require_once("modal/detalle_abonos_modal.php");?>
-<div class="modal fade" id="listar_categoria_a" role="dialog" aria-hidden="true" data-modal-index="1">  
-  <div class="modal-dialog modal-lg" role="document" id="tam_cat_a">
+<div class="modal fade" id="listar_categoria_b" role="dialog" aria-hidden="true" data-modal-index="1">  
+  <div class="modal-dialog modal-lg" role="document" id="tam_cat_b">
   <div class="modal-content">
   <div class="modal-header" id="head_cat_a">
   <h3 class="modal-title" id="exampleModalLongTitle" align="center">PACIENTES CONSTANTE (CATEGORÍA A)</h3>
@@ -20,7 +20,7 @@
 
 <div class="modal-body">
 
-<table class="table table-bordered" id="categoria_a_data" width="100%">
+<table class="table table-bordered" id="categoria_b_data" width="100%">
   <thead style="background:black;color:white">
     <tr>
       <th class="all" style="white-space: nowrap;text-transform: uppercase;min-width: 130px;text-align:center">Fecha Credito</th>

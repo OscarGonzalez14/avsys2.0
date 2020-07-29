@@ -50,7 +50,7 @@
  <div class="row">
  <div class="col-sm-1"></div>
   <div class="col-sm-2">
-    <a href="#"><h1><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos_metro()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Sucursal</button></h1></a>
+    <a href="creditos_sucursal.php"><h1><button class="btn btn-blue btn-block abonos" id="metro"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Sucursal</button></h1></a>
    </div>
 
    <div class="col-sm-2">
@@ -58,7 +58,7 @@
    </div>
 
       <div class="col-sm-3">
-  <h1><button class="btn btn-dark btn-block" id="c_automatico"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h1>
+  <a href="creditos_cargo.php"><h1><button class="btn btn-dark btn-block" id="c_automatico"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h1></a>
    </div>
 
       <div class="col-sm-3">

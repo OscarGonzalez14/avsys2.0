@@ -75,3 +75,24 @@ Math.ceil10(55.51, -1);    // 55.6
 Math.ceil10(51, 1);        // 60
 Math.ceil10(-55.59, -1);   // -55.5
 Math.ceil10(-59, 1);       // -50
+
+
+select (select p.modelo from producto as p inner join detalle_ventas as d on p.id_producto=d.id_producto where d.id_paciente=124 and p.categoria='aros' limit 1)as aros,(select p.modelo from producto as p inner join detalle_ventas as d on p.id_producto=d.id_producto where d.id_paciente=124 and p.categoria='lentes' limit 1)as lentes,(select id_paciente from pacientes where id_paciente=124);
+
+
+///////////////////////////////tabla resumen
+
+select p.id_empresas,p.nombres,date_format(max(a.fecha_abono),'%d-%m-%Y') as ultimo_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo,c.fecha_adquirido,c.monto,c.monto/c.plazo as cuota,c.plazo,c.monto,c.abonos,plazo-abonos as pendientes,c.monto-c.saldo as abonados,v.vendedor,v.subtotal,e.nombre,
+d.id_producto,v.subtotal from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente inner join ventas as v on v.id_paciente=c.id_paciente
+ inner join empresas as e on p.id_empresas=e.id_empresas inner join detalle_ventas as d on d.id_paciente=p.id_paciente where p.id_empresas=22 and
+ c.tipo_credito='Descuento en Planilla' group by p.id_paciente having estado<=60;
+
+
+
+ ////////////////////////////
+ select date_format(c.fecha_adquirido,'%d-%m-%Y')as adquirido,v.vendedor,v.optometra,p.nombres,p.telefono,c.jefe_inmediato,c.tel_jefe,c.referencia_uno, p.nombres,datediff(now(),max(a.fecha_abono)) as estado from
+creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join abonos as a on c.id_paciente=a.id_paciente inner join ventas as v on v.id_paciente=p.id_paciente group by p.id_paciente;
+
+//////////////////2
+select date_format(c.fecha_adquirido,'%d-%m-%Y')as adquirido,v.vendedor,v.optometra,p.nombres,p.telefono,c.jefe_inmediato,c.tel_jefe,c.referencia_uno,c.referencia_uno,c.tel_ref_uno,c.referencia_dos,c.tel_ref_dos, p.nombres,datediff(now(),max(a.fecha_abono)) as estado from
+creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join abonos as a on c.id_paciente=a.id_paciente inner join ventas as v on v.id_paciente=p.id_paciente group by p.id_paciente;

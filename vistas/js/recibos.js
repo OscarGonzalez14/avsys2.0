@@ -3,9 +3,92 @@ var tabla_recibos_print;
 function init(){
 	//listar_recibos_print();
 }
+//////////////////IMPRIMIR RECIBOS CONTADO
+$(document).on("click","#btn_print_recibos_contado", function(){
+
+    var mes_recibo= $("#mes_recibo").val();
+    var ano_recibo= $("#ano_recibo").val();
+        
+	tabla_recibos_contado=$('#recibos_contado_data').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	   	    buttons: [		          
+		    { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
+        ],
+		"ajax":
+				{
+					url: '../ajax/recibos.php?op=listar_recibos_contado',
+					type : "post",
+					//dataType : "json",
+					data:{mes_recibo:mes_recibo,ano_recibo:ano_recibo},						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			   // "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+  });
 
 
- $(document).on("click","#btn_print_recibos_emp", function(){
+/////////////IMPRIMIR RECIBOS EMPRESARIAL
+$(document).on("click","#btn_print_recibos_emp", function(){
 
     var mes_recibo= $("#mes_recibo").val();
     var ano_recibo= $("#ano_recibo").val();
@@ -129,7 +212,7 @@ function registra_abono_inicial(){
     
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(monto != "" || forma_pago=="0"){
+if(monto != "" && forma_pago !="0"){
     $.ajax({
     url:"../ajax/recibos.php?op=registrar_abono_inicial",
     method:"POST",
@@ -145,12 +228,14 @@ if(monto != "" || forma_pago=="0"){
   success:function(data){
   var nombre_pac = $("#saldo").val("");
   console.log(data);
-  $('#valida_rec').html(data);
-  setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100);
+   $("#resultados_ajax_recibo").html(data);
+  //$('#valida_rec').html(data);
+  //setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100);
   //refresca la pagina, se llama a la funtion explode
   //setTimeout ("explode();", 2000);
   //$('#detalle_abonos').modal('hide');
   $('#productoModal').modal('hide');
+ 
 
 }
 

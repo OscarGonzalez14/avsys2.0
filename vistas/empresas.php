@@ -11,6 +11,8 @@
 
 <?php require_once("header.php"); ?>
 <?php require_once("modal/listar_cat_a.php");?>
+<?php require_once("modal/listar_cat_b.php");?>
+<?php require_once("modal/modal_consultas.php");?>
 <?php if($_SESSION["pacientes"]==1)
      {
 
@@ -24,7 +26,12 @@
         background-color: #034f84;
         color: white;
     }
-
+    .modal:nth-of-type(even) {
+    z-index: 1052 !important;
+}
+     .modal-backdrop.show:nth-of-type(even) {
+    z-index: 1051 !important;
+}
   </style>
 
 <div class="content-wrapper">        
@@ -32,40 +39,52 @@
 <section class="content">
   <input type="hidden" id="sucursal_paciente" value="<?php echo $_SESSION["sucursal"];?>">
   <div id="resultados_ajax"></div>
-  <h3 align="center">MODULO EMPRESAS</h3>
-
+  
   <div class="row">
     <div class="col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <h1 class="box-title"><button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#nuevaEmpresasModal"><i class="fa fa-plus" aria-hidden="true"></i> Crear Empresa</button></h1>                            
-            <div class="box-tools pull-right"></div>
-          </div>
+
     <div class="panel-body table-responsive">                          
         <table id="get_detalle_empresas_data" class="table table-bordered table-striped">
+        <button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#nuevaEmpresasModal"><i class="fa fa-plus" aria-hidden="true"></i> Crear Empresa</button><h5 style='color:white;font-size: 1px'>.</h5>
+        <h3 align="center" style='background: #000040;color:white;padding:5px;margin-top: 0px'>VENTAS DE ORDEN DE DESCUENTO</h3>
           <thead>                              
               <tr>                                  
-                <th style="font-size:12px">Empresa</th>
-                <th style="font-size:12px">Detalles</th>
-                <th style="font-size:12px">C.Canceladas</th>
-                <th style="font-size:12px">C.Constantes</th>
-                <th style="font-size:12px">C.Poco Constantes</th>
-                <th style="font-size:12px">Irrecuperables</th>
-                <th style="font-size:12px">Abonos Efectuados</th>
-                <th style="font-size:12px">Total Creditos</th>
-                <th style="font-size:12px">Categoría A</th>
-                <th style="font-size:12px">Categoría B</th> 
-                <th style="font-size:12px">Categoría C</th>                     
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Empresa</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Detalles</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Total Creditos</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">C.Canceladas</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">C.Constantes</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">C.Poco Constantes</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Irrecuperables</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Abonos Efectuados</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Categoría A</th>
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Categoría B</th> 
+                <th style="font-size:12px;background-color:black;text-align:center;color:white;" colspan="1">Categoría C</th>                     
               </tr>
           </thead>
-          <tbody>                     
+          <tbody style='text-align: center;'>                     
           </tbody>
+
+          <tfoot>
+              <tr>                                  
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Empresa</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Detalles</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1" id='tot_creditos'></th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">C.Canceladas</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">C.Constantes</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">C.Poco Constantes</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Irrecuperables</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Abonos Efectuados</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Categoría A</th>
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Categoría B</th> 
+                <th style="font-size:12px;background-color:white;text-align:center;color:white;" colspan="1">Categoría C</th>                     
+              </tr>
+          </tfoot>
       </table>                     
     </div><!--Fin tabla Datatable -->                 
-                    
-  </div><!-- /.box -->
+
   </div><!-- /.col -->
-  </div><!-- /.row -->
+
 </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
@@ -163,7 +182,7 @@ var nit = new Cleave('#nit_emp', {
 });
  </script>
 
-  
+   
   <?php  } else {
 
        require("noacceso.php");
@@ -177,6 +196,36 @@ var nit = new Cleave('#nit_emp', {
 ?>
 
 <script type="text/javascript" src="js/empresa.js"></script>
+<script type="text/javascript" src="js/sum.js"></script>
+<script type="text/javascript" src="js/consultas.js"></script>
+<script>
+    $(function(){
+      $('.btn[data-toggle=modal]').on('click', function(){
+        var $btn = $(this);
+        var currentDialog = $btn.closest('.modal-dialog'),
+        targetDialog = $($btn.attr('data-target'));;
+        if (!currentDialog.length)
+          return;
+        targetDialog.data('previous-dialog', currentDialog);
+        currentDialog.addClass('aside');
+        var stackedDialogCount = $('.modal.in .modal-dialog.aside').length;
+        if (stackedDialogCount <= 5){
+          currentDialog.addClass('aside-' + stackedDialogCount);
+        }
+      });
+
+      $('.modal').on('hide.bs.modal', function(){
+        var $dialog = $(this);  
+        var previousDialog = $dialog.data('previous-dialog');
+        if (previousDialog){
+          previousDialog.removeClass('aside');
+          $dialog.data('previous-dialog', undefined);
+        }
+      });
+    })
+
+    
+  </script>
 <?php
    
   } else {

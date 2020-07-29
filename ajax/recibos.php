@@ -27,11 +27,14 @@ break;
 case "get_numero_recibo_abonos":
 
     $datos= $recibo->get_recibo_num($_POST["sucursal_correlativo"]);	
+    $suc_rec=$_POST["sucursal_correlativo"];
+    $correlativo=substr($suc_rec, 0,2);
 
     // si existe el proveedor entonces recorre el array
 	if(is_array($datos)==true and count($datos)>0){
-		foreach($datos as $row){					
-			$output["num_recibo"] = $row["num_recibo"];								
+		foreach($datos as $row){
+			$num_recibo=substr($row["num_recibo"],2,8)+1;					
+			$output["num_recibo"] = strtoupper($correlativo).$num_recibo;								
 		}
 		      
 	echo json_encode($output);
@@ -52,7 +55,8 @@ case "get_datos_recibo_inicial":
 			$output["nombres"] = $row["nombres"];
 			$output["telefono"] = $row["telefono"];
 			$output["id_paciente"] = $row["id_paciente"];
-			$output["tipo_pago"] = $row["tipo_pago"];										
+			$output["tipo_pago"] = $row["tipo_pago"];
+			$output["vendedor"] = $row["vendedor"];										
 		}
 		      
 	echo json_encode($output);
@@ -122,10 +126,76 @@ case "get_datos_recibo_lente":
 break;
 
 case "registrar_abono_inicial";
-	$recibo->agrega_detalle_abono($_POST['num_recibo'],$_POST['num_venta'],$_POST['monto'],$_POST['sucursal'],$_POST['id_paciente'],$_POST['id_usuario'],$_POST['hora'],$_POST['telefono'],$_POST['paciente'],$_POST['empresa'],$_POST['cant_letras'],$_POST['abono_ant'],$_POST['abono_act'],$_POST['saldo'],$_POST['forma_pago'],$_POST['marca_aro'],$_POST['modelo_aro'],$_POST['color_aro'],$_POST['lente'],$_POST['tipo_ar'],$_POST['photo'],$_POST['observaciones'],$_POST['asesor'],$_POST['prox_abono'],$_POST['id_empresa'],$_POST['vendedor_com'],$_POST['opto_com'],$_POST["user_cobros"],$_POST["forma_pagos"],$_POST["forma_venta"]);
-break;
-    
 
+	$contador = $recibo->valida_recibos($_POST["num_recibo"]);
+
+	if($contador>0){
+	$errors[]="El recibo ya Existe!!";
+	}else{
+	
+	$recibo->agrega_detalle_abono($_POST['num_recibo'],$_POST['num_venta'],$_POST['monto'],$_POST['sucursal'],$_POST['id_paciente'],$_POST['id_usuario'],$_POST['hora'],$_POST['telefono'],$_POST['paciente'],$_POST['empresa'],$_POST['cant_letras'],$_POST['abono_ant'],$_POST['abono_act'],$_POST['saldo'],$_POST['forma_pago'],$_POST['marca_aro'],$_POST['modelo_aro'],$_POST['color_aro'],$_POST['lente'],$_POST['tipo_ar'],$_POST['photo'],$_POST['observaciones'],$_POST['asesor'],$_POST['prox_abono'],$_POST['id_empresa'],$_POST['vendedor_com'],$_POST['opto_com'],$_POST["user_cobros"],$_POST["forma_pagos"],$_POST["forma_venta"]);
+	$messages[]="Se ha abonado con Exito";
+
+}
+
+     if (isset($messages)){
+        
+        ?>
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>¡Bien hecho!</strong>
+            <?php
+              foreach ($messages as $message) {
+                  echo $message;
+                }
+              ?>
+        </div>
+        <?php
+      }
+
+if(isset($errors)){
+      
+      ?>
+      <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Error!</strong> 
+          <?php
+            foreach ($errors as $error) {
+                echo $error;
+              }
+            ?>
+      </div>
+      <?php
+      }
+break;
+/////////////////////IMPRIMIR RECIBOS CONTADO
+case "listar_recibos_contado":
+
+	$datos=$recibo->get_recibos_contado($_POST['mes_recibo'],$_POST['ano_recibo']);
+ 	$data= Array();
+
+    foreach($datos as $row)
+	{
+		$sub_array = array();
+		$sub_array[] = date("d-m-Y", strtotime($row["fecha"]));
+		$sub_array[] = $row["numero_recibo"];
+		$sub_array[] = $row["numero_venta"];
+		$sub_array[] = $row["abono_act"];
+		$sub_array[] = $row["paciente"];
+		//$sub_array[] = $row["empresa"];
+		$sub_array[] = '<a href="print_recibos.php?numero_recibo_pac='.$row["numero_recibo"].'" method="POST" target="_blank"><button type="button"  class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
+	$data[] = $sub_array;
+
+	}
+
+ $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+    break;    
+///////////////////////////IMPRIMIR RECIBOS EMPRESARIAL
 case "listar_recibos_print":
 
 	$datos=$recibo->get_recibos_print($_POST['mes_recibo'],$_POST['ano_recibo'],$_POST['empresa_recibo']);

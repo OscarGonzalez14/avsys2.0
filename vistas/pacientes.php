@@ -44,10 +44,7 @@
   <a href="consultas.php"><button class="btn btn-dark btn-lg"><i class="fa fa-list-alt" aria-hidden="true"></i>Consultas</button></h1></a>
   
   </div></div>
-  
-   
-                    <!-- /.box-header -->
-                    <!-- centro -->
+
     <div class="panel-body table-responsive">                          
         <table id="paciente_data" class="table table-bordered table-striped">
 

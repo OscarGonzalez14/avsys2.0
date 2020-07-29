@@ -78,7 +78,7 @@ ob_start();
 
 ?> 
   <tr>
-    <td style="text-align:right;font-size:16px;color:red;"><strong >No. <span><?php echo $get_num_rec[$i]["numero_recibo"];?></strong></td>
+    <td style="text-align:right;font-size:14px;color:red;"><strong ><span><?php echo $get_num_rec[$i]["numero_recibo"];?></strong></td>
   </tr>
   <?php } ?>
 
@@ -213,7 +213,7 @@ ob_start();
 
 ?> 
   <tr>
-    <td style="text-align:right;font-size:16px;color:red;"><strong >No. <span><?php echo $get_num_rec[$i]["numero_recibo"];?></strong></td>
+    <td style="text-align:right;font-size:16px;color:red;"><strong ><span><?php echo $get_num_rec[$i]["numero_recibo"];?></strong></td>
   </tr>
   <?php } ?>
 

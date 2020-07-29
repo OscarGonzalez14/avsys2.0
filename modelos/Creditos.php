@@ -4,11 +4,10 @@ class Creditos extends Conectar
 {	
 
 
-	public function get_pacientes_metrocentro()
+	public function get_pacientes_metro()
 	{
 		$conectar=parent::conexion();
-		$sql="select p.nombres,p.id_paciente,c.monto,c.id_credito,c.saldo,c.numero_venta,v.sucursal from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.numero_venta=v.numero_venta and v.sucursal='Metrocentro'
-        group by p.id_paciente order by c.id_credito desc;";
+		$sql="select p.id_paciente,c.plazo,c.numero_venta,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,e.id_empresas,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_venta='Contado' group by c.id_credito order by id_credito asc;";
 		$sql=$conectar->prepare($sql);
 		$sql->execute();
 		return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -27,21 +26,10 @@ public function get_pacientes_empresarial($id_empresas)
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-public function get_pacientes_metro()
-  {
-    $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_venta='Contado' order by id_credito asc;
-    ";
-    $sql=$conectar->prepare($sql);
-    $sql->execute();
-    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-  }
-
   public function get_pacientes_c_automatico()
   {
     $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Cargo Automatico' order by id_credito asc;
-    ";
+    $sql="select p.id_paciente,c.plazo,c.id_credito,c.monto,c.saldo,p.nombres,e.nombre,e.id_empresas,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Cargo Automatico' group by c.id_credito order by id_credito asc;";
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -170,43 +158,44 @@ public function agrega_abono_pacientes(){
 
 //////////////////CARGA DETALLES DE LOS ABONOS DE CADA PACIENTE
 
-public function get_detalle_abonos($id_paciente){
+public function get_detalle_abonos($id_paciente,$numero_v){
 
   $conectar=parent::conexion();
   parent::set_names();
   
-  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,a.sucursal,p.nombres,e.nombre,u.usuario,a.monto_abono,v.tipo_pago,v.subtotal from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join usuarios as u on a.id_usuario=u.id_usuario join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=? group by a.n_recibo";
+  $sql="select p.id_paciente,a.n_recibo,p.telefono,v.vendedor,a.fecha_abono,a.sucursal,a.numero_venta,p.nombres,e.nombre,u.usuario,a.monto_abono,v.tipo_pago,v.subtotal from abonos as a inner join pacientes as p on a.id_paciente=p.id_paciente inner join empresas as e on p.id_empresas=e.id_empresas inner join usuarios as u on a.id_usuario=u.id_usuario join ventas as v where a.numero_venta=v.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=? and a.numero_venta=? and a.n_recibo<>'0' group by a.n_recibo;";
 
           //echo $sql; exit();
   $sql=$conectar->prepare($sql);            
 
   $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$numero_v);
   $sql->execute();
   $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
   $html= "
-      <thead style='background-color:#A9D0F5'>
-          <th>Fecha Abono</th>
-          <th colspan='2'>Paciente</th>
-          <th colspan='2'>Empresa</th>
-          <th colspan='2'>Recibió</th>
-          <th colspan='2'>Sucursal</th>
-          <th colspan='2'>No.Recibo</th>
-          <th>Monto Abono</th>
+      <thead style='text-align:center'>
+          <th style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Fecha Abono</th>
+          <th colspan='2' style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Paciente</th>
+          <th colspan='2' style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Empresa</th>
+          <th colspan='2' style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Recibió</th>
+          <th colspan='2' style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Sucursal</th>
+          <th colspan='2' style='text-transform:uppercase;background-color:black;color:white;text-align:center'>No.Recibo</th>
+          <th style='text-transform:uppercase;background-color:black;color:white;text-align:center'>Monto Abono</th>
       </thead>";           
 $abonos_p=0;
               foreach($resultado as $row)
         {
 
          
-$html.="<tr class='filas'>
+$html.="<tr class='filas' style='text-align:center'>
 <td>".$row['fecha_abono']."</td>
-<td colspan='2'>".$row['nombres']."</td>
-<td colspan='2'>".$row['nombre']."</td>
-<td colspan='2'>".$row['usuario']."</td>
-<td colspan='2'>".$row['sucursal']."</td>
-<td colspan='2' style='text-align: center; font-size: 12px'>".$row['n_recibo']."</td>
-<td style='text-align: rigth'>".'<span style="text-align: rigth">'.'$ '.number_format($row['monto_abono'], 2,".",",").'<span>'."</td>";
+<td colspan='2' style='text-transform:uppercase'>".$row['nombres']."</td>
+<td colspan='2' style='text-transform:uppercase'>".$row['nombre']."</td>
+<td colspan='2' style='text-transform:uppercase'>".$row['usuario']."</td>
+<td colspan='2' style='text-transform:uppercase'>".$row['sucursal']."</td>
+<td colspan='2' style='text-align: center;'>".$row['n_recibo']."</td>
+<td style='text-align: rigth'>".'<span style="text-align: rigth;">'.'$ '.number_format($row['monto_abono'], 2,".",",").'<span>'."</td>";
  
   $abonos_p= $abonos_p+$row["monto_abono"];  //CALCULAR TOTAL ABONOS       
               

@@ -72,10 +72,7 @@
   <link rel="stylesheet" href="../public/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+<link href="https://fonts.googleapis.com/css2?family=Caladea&display=swap" rel="stylesheet">
    <!--ESTILOS-->
 <!--ESTILOS-->
   <link rel="stylesheet" href="../public/css/estilos.css">
@@ -94,6 +91,10 @@
 #menue{
   color: white;
 }
+body{
+font-family: 'Caladea', serif !important;
+font-size: 14px;
+  }
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -120,6 +121,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <input type='hidden' id="sucursal_acts" value="<?php echo $_SESSION["sucursal"];?>" >
             <span style="text-transform: uppercase;text-align:center">OPTICA AV PLUS <?php echo $_SESSION["sucursal"];?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="hidden-xs" style="text-transform: uppercase;text-align:center"><?php echo $_SESSION["usuario"]?></span>
             <i class="fa fa-sign-out" aria-hidden="true"> Cerrar Sesión</i>
@@ -160,7 +162,7 @@
 
              <li class="">
           <a href="empresas.php">
-            <i class="fa fa-building-o" aria-hidden="true"></i><span>Empresas</span>            
+            <i class="fa fa-building-o" aria-hidden="true"></i><span>VENTAS ORDEN DE DESCUENTO</span>            
           </a>
          
         </li>';
@@ -350,7 +352,7 @@
 
            <ul class="treeview-menu">
            <li><a href="corte_caja.php"><i class="fa fa-circle-o"></i>Reporte Corte de Caja Ventas</a></li>
-           <li><a href="reporte_diario_ventas.php"><i class="fa fa-circle-o"></i>Reporte Diario de Ventas</a></li>
+           <li><a href="reporte_diario_ventas.php"><i class="fa fa-circle-o"></i>Ventas diarias vendedor</a></li>
             <li><a href="reporte_general_ventas.php"><i class="fa fa-circle-o"></i>Reporte General Ventas</a></li>
             
             <li><a href="reporte_ventas_mensual.php"><i class="fa fa-circle-o"></i> Reporte Mensual Ventas</a></li>

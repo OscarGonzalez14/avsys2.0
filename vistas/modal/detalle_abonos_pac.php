@@ -25,7 +25,7 @@
     <div class="modal-content">
       <div class="modal-header" id="head"><div id="valida_rec"></div>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
+        <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> <span id="tit_abono"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="resultados_ajax_recibo"></span></h5>
       </div>
       <div class="modal-body">
      <!--Tabla generalidades del paciente-->
@@ -45,7 +45,7 @@
           <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control' readonly></td>
           <td align="center"><input type="text" name="telefono" id="telefono" class='form-control' readonly></td>
           <td align="center"><input type="text" name="empresa_emp" id="empresa_emp" class='form-control' readonly></td>          
-          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;" readonly> </td>
+          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" style="text-align: right;"> </td>
         </tbody>
       </table>
     <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto" placeholder="CANTIDAD EN LETRAS"></td><br>
@@ -56,6 +56,7 @@
 
           <th><p align="center">Valor de la Venta</p></th>
           <th><p align="center">Abono Anterior</p></th>
+          <th><p align="center">Intento #</p></th>
           <th><p align="center">Saldo Actual</p></th>
           <th><p align="center">Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
@@ -68,9 +69,10 @@
         <tbody>
           <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;" readonly></td>
           <td align='center'><input class='form-control' type='text' class='monto' name='abono_ant' id="abono_ant" style="text-align: right;" readonly></td>
+           <td align='center'><input class='form-control' type='text' style="text-align: right;" placeholder="Intento #"></td>
           <td align='center'><input class='form-control' type='text' class='monto' name='saldo_act' id="saldo_act" style="text-align: right;" readonly></td>
           <td align='center'><input class='form-control' type='text' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;" required placeholder="ABONO ACTUAL"></td><td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;" readonly></td>
-          <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
+          <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cheque'>Cheque</option><option value='SERFINSA'>SERFINSA</option><option value='Credomatic'>CREDOMATIC</option><option value='Davivienda'>DAVIVIENDA</option><option value='Agricola'>AGRICOLA</option></select></td>
           <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
 
         </tbody>

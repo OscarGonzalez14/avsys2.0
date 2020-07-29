@@ -20,34 +20,18 @@ require_once("../config/conexion.php");
         <!-- Main content -->
 
 <?php require_once("modal/detalle_abonos_pac.php");?>
-<?php require_once("modal/detalle_abonos_modal.php");?>
+<?php require_once("modal/detalle_abonos_modal.php");?><br>
+<h3 align="center" id="titulo_ventana_abono">ABONOS CARGOS</h3>
 
 <ul class="breadcrumb">
   <li><a href="abonos.php">Regresar</a></li>
   <li><a href="recibos_emp.php">Recibos Empresarial</a></li>
  </ul>
-<input type="hidden" name="id_empresa" id="cod_emp" class="form-control" style="border: solid #212529 1px;border-radius: 5px" readonly>
-  <h3 align="center" id="titulo_ventana_abono">ABONOS EMPRESARIAL</h3>
-    <div class="row">
-        <div class="col-sm-2" style="margin-left:35px;">
-          <label for="ex3">Empresa</label>
-          <input type="text" name="sucursal" id="empresa" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly placeholder="HAGA CLIC Y SELECIONE UNA EMPRESA">
-    </div>
 
-        <div class="col-sm-2">
-        <label for="sucursal">Sucursal</label>
-          <input type="text" name="sucursal_emp" id="sucursal_emp" class="form-control" style="border: solid #212529 2px;border-radius: 5px" readonly>
-        </div>
-
-        <div class="col-sm-1">
-        <button type="button" class="btn btn-dark suma_creditos" id="suma_abonos" style="margin-top:25px;border-radius:5px;" onClick="lista_creditos_empresarial();" onMouseOver="this.style.color='white'" onMouseOut="this.style.color='white'"><i class="fa fa-search" aria-hidden="true"></i> Buscar Pacientes</button>
-        </div>
-
-   </div>
 <div class="row">
   <div class="col-sm-12" style="margin-left:35px;">
   <h4 align="center" id="titulo"></h4>
-   <table id="creditos_empresarial" class="table table-bordered table-striped">
+   <table id="creditos_cargo_auto" class="table table-bordered table-striped">
      <thead>
        <tr>
         <th style='text-align: left;'>Id</th>
@@ -56,7 +40,6 @@ require_once("../config/conexion.php");
         <th style='text-align: left;'>Monto Creditos</th>
         <th style='text-align: left;'>Saldo</th>
         <th style='text-align: left;'>Cuota</th>
-        <!--<th style='text-align: left;'>Abonado</th>-->
         <th style='text-align: left;'>Historial</th>                
         <th style='text-align: center;'>Abonar</th>      
         <th style='text-align: center;'>Imprimir Factura</th>
@@ -69,9 +52,9 @@ require_once("../config/conexion.php");
        <th></th>
         <th></th>
         <th></th>        
-        <th id="monto_creditos"></th>
-        <th id="monto_saldo"></th>
-        <th id="monto_cuota"></th>
+        <th id="monto_creditos_ca"></th>
+        <th id="monto_saldo_ca"></th>
+        <th id="monto_cuota_ca"></th>
         <!--<th id="monto_abonado"></th>-->
         <th></th>                
         <th></th>      

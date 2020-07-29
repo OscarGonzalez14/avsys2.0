@@ -69,7 +69,7 @@
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
     <?php require_once("modal/lista_ar_ventas_modal.php");?>
     <?php require_once("modal/lista_photo_ventas_modal.php");?>
-    <?php require_once("modal/detalle_abonos_pac.php");?>
+    <?php //require_once("modal/detalle_abonos_pac.php");?>
     <?php require_once("modal/abono_inicial.php");?>
     <?php require_once("modal/listar_paciente_sin_consulta_venta.php");?>
     <?php require_once("modal/modal_sumar_orden.php");?>
@@ -77,7 +77,7 @@
     <?php require_once("modal/load_beneficiarios_ventas.php");?>
     <?php require_once("modal/orden_desc_inicial.php");?>
     <?php require_once("modal/modal_de_beneficiarios_venta.php");?>
-
+    <?php date_default_timezone_set('America/El_Salvador');?>
   <div>
       <nav class="navbar navbar-inverse">
 
@@ -102,7 +102,8 @@
         </select>
     </div>
 
-     
+<span id="comprueba_n_venta"></span>
+
   <div class="col-xs-3">
       <div class="form-group">
       <label for="sel1">Tipo de Pago:</label>
@@ -131,8 +132,6 @@
           <option  value="<?php echo $_SESSION["sucursal"];?>"><?php echo $_SESSION["sucursal"];?></option>          
       </select>
     </div> 
-
- 
   </div>
 </div> 
 
@@ -141,14 +140,13 @@
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
   <div class="col-sm-10 row1">
-
-   <div align="left"><strong><?php echo "Asesor: " . $_SESSION["sucursal"]."<p align='right' id='date'></p>"; ?></strong></div>
+    <?php $date_act = date("d-m-Y");?>
+   <input type="hidden" id="fecha_venta" value="<?php echo $date_act;?>">
 
     <div class="form-group row">
-
       <div class="col-xs-2">
         <label for="ex1">#Venta</label>
-        <input class="form-control" id="numero_venta" name="numero_venta" type="text" readonly>
+        <input class="form-control" id="numero_venta" name="numero_venta" type="text">
       </div>
 
       <div class="col-xs-4">
@@ -251,7 +249,7 @@
 </thead>
 
 <input type="hidden" name="grabar" value="si">
-<input type="text" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="id_usuario" id="id_user" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario_venta" id="usuario_venta" value="<?php echo $_SESSION["apellidos"];?>"/>
 <input type="hidden" name="id_paciente" id="id_paciente"/> 
 <input type="hidden" name="id_empresas_pac" id="id_empresas_pac"/>
@@ -286,7 +284,7 @@ d = n.getDate();
 h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 
 //Lo ordenas a gusto.
-document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+//document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 document.getElementById("hora").value = h;
  </script>
 

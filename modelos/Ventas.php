@@ -8,12 +8,9 @@
 
 public function get_filas_venta(){
 
-      $conectar= parent::conexion();
-           
-        $sql="select * from ventas";
-             
+      $conectar= parent::conexion();           
+        $sql="select * from ventas";             
         $sql=$conectar->prepare($sql);
-
         $sql->execute();
 
         $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -24,11 +21,8 @@ public function get_filas_venta(){
 
      public function get_ventas(){
 
-     $conectar= parent::conexion();
-       
+     $conectar= parent::conexion();       
          $sql="select * from ventas order by fecha_venta DESC";
-
-         //echo $sql;
          
          $sql=$conectar->prepare($sql);
 
@@ -236,6 +230,17 @@ $html.="<tr class='filas'>
 
            //return $data;
       }
+function comprobar_venta($numero_venta){
+  
+  $conectar= parent::conexion();           
+  $sql="select numero_venta from ventas where numero_venta=?;";             
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $numero_venta);
+  $sql->execute();
+    //$resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $sql->rowCount();
+  
+}      
 
 
 public function agrega_detalle_venta(){       
@@ -273,6 +278,7 @@ $conectar=parent::conexion();
     $plazo = $_POST["plazo"];
     $id_empresa = $_POST["id_empresas_pac"];
     $optom = $_POST["optom"];
+    $fecha_venta = $_POST["fecha_venta"];
     
     //$abonos = $_POST["plazo"];
     $numero_orden = "0";
@@ -290,9 +296,7 @@ $conectar=parent::conexion();
     
     $dentroDeUnMes = strtotime("+$plazo month");
     $finalizacion = date("m-Y", $dentroDeUnMes);
-
-    $usuario_venta = $_POST["usuario_venta"];
-    
+    $usuario_venta = $_POST["usuario_venta"];    
 
 
     $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?,?,?);";
@@ -311,46 +315,27 @@ $conectar=parent::conexion();
     $sql->bindValue(10,$nu_ord);
     $sql->bindValue(11,$pac_evaluado);
         
-    $sql->execute();
-         
+    $sql->execute();       
 
     $sql11="select * from existencias where id_producto=? and bodega=? and id_ingreso=? and categoriaub=?;";
+             //echo $sql3;             
+    $sql11=$conectar->prepare($sql11);
+    $sql11->bindValue(1,$codProd);
+    $sql11->bindValue(2,$sucursal);
+    $sql11->bindValue(3,$id_ingreso);
+    $sql11->bindValue(4,$categoriaub);
+    $sql11->execute();
 
-             //echo $sql3;
-             
-             $sql11=$conectar->prepare($sql11);
-
-             $sql11->bindValue(1,$codProd);
-             $sql11->bindValue(2,$sucursal);
-             $sql11->bindValue(3,$id_ingreso);
-             $sql11->bindValue(4,$categoriaub);
-             $sql11->execute();
-
-             $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
-
-                  foreach($resultados as $b=>$row){
-
-                    $re["existencia"] = $row["stock"];
-
-                  }
-
-                //la cantidad total es la suma de la cantidad más la cantidad actual
-              $cantidad_totales = $row["stock"] - $cantidad;
-
-             
-               //si existe el producto entonces actualiza el stock en producto
-              
-            if(is_array($resultados)==true and count($resultados)>0) {
-                     
+    $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
+    foreach($resultados as $b=>$row){
+      $re["existencia"] = $row["stock"];
+    }                //la cantidad total es la suma de la cantidad más la cantidad actual
+    
+    $cantidad_totales = $row["stock"] - $cantidad;             
+               //si existe el producto entonces actualiza el stock en producto              
+    if(is_array($resultados)==true and count($resultados)>0) {                    
                   //actualiza el stock en la tabla producto
-
-                 $sql12 = "update existencias set                       
-                      stock=?
-                      where 
-                      id_producto=? and bodega=? and id_ingreso=? and categoriaub=?
-                 ";
-
-
+    $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and id_ingreso=? and categoriaub=?;";
                 $sql12 = $conectar->prepare($sql12);
                 $sql12->bindValue(1,$cantidad_totales);
                 $sql12->bindValue(2,$codProd);
@@ -358,58 +343,91 @@ $conectar=parent::conexion();
                 $sql12->bindValue(4,$id_ingreso);
                 $sql12->bindValue(5,$categoriaub);
                 $sql12->execute();               
+  }
+
+  $selecciona_cat="select categoria from producto where id_producto=?;";
+  $selecciona_cat=$conectar->prepare($selecciona_cat);
+  $selecciona_cat->bindValue(1,$codProd);
+  $selecciona_cat->execute();
+  $resultados_cat = $selecciona_cat->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach($resultados_cat as $b=>$row){
+      $cat_pro='';
+      $cat_pro = $row["categoria"];
+      if ($cat_pro=='aros') {
+          $m_aro="select marca,modelo,precio_venta from producto where categoria='aros' and id_producto=?;";
+          $m_aro=$conectar->prepare($m_aro);
+          $m_aro->bindValue(1,$codProd);
+          $m_aro->execute();
+          $resultados_aro = $m_aro->fetchAll(PDO::FETCH_ASSOC);
+          foreach($resultados_aro as $b=>$row){
+              $m_aro = $row["marca"]." ".$row["modelo"];
+              $p_aro = $row["precio_venta"];
+          }
+      }elseif ($cat_pro=='lentes'){
+          $m_lentes="select modelo,precio_venta from producto where categoria='lentes' and id_producto=?;";
+          $m_lentes=$conectar->prepare($m_lentes);
+          $m_lentes->bindValue(1,$codProd);
+          $m_lentes->execute();
+          $resultados_l = $m_lentes->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach($resultados_l as $b=>$row){
+             $m_lente = $row["modelo"];
+             $p_lente = $row["precio_venta"]; 
+          }
+
+    }
 }
+}//cierre del foreach
 
-       }//cierre del foreach
+////////////////////////////////////////////////////////////¿
 
-  
-   
-
-           $sql2="insert into ventas 
-           values(null,now(),?,?,?,?,?,?,?,?,?,?,?);";
-
-
-           $sql2=$conectar->prepare($sql2);
-           
+        $sql2="insert into ventas 
+        values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        $sql2=$conectar->prepare($sql2);          
           
-           $sql2->bindValue(1,$numero_venta);
-           $sql2->bindValue(2,$nombre_pac);
-           $sql2->bindValue(3,$usuario_venta);       
-           $sql2->bindValue(4,$subtotal);
-           $sql2->bindValue(5,$tipo_pago);
-           $sql2->bindValue(6,$tipo_venta);          
-           $sql2->bindValue(7,$id_usuario);
-           $sql2->bindValue(8,$id_paciente);
-           $sql2->bindValue(9,$sucursal);
-           $sql2->bindValue(10,$pac_evaluado);
-           $sql2->bindValue(11,$optom);
-           $sql2->execute();
+        $sql2->bindValue(1,$fecha_venta);
+        $sql2->bindValue(2,$numero_venta);
+        $sql2->bindValue(3,$nombre_pac);
+        $sql2->bindValue(4,$usuario_venta);       
+        $sql2->bindValue(5,$subtotal);
+        $sql2->bindValue(6,$tipo_pago);
+        $sql2->bindValue(7,$tipo_venta);          
+        $sql2->bindValue(8,$id_usuario);
+        $sql2->bindValue(9,$id_paciente);
+        $sql2->bindValue(10,$sucursal);
+        $sql2->bindValue(11,$pac_evaluado);
+        $sql2->bindValue(12,$optom);
+        $sql2->bindValue(13,$m_aro);
+        $sql2->bindValue(14,$p_aro);
+        $sql2->bindValue(15,$m_lente);
+        $sql2->bindValue(16,$p_lente);
+        $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?);";
+        $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?);";
 
-           $sql7=$conectar->prepare($sql7);
-
-           $sql7->bindValue(1,$tipo_pago);
-           $sql7->bindValue(2,$subtotal);
-           $sql7->bindValue(3,$plazo);
-           $sql7->bindValue(4,$subtotal);
-           $sql7->bindValue(5,$tipo_pago);
-           $sql7->bindValue(6,$numero_venta);
-           $sql7->bindValue(7,$id_paciente);
-           $sql7->bindValue(8,$id_usuario);
-           $sql7->bindValue(9,$numero_orden);
-           $sql7->bindValue(10,$count_abonos);
-           $sql7->bindValue(11,$monto_cuota);
-           $sql7->bindValue(12,$referencia_uno);
-           $sql7->bindValue(13,$tel_ref_uno);
-           $sql7->bindValue(14,$referencia_dos);
-           $sql7->bindValue(15,$tel_ref_dos);
-           $sql7->bindValue(16,$jefe_inmediato);
-           $sql7->bindValue(17,$tel_jefe);
-           $sql7->bindValue(18,$cargo_jefe);
-           $sql7->bindValue(19,$finalizacion);
-           $sql7->execute();
+        $sql7=$conectar->prepare($sql7);
+        $sql7->bindValue(1,$tipo_pago);
+        $sql7->bindValue(2,$subtotal);
+        $sql7->bindValue(3,$plazo);
+        $sql7->bindValue(4,$subtotal);
+        $sql7->bindValue(5,$tipo_pago);
+        $sql7->bindValue(6,$numero_venta);
+        $sql7->bindValue(7,$id_paciente);
+        $sql7->bindValue(8,$id_usuario);
+        $sql7->bindValue(9,$numero_orden);
+        $sql7->bindValue(10,$count_abonos);
+        $sql7->bindValue(11,$monto_cuota);
+        $sql7->bindValue(12,$referencia_uno);
+        $sql7->bindValue(13,$tel_ref_uno);
+        $sql7->bindValue(14,$referencia_dos);
+        $sql7->bindValue(15,$tel_ref_dos);
+        $sql7->bindValue(16,$jefe_inmediato);
+        $sql7->bindValue(17,$tel_jefe);
+        $sql7->bindValue(18,$cargo_jefe);
+        $sql7->bindValue(19,$finalizacion);
+        $sql7->execute();
 
 
 ///**********ACTUALIZA CREDITOS GENERALES POR EMPRESA
@@ -910,13 +928,17 @@ public function agrega_detalle_abono(){
 
         }
 
-       public function get_ventas_diarias(){
+       public function get_ventas_diarias($usuario,$hoy){
 
         $conectar= parent::conexion();
         parent::set_names();
 
-        $sql="select*from ventas where fecha_venta=current_date";
+        $sql="select u.apellidos,v.fecha_venta,v.numero_venta,v.paciente,v.subtotal,v.tipo_venta,v.tipo_pago,v.sucursal from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where u.id_usuario=? and fecha_venta=?";
+        
+        //$sql->bindValue(2,$usuario);
         $sql=$conectar->prepare($sql);
+        $sql->bindValue(1,$usuario);
+        $sql->bindValue(2,$hoy);
         $sql->execute();
 
         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
@@ -1370,4 +1392,4 @@ public function get_correlativo_venta(){
 
 }
 ///////////////////LISTAR COMISIONES
-   }
+}

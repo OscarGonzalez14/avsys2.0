@@ -16,7 +16,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head-style"><div id="valida_rec"></div>
-      <button type="button" onClick="descartar_orden()">&times;</button>
+      <button type="button" onClick="descartar_orden()" class="btn btn-success pull-right">&times;Cerrar</button>
         <h5 class="modal-title" align="center"><i class="fa fa-list" aria-hidden="true"></i> DESCUENTO EN PLANILLA&nbsp;&nbsp;&nbsp;&nbsp;<span></span></h5>
       </div>
       <div class="modal-body">

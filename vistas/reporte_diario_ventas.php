@@ -10,9 +10,13 @@ if(isset($_SESSION["id_usuario"]) ){
 require_once("../modelos/Ventas.php");
 $vent = new Ventas();
 
+date_default_timezone_set('America/El_Salvador');
+$apellidos=$_SESSION["apellidos"];
 
+$usuario=$_SESSION["id_usuario"];
+$hoy = date("d-m-Y");
 
-$venta=$vent->get_ventas_diarias();
+$venta=$vent->get_ventas_diarias($usuario,$hoy);
 
 ob_start(); 
 
@@ -33,7 +37,7 @@ ob_start();
 
   </style>
 
-  <div align="center" style="color:black; font-weight:bolder; font-size:20px;"> REPORTE DE VENTAS DIARIAS</div>
+  <div align="center" style="color:black; font-weight:bolder; font-size:15px;"> REPORTE DE VENTAS DIARIAS - <?php echo strtoupper($apellidos); ?><span style='color:red'>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $hoy?></span></div>
 
 <?php
 
@@ -45,13 +49,13 @@ ob_start();
 
 
       ?>
-  <table width="102%" class="change_order_items">
+  <table width="100%" class="change_order_items">
    <tr>
-       <th width="5%" ><span class="Estilo11">No. Venta </span></th>
-      <th width="25%" bgcolor="#317eac"><span class="Estilo11">Cliente</span></th>
-      <th width="5%" bgcolor="#317eac"><span class="Estilo11">Vendedor</span></th>
-      <th width="5%" bgcolor="#317eac"><span class="Estilo11">Monto</span></th>
-      <th width="10%" bgcolor="#317eac"><span class="Estilo11">Forma de Cobro</span>
+       <th width="10%" ><span class="Estilo11">No. Venta </span></th>
+      <th width="20%" bgcolor="#317eac"><span class="Estilo11">Cliente</span></th>
+      <th width="20%" bgcolor="#317eac"><span class="Estilo11">Vendedor</span></th>
+      <th width="15%" bgcolor="#317eac"><span class="Estilo11">Monto</span></th>
+      <th width="15%" bgcolor="#317eac"><span class="Estilo11">Forma de Cobro</span>
       <th width="10%" bgcolor="#317eac"><span class="Estilo11">Fecha</span>
       
       
@@ -74,9 +78,9 @@ ob_start();
      
       <td style="text-align: center"><span><?php echo $venta[$j]["numero_venta"];?></span></td>
       <td style="text-align: center"><span><?php echo $venta[$j]["paciente"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["id_usuario"];?></span></td>
+      <td style="text-align: center"><span><?php echo $venta[$j]["apellidos"];?></span></td>
 
-      <td style="text-align: center"><span><?php echo $venta[$j]["subtotal"];?></span></td>
+      <td style="text-align: center">$<span><?php echo $venta[$j]["subtotal"];?></span></td>
       <td style="text-align: center"><span><?php echo $venta[$j]["tipo_pago"];?></span></td>      
       <td style="text-align: center"><span><?php echo $fecha=date("d-m-Y",strtotime($venta[$j]["fecha_venta"])); ?></span></td>     
       </tr>
@@ -104,7 +108,7 @@ ob_start();
 
        if($pagoTotal!=0){
 
-        echo $pagoTotal;
+        echo "$".number_format($pagoTotal,2,".",",");
 
        } else {
 
@@ -122,27 +126,7 @@ ob_start();
     </td>
   </tr>
   
-  <tr>
-    <td class="even_row" style="font-size:10pt; text-align: center"><div align="right"><strong><span style="text-align:right;">TOTAL PRODUCTOS VENDIDOS:</span></strong></div></td>
-    <td class="odd_row" style="font-size:12pt;text-align: right; border-right-style: none;"><div align="center"><strong>
-      <?php 
 
-
-      if($pagoTotal!=0){
-
-        echo $total_productos["total"];
-
-       } else {
-
-            echo "0";
-       }
-      
-
-      ?>
-    </strong></div>
-  </td>
-  </tr> 
-  
     </td>
   </tr>     
        <!--termina la suma de productos y monto total-->
@@ -153,26 +137,16 @@ ob_start();
 
 
 <table style="border-top: 1px solid black; padding-top: 2em; margin-top: 2em;">
-  <tr>
-    <td style="padding-top: 0em"><span class="Estilo2"><strong> REVISADO  POR: <?php echo $_SESSION["usuario"];?> </strong></span></td>
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
-  </tr>
-  <tr>
 
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
+  <tr>
+  <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
   </tr>
   <tr>
     <td style="padding-top: 0em">&nbsp;</td>
     <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
   </tr>
 
-  <?php 
-   $cant1=$pagoTotal;
-   $cant2=2;
-   $ct=$cant1+$cant2;
-   echo $ct;
-  ?>
-  <tr>
+   <tr>
     <td style="padding-top: 0em"><span class="Estilo1">REALIZADO EL DIA <?php echo date("d")?> DE <?php echo Conectar::convertir(date('m'))?> DEL <?php echo date("Y")?></span></td>
     <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
   </tr>

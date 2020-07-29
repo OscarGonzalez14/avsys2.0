@@ -50,17 +50,11 @@
                                 <th>Imprimir</th>
                                 </tr>
                             </thead>
-
-                            <tbody>
-                              
+                            <tbody>                       
 
                             </tbody>
-
-
-                          </table>
-                     
-                    </div>
-                  
+                          </table>                    
+                    </div>                  
                     <!--Fin centro -->
                   </div><!-- /.box -->
               </div><!-- /.col -->

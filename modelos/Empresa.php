@@ -71,7 +71,44 @@ public function get_detalle_empresas(){
 
     $conectar= parent::conexion();
     //$output = array();
-    $sql="select p.id_empresas,p.nombres,date_format(max(a.fecha_abono),'%d-%m-%Y') as ultimo_abono,datediff(now(), max(a.fecha_abono)) as estado,c.saldo from abonos as a inner join creditos as c on a.numero_venta=c.numero_venta inner join pacientes as p on  c.id_paciente=p.id_paciente where p.id_empresas=? and c.tipo_credito='Descuento en Planilla' group by p.id_paciente having estado<=60;";
+    $sql="select e.id_empresas,e.nombre,date_format(c.fecha_adquirido,'%d-%m-%Y')as adquirido,v.vendedor,v.optometra,v.numero_venta,p.id_paciente,v.aro,v.precio_aro,v.m_lentes,v.p_lentes,p.nombres,p.telefono,c.jefe_inmediato,c.tel_jefe,c.referencia_uno,c.referencia_uno,c.tel_ref_uno,
+        c.referencia_dos,c.tel_ref_dos, p.nombres,v.subtotal,datediff(now(),max(a.fecha_abono)) as estado,c.monto/c.plazo as cuota,c.plazo,c.abonos,c.plazo-abonos as pendientes,c.monto-saldo as abonado from
+        creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join abonos as a on c.id_paciente=a.id_paciente
+        inner join ventas as v on v.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas where e.id_empresas=? group by p.id_paciente having estado<60;";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_empresa);
+    $sql->execute();
+
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+  public function listar_pacientes_cat_b($id_empresa){
+
+    $conectar= parent::conexion();
+    //$output = array();
+    $sql="select e.id_empresas,e.nombre,date_format(c.fecha_adquirido,'%d-%m-%Y')as adquirido,v.vendedor,v.optometra,v.numero_venta,p.id_paciente,v.aro,v.precio_aro,v.m_lentes,v.p_lentes,p.nombres,p.telefono,c.jefe_inmediato,c.tel_jefe,c.referencia_uno,c.referencia_uno,c.tel_ref_uno,
+        c.referencia_dos,c.tel_ref_dos, p.nombres,v.subtotal,datediff(now(),max(a.fecha_abono)) as estado,c.monto/c.plazo as cuota,c.plazo,c.abonos,c.plazo-abonos as pendientes,c.monto-saldo as abonado from
+        creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join abonos as a on c.id_paciente=a.id_paciente
+        inner join ventas as v on v.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas where e.id_empresas=? group by p.id_paciente having estado>60 and estado<90;";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_empresa);
+    $sql->execute();
+
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+    public function listar_pacientes_cat_c($id_empresa){
+
+    $conectar= parent::conexion();
+    //$output = array();
+    $sql="select e.id_empresas,e.nombre,date_format(c.fecha_adquirido,'%d-%m-%Y')as adquirido,v.vendedor,v.optometra,v.numero_venta,p.id_paciente,v.aro,v.precio_aro,v.m_lentes,v.p_lentes,p.nombres,p.telefono,c.jefe_inmediato,c.tel_jefe,c.referencia_uno,c.referencia_uno,c.tel_ref_uno,
+        c.referencia_dos,c.tel_ref_dos, p.nombres,v.subtotal,datediff(now(),max(a.fecha_abono)) as estado,c.monto/c.plazo as cuota,c.plazo,c.abonos,c.plazo-abonos as pendientes,c.monto-saldo as abonado from
+        creditos as c inner join pacientes as p on p.id_paciente=c.id_paciente inner join abonos as a on c.id_paciente=a.id_paciente
+        inner join ventas as v on v.id_paciente=p.id_paciente inner join empresas as e on e.id_empresas=p.id_empresas where e.id_empresas=? group by p.id_paciente having  estado>90;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $id_empresa);
